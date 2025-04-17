@@ -3,7 +3,7 @@
 InputHandler::InputHandler(bool *_running, Renderer *_renderer)
 {
   running = _running;
-  // renderer = _renderer;
+  renderer = _renderer;
 }
 
 void InputHandler::handleInput()

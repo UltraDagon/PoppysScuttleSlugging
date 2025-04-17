@@ -1,5 +1,4 @@
 #include <iostream>
-#include <SDL2/SDL.h>
 #include "Renderer.h"
 #include "InputHandler.h"
 
@@ -18,6 +17,5 @@ int main(int argc, char *argv[])
     inputHandler.handleInput();
     renderer.update();
   }
-
   return 0;
 }
