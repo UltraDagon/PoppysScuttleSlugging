@@ -1,43 +1,11 @@
+#include "Sprite.h"
+
 #include <SDL2/SDL.h>
 #include <vector>
-#include <map>    // ImageCache
-#include <string> // ImageCache
 // #include <iostream> //DEBUG
 
 #ifndef RENDERER_H
 #define RENDERER_H
-
-class ImageCache // ImageCache
-{
-private:
-  std::map<std::string, SDL_Surface *> cache;
-
-public:
-  SDL_Surface *get_image(std::string file);
-
-  void flush();
-
-  ~ImageCache();
-};
-
-class Sprite
-{
-private:
-  int x;
-  int y;
-  int width;
-  int height;
-
-  SDL_Surface *surface;
-  SDL_Texture *texture;
-
-public:
-  Sprite(int _x, int _y, int _width, int _height, std::string bmpAddress, ImageCache *images, SDL_Renderer *renderer);
-
-  ~Sprite();
-
-  SDL_Texture *getTexture();
-};
 
 class Renderer
 {

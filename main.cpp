@@ -1,6 +1,8 @@
 #include <iostream>
 #include "Renderer.h"
 #include "InputHandler.h"
+#include "ImageCache.h"
+#include "Sprite.h"
 
 using namespace std;
 
