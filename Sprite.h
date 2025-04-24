@@ -8,7 +8,7 @@
 
 class Sprite
 {
-private:
+public: // make private
   int x;
   int y;
   int width;

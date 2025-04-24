@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
   cout << "Hello World!" << endl;
   bool running = true;
 
-  Renderer renderer(500, 500);
+  Renderer renderer(1600, 900);
   InputHandler inputHandler(&running, &renderer);
 
   while (running)

@@ -7,22 +7,35 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
+class Camera
+{
+public: // Maybe make private
+  int x;
+  int y;
+  double zoom;
+
+public:
+  Camera();
+  Camera(int _x, int _y, double _zoom);
+};
+
 class Renderer
 {
 private:
-  int width;
-  int height;
+  int windowWidth;
+  int windowHeight;
   SDL_Window *window;
   SDL_Renderer *renderer;
   ImageCache *images;
   std::vector<Sprite *> sprites;
+  Camera camera;
 
   void renderSprite(Sprite *sprite);
 
 public:
   Renderer();
 
-  Renderer(int _width, int _height);
+  Renderer(int _windowWidth, int _windowHeight);
 
   ~Renderer();
 
@@ -33,12 +46,11 @@ public:
   void renderSprites();
 
   void update();
-};
 
-/*class Camera
-{
-public:
-  Camera();
-};*/
+  void adjustCamera(int rel_x, int rel_y, double rel_zoom = 1);
+
+  // zoom into/out of point (x,y)
+  // move to point (x,y)
+};
 
 #endif
