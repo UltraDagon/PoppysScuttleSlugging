@@ -34,6 +34,9 @@ Renderer::Renderer(int _windowWidth, int _windowHeight)
   renderer = SDL_CreateRenderer(window, -1, 0);
   images = new ImageCache();
   camera = Camera(0, 0, 1);
+
+  initTime = prevFrameTime = currentFrameTime = clock();
+  std::cout << "initTime: " << initTime << ", prevFrameTime: " << prevFrameTime << ", currentFrameTime: " << currentFrameTime << std::endl;
 }
 
 Renderer::~Renderer()
@@ -90,6 +93,10 @@ void Renderer::update()
   flushSprites(); // After rendering, free up space for the next frame of sprites
 
   SDL_RenderPresent(renderer);
+
+  prevFrameTime = currentFrameTime; // Save last frame time
+  currentFrameTime = clock();       // Get current frame time, difference is time the last frame took to process/render
+  std::cout << "initTime: " << (float)initTime / CLOCKS_PER_SEC << ", prevFrameTime: " << (float)prevFrameTime / CLOCKS_PER_SEC << ", currentFrameTime: " << (float)currentFrameTime / CLOCKS_PER_SEC << std::endl;
 }
 
 void Renderer::adjustCamera(int rel_x, int rel_y, double rel_zoom)

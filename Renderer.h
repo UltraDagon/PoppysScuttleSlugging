@@ -2,7 +2,8 @@
 
 #include <SDL2/SDL.h>
 #include <vector>
-// #include <iostream> //DEBUG
+#include <ctime>
+#include <iostream> //DEBUG
 
 #ifndef RENDERER_H
 #define RENDERER_H
@@ -29,6 +30,10 @@ private:
   ImageCache *images;
   std::vector<Sprite *> sprites;
   Camera camera;
+
+  clock_t initTime;
+  clock_t prevFrameTime;
+  clock_t currentFrameTime;
 
   void renderSprite(Sprite *sprite);
 
