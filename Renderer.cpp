@@ -46,6 +46,12 @@ Renderer::~Renderer()
   SDL_Quit();
 }
 
+float Renderer::deltaTime()
+{
+  // FPS (Frames Per Second) = 1.0f / deltaTime()
+  return ((float)currentFrameTime - float(prevFrameTime)) / CLOCKS_PER_SEC;
+}
+
 void Renderer::addSprite(Sprite *sprite)
 {
   sprites.push_back(sprite);
@@ -96,7 +102,8 @@ void Renderer::update()
 
   prevFrameTime = currentFrameTime; // Save last frame time
   currentFrameTime = clock();       // Get current frame time, difference is time the last frame took to process/render
-  std::cout << "initTime: " << (float)initTime / CLOCKS_PER_SEC << ", prevFrameTime: " << (float)prevFrameTime / CLOCKS_PER_SEC << ", currentFrameTime: " << (float)currentFrameTime / CLOCKS_PER_SEC << std::endl;
+
+  std::cout << 1.0f / deltaTime() << "fps" << std::endl;
 }
 
 void Renderer::adjustCamera(int rel_x, int rel_y, double rel_zoom)

@@ -4,6 +4,8 @@
 #include "ImageCache.h"
 #include "Sprite.h"
 
+// Documentation formatted under https://developer.lsst.io/cpp/api-docs.html
+
 using namespace std;
 
 int main(int argc, char *argv[])

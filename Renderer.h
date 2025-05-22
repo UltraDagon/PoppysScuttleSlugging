@@ -44,14 +44,39 @@ public:
 
   ~Renderer();
 
+  /**
+   * Get the deltaTime, or change in time between the most recently called Renderer::update() and the update before that.
+   * @return The deltaTime (in seconds).
+   */
+  float deltaTime();
+
+  /**
+   * Add a sprite to the vector of sprites to be rendered.
+   * @param sprite Pointer to a sprite object.
+   */
   void addSprite(Sprite *sprite);
 
+  /**
+   * Deletes all sprites in the Renderer's vector of sprites.
+   */
   void flushSprites();
 
+  /**
+   * Draws all sprites for the current frame.
+   */
   void renderSprites();
 
+  /**
+   * Updates the window to display the current frame.
+   */
   void update();
 
+  /**
+   * Moves the camera relative to it's current position.
+   * @param rel_x The relative horizontal change (in pixels).
+   * @param rel_y The relative vertical change (in pixels).
+   * @param rel_zoom The relative zoom of the camera (multiplies with current zoom)
+   */
   void adjustCamera(int rel_x, int rel_y, double rel_zoom = 1);
 
   // zoom into/out of point (x,y)
