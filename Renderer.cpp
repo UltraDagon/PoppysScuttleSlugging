@@ -103,7 +103,7 @@ void Renderer::update()
   prevFrameTime = currentFrameTime; // Save last frame time
   currentFrameTime = clock();       // Get current frame time, difference is time the last frame took to process/render
 
-  std::cout << 1.0f / deltaTime() << "fps" << std::endl;
+  // std::cout << 1.0f / deltaTime() << "fps" << std::endl;
 }
 
 void Renderer::adjustCamera(int rel_x, int rel_y, double rel_zoom)

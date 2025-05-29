@@ -6,6 +6,9 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 
+/**
+ * A temporary object used by the Renderer to draw an image onto the screen.
+ */
 class Sprite
 {
 public: // make private
