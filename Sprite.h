@@ -21,11 +21,11 @@ public: // make private
   SDL_Texture *texture;
 
 public:
-  Sprite(int _x, int _y, int _width, int _height, std::string bmpAddress, ImageCache *images, SDL_Renderer *renderer);
+  Sprite(int _x, int _y, int _width, int _height, std::string bmpAddress, ImageCache *images);
 
   ~Sprite();
 
-  SDL_Texture *getTexture();
+  SDL_Texture *getTexture(SDL_Renderer *sdlRenderer);
 };
 
 #endif

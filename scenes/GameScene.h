@@ -2,6 +2,8 @@
 #define GAMESCENE_H
 
 #include "../Entity.h"
+#include "../Renderer.h"
+#include "../ImageCache.h"
 
 class GameScene
 {
@@ -13,7 +15,7 @@ public:
 
   //~GameScene();
 
-  // void render();
+  void render(Renderer &renderer);
 
   // void physicsStep();
 };

@@ -26,7 +26,7 @@ private:
   int windowWidth;
   int windowHeight;
   SDL_Window *window;
-  SDL_Renderer *renderer;
+  SDL_Renderer *sdlRenderer;
   ImageCache *images;
   std::vector<Sprite *> sprites;
   Camera camera;
@@ -43,6 +43,12 @@ public:
   Renderer(int _windowWidth, int _windowHeight);
 
   ~Renderer();
+
+  /**
+   * Get the Renderer's image cache.
+   * @return ImageCache*
+   */
+  ImageCache *getImageCache();
 
   /**
    * Get the deltaTime, or change in time between the most recently called Renderer::update() and the update before that.

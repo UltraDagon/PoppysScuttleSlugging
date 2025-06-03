@@ -21,7 +21,7 @@ Renderer::Renderer()
   windowWidth = 0;
   windowHeight = 0;
   window = SDL_CreateWindow("Hello SDL World", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight, SDL_WINDOW_ALLOW_HIGHDPI);
-  renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+  sdlRenderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 }
 
 Renderer::Renderer(int _windowWidth, int _windowHeight)
@@ -31,7 +31,7 @@ Renderer::Renderer(int _windowWidth, int _windowHeight)
   windowWidth = _windowWidth;
   windowHeight = _windowHeight;
   window = SDL_CreateWindow("Hello SDL World", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
-  renderer = SDL_CreateRenderer(window, -1, 0);
+  sdlRenderer = SDL_CreateRenderer(window, -1, 0);
   images = new ImageCache();
   camera = Camera(0, 0, 1);
 
@@ -42,8 +42,13 @@ Renderer::Renderer(int _windowWidth, int _windowHeight)
 Renderer::~Renderer()
 {
   delete images;
-  SDL_DestroyRenderer(renderer);
+  SDL_DestroyRenderer(sdlRenderer);
   SDL_Quit();
+}
+
+ImageCache *Renderer::getImageCache()
+{
+  return images;
 }
 
 float Renderer::deltaTime()
@@ -76,7 +81,7 @@ void Renderer::renderSprite(Sprite *sprite)
   destination.x = windowWidth / 2 + (sprite->x - camera.x) * camera.zoom - destination.w * 0.5; // Center the sprites at their origin
   destination.y = windowHeight / 2 + (sprite->y - camera.y) * camera.zoom - destination.h * 0.5;
 
-  SDL_RenderCopy(renderer, sprite->getTexture(), NULL, &destination);
+  SDL_RenderCopy(sdlRenderer, sprite->getTexture(sdlRenderer), NULL, &destination);
 }
 
 void Renderer::renderSprites()
@@ -89,16 +94,12 @@ void Renderer::renderSprites()
 
 void Renderer::update()
 {
-  SDL_SetRenderDrawColor(renderer, 191, 191, 255, 255);
-  SDL_RenderClear(renderer);
-
-  addSprite(new Sprite(200, 200, 100, 100, "assets/image.bmp", images, renderer));
-  addSprite(new Sprite(250, 350, 100, 100, "assets/image.bmp", images, renderer));
-  addSprite(new Sprite(400, 300, 100, 100, "assets/image.bmp", images, renderer));
+  SDL_SetRenderDrawColor(sdlRenderer, 191, 191, 255, 255);
+  SDL_RenderClear(sdlRenderer);
   renderSprites();
   flushSprites(); // After rendering, free up space for the next frame of sprites
 
-  SDL_RenderPresent(renderer);
+  SDL_RenderPresent(sdlRenderer);
 
   prevFrameTime = currentFrameTime; // Save last frame time
   currentFrameTime = clock();       // Get current frame time, difference is time the last frame took to process/render
