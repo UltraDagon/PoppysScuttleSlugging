@@ -7,7 +7,7 @@ Camera::Camera()
   zoom = 1;
 }
 
-Camera::Camera(int _x, int _y, double _zoom)
+Camera::Camera(int _x, int _y, float _zoom)
 {
   x = _x;
   y = _y;
@@ -107,7 +107,7 @@ void Renderer::update()
   // std::cout << 1.0f / deltaTime() << "fps" << std::endl;
 }
 
-void Renderer::adjustCamera(int rel_x, int rel_y, double rel_zoom)
+void Renderer::adjustCamera(int rel_x, int rel_y, float rel_zoom)
 {
   camera.x += rel_x;
   camera.y += rel_y;

@@ -9,6 +9,7 @@ class GameScene
 {
 private:
   ScuttleCrab scuttleCrab;
+  Entity floor;
 
 public:
   GameScene();
@@ -17,7 +18,7 @@ public:
 
   void render(Renderer &renderer);
 
-  // void physicsStep();
+  void physicsStep(float deltaTime);
 };
 
 #endif

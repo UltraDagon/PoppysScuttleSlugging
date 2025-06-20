@@ -17,7 +17,7 @@ public: // Maybe make private
 
 public:
   Camera();
-  Camera(int _x, int _y, double _zoom);
+  Camera(int _x, int _y, float _zoom);
 };
 
 class Renderer
@@ -83,7 +83,7 @@ public:
    * @param rel_y The relative vertical change (in pixels).
    * @param rel_zoom The relative zoom of the camera (multiplies with current zoom)
    */
-  void adjustCamera(int rel_x, int rel_y, double rel_zoom = 1);
+  void adjustCamera(int rel_x, int rel_y, float rel_zoom = 1);
 
   // zoom into/out of point (x,y)
   // move to point (x,y)

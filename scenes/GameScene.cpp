@@ -11,3 +11,8 @@ void GameScene::render(Renderer &renderer)
 {
   renderer.addSprite(scuttleCrab.getSprite(renderer.getImageCache()));
 }
+
+void GameScene::physicsStep(float deltaTime)
+{
+  scuttleCrab.physicsStep(deltaTime);
+}
