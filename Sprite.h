@@ -8,6 +8,7 @@
 
 /**
  * A temporary object used by the Renderer to draw an image onto the screen.
+ * Sprites render using their positions as their centers.
  */
 class Sprite
 {

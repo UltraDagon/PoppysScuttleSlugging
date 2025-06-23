@@ -17,6 +17,7 @@ public: // Maybe make private
 
 public:
   Camera();
+
   Camera(int _x, int _y, float _zoom);
 };
 
@@ -87,6 +88,8 @@ public:
 
   // zoom into/out of point (x,y)
   // move to point (x,y)
+
+  void focusCameraLeft(std::pair<int, int> focusPoint);
 };
 
 #endif

@@ -8,7 +8,7 @@
 
 class InputHandler
 {
-private:
+public: // TODO: Make private
   bool *running;
   Renderer *renderer;
   SDL_Event event;

@@ -113,3 +113,16 @@ void Renderer::adjustCamera(int rel_x, int rel_y, float rel_zoom)
   camera.y += rel_y;
   camera.zoom *= rel_zoom;
 }
+
+void Renderer::focusCameraLeft(std::pair<int, int> position) // Change this to focusCamera(pos, type[left, center (default), right])
+{
+  camera.x = position.first + windowWidth / 6; // Scuttle is 1/3 of the window width from the left
+  if (position.second < -350)
+  {
+    camera.y = position.second + 350;
+  }
+  else
+  {
+    camera.y = 0;
+  }
+}
