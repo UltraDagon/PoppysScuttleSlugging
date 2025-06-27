@@ -30,7 +30,7 @@ Renderer::Renderer(int _windowWidth, int _windowHeight)
 
   windowWidth = _windowWidth;
   windowHeight = _windowHeight;
-  window = SDL_CreateWindow("Hello SDL World", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
+  window = SDL_CreateWindow("Poppy's Scuttle Slugging!", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
   sdlRenderer = SDL_CreateRenderer(window, -1, 0);
   images = new ImageCache();
   camera = Camera(0, 0, 1);
@@ -55,6 +55,16 @@ float Renderer::deltaTime()
 {
   // FPS (Frames Per Second) = 1.0f / deltaTime()
   return ((float)currentFrameTime - float(prevFrameTime)) / CLOCKS_PER_SEC;
+}
+
+int Renderer::getWindowWidth()
+{
+  return windowWidth;
+}
+
+std::pair<int, int> Renderer::getCameraPos()
+{
+  return std::pair<int, int>{camera.x, camera.y};
 }
 
 void Renderer::addSprite(Sprite *sprite)
@@ -112,6 +122,9 @@ void Renderer::adjustCamera(int rel_x, int rel_y, float rel_zoom)
   camera.x += rel_x;
   camera.y += rel_y;
   camera.zoom *= rel_zoom;
+
+  if (camera.zoom < 0)
+    camera.zoom = 1;
 }
 
 void Renderer::focusCameraLeft(std::pair<int, int> position) // Change this to focusCamera(pos, type[left, center (default), right])

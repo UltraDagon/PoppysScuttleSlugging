@@ -43,7 +43,6 @@ void ScuttleCrab::physicsStep(float deltaTime)
 
     velocity.first -= (velocity.first - minimumSpeed) / bouncesRemaining;
 
-    std::cout << "Velocity: (" << velocity.first << ", " << velocity.second << ")" << std::endl;
     bouncesRemaining -= 1;
   }
 
@@ -51,4 +50,35 @@ void ScuttleCrab::physicsStep(float deltaTime)
     velocity.first = minimumSpeed;
 
   // For enemies, if it hits below WORLD_FLOOR_Y - enemy.height, bounce with less vpower loss
+}
+
+Environment::Environment()
+{
+  parallax = 0;
+}
+
+/**
+ * TODO: Finish
+ * Note that for environments, position.first is the offset of the image used rather than the starting x position, as the image should repeat along the x axis infinitely
+ */
+Environment::Environment(std::pair<float, float> position_, std::pair<int, int> size_, float parallax_)
+{
+  position = position_;
+  size = size_;
+  parallax = parallax_;
+}
+
+std::vector<Sprite *> Environment::getSprites(ImageCache *images, Renderer &renderer)
+{
+  std::vector<Sprite *> output;
+  // These
+  int startPos = -1 * ceil((0.5 * renderer.getWindowWidth() - renderer.getCameraPos().first) / size.first) * size.first + size.first / 2;
+  int endPos = ceil((0.5 * renderer.getWindowWidth() + renderer.getCameraPos().first) / size.first) * size.first + size.first / 2;
+
+  for (int xPos = startPos; xPos < endPos; xPos += size.first)
+  {
+    output.push_back(new Sprite((int)position.first % size.first + xPos, position.second, size.first, size.second, "assets/image.bmp", images));
+  }
+
+  return output;
 }

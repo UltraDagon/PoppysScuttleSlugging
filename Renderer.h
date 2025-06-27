@@ -47,19 +47,31 @@ public:
 
   /**
    * Get the Renderer's image cache.
-   * @return ImageCache*
+   * @return ImageCache pointer
    */
   ImageCache *getImageCache();
 
   /**
    * Get the deltaTime, or change in time between the most recently called Renderer::update() and the update before that.
-   * @return The deltaTime (in seconds).
+   * @return The deltaTime (in seconds)
    */
   float deltaTime();
 
   /**
+   * Get the width of the window.
+   * @return the windows width (in pixels)
+   */
+  int getWindowWidth();
+
+  /**
+   * Get the Camera's current position.
+   * @return The Camera's position as a pair (in pixels)
+   */
+  std::pair<int, int> getCameraPos();
+
+  /**
    * Add a sprite to the vector of sprites to be rendered.
-   * @param sprite Pointer to a sprite object.
+   * @param sprite Pointer to a sprite object
    */
   void addSprite(Sprite *sprite);
 
@@ -80,8 +92,8 @@ public:
 
   /**
    * Moves the camera relative to it's current position.
-   * @param rel_x The relative horizontal change (in pixels).
-   * @param rel_y The relative vertical change (in pixels).
+   * @param rel_x The relative horizontal change (in pixels)
+   * @param rel_y The relative vertical change (in pixels)
    * @param rel_zoom The relative zoom of the camera (multiplies with current zoom)
    */
   void adjustCamera(int rel_x, int rel_y, float rel_zoom = 1);

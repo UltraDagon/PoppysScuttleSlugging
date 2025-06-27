@@ -9,7 +9,7 @@ class GameScene
 {
 private:
   ScuttleCrab scuttleCrab;
-  Entity floor;
+  Environment floor; // TODO: Rename
 
 public:
   GameScene();
