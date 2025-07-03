@@ -9,7 +9,8 @@ class GameScene
 {
 private:
   ScuttleCrab scuttleCrab;
-  Environment floor; // TODO: Rename
+  Poppy poppy;
+  Environment floor; // TODO: Rename (or dont)
 
 public:
   GameScene();

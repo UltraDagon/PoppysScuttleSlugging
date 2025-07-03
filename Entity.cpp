@@ -4,6 +4,7 @@ Entity::Entity()
 {
   position = {0.0f, 0.0f};
   size = {100, 100};
+  spriteSheet = "image.bmp";
 }
 
 Entity::Entity(std::pair<float, float> position_, std::pair<int, int> size_)
@@ -14,26 +15,34 @@ Entity::Entity(std::pair<float, float> position_, std::pair<int, int> size_)
 
 Sprite *Entity::getSprite(ImageCache *images)
 {
+  return new Sprite(position.first, position.second, size.first, size.second, "assets/" + spriteSheet, images);
+}
+
+ScuttleCrab::ScuttleCrab()
+{
+  active = false;
+  position = {0, WORLD_FLOOR_Y - size.second / 2};
+}
+
+/*Sprite *ScuttleCrab::getSprite(ImageCache *images)
+{
   return new Sprite(position.first, position.second, size.first, size.second, "assets/image.bmp", images);
-}
+}*/
 
-ScuttleCrab::ScuttleCrab() // TODO: Make non-default constructor so everything can be managed from GameScene.cpp
+void ScuttleCrab::physicsStep(float &deltaTime)
 {
-  health = 100.0f; // Maybe combine health with bouncesRemaining?
-  bouncesRemaining = 10.0f;
-  verticalPower = 100.0f; // 20.0f
-}
+  if (!active) // If the scuttle crab is not active, don't move.
+    return;
 
-Sprite *ScuttleCrab::getSprite(ImageCache *images)
-{
-  return new Sprite(position.first, position.second, size.first, size.second, "assets/image.bmp", images);
-}
+  if (bouncesRemaining == 0)
+  {
+    // Slide animation
+    return;
+  }
 
-void ScuttleCrab::physicsStep(float deltaTime)
-{
   position.first += velocity.first * deltaTime;
   position.second += velocity.second * deltaTime;
-  position.first += -1 * airResistance;
+  velocity.first += -1 * airResistance;
   velocity.second += WORLD_GRAVITY * deltaTime;
 
   if (position.second + size.second / 2 >= WORLD_FLOOR_Y && bouncesRemaining > 0) // Hit the ground?
@@ -50,6 +59,51 @@ void ScuttleCrab::physicsStep(float deltaTime)
     velocity.first = minimumSpeed;
 
   // For enemies, if it hits below WORLD_FLOOR_Y - enemy.height, bounce with less vpower loss
+}
+
+Poppy::Poppy()
+{
+  position = {-300, WORLD_FLOOR_Y - size.second / 2};
+  betweenStageDelay = 3; // In seconds TODO: maybe make a setting
+  stage = '0';
+  scoreW = 0;
+}
+
+void Poppy::stageStep(float &deltaTime)
+{
+  switch (stage)
+  {
+  // Stage 0: Run for betweenStageDelay seconds before starting the next stage.
+  case '0':
+    // Position goes down by distanceToScuttle * dt / delayRemaining, so pushing the scuttle back by performing well in the pre-round minigames will make poppy run faster, since it'll be going the same percent just over a longer distance
+    position.first += abs(position.first + size.first / 2 - crab->position.first + crab->size.first / 2) * deltaTime / betweenStageDelay;
+
+    betweenStageDelay -= deltaTime;
+
+    // At the end of stage 0
+    if (betweenStageDelay < 0)
+    {
+      // Hit the scuttle crab
+      hitScuttleCrab();
+      stage = 'S';
+    }
+    break;
+  case 'S':
+    // Scuttle crab is flying!
+    break;
+  default:
+    stage = '0';
+  }
+}
+
+void Poppy::hitScuttleCrab()
+{
+  crab->bouncesRemaining = 10.0f;
+  crab->verticalPower = 20.0f; // 20.0f
+  crab->airResistance = 0;
+  crab->minimumSpeed = 10;
+  crab->velocity.first = 100;
+  crab->active = true;
 }
 
 Environment::Environment()
@@ -71,7 +125,7 @@ Environment::Environment(std::pair<float, float> position_, std::pair<int, int> 
 std::vector<Sprite *> Environment::getSprites(ImageCache *images, Renderer &renderer)
 {
   std::vector<Sprite *> output;
-  // These
+  // These work by finding the amount of widths needed to reach the left side and right side of the screen from the center (screenWidth/2), then rounding up, then multiplying by the size of the widths, then removing the offset caused by the entity's position being their center
   int startPos = -1 * ceil((0.5 * renderer.getWindowWidth() - renderer.getCameraPos().first) / size.first) * size.first + size.first / 2;
   int endPos = ceil((0.5 * renderer.getWindowWidth() + renderer.getCameraPos().first) / size.first) * size.first + size.first / 2;
 

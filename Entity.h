@@ -9,23 +9,24 @@
 const int WORLD_FLOOR_Y = 350;
 const int WORLD_GRAVITY = 100; // World gravity in pixels per second^2
 
-class Entity
+class Entity // Idk if I should get rid of this or not, the only thing each child is inheriting is the position and size.
 {
 public:
   std::pair<float, float> position;
   std::pair<int, int> size;
+  std::string spriteSheet;
 
   Entity();
 
   Entity(std::pair<float, float> position_, std::pair<int, int> size_);
 
-  Sprite *getSprite(ImageCache *images); // I think this should be a virtual function or something
+  virtual Sprite *getSprite(ImageCache *images); // I think this should be a virtual function or something
 };
 
 class ScuttleCrab : public Entity
 {
 public:
-  float health;
+  bool active;
   float bouncesRemaining;
   float verticalPower;
   std::pair<float, float> velocity;
@@ -37,9 +38,29 @@ public:
 public:
   ScuttleCrab();
 
-  Sprite *getSprite(ImageCache *images); // I think this is actually an entity function since all entities should have their own sprites. not sure if im able to make functions have different definitions based on child
+  // Sprite *getSprite(ImageCache *images);
 
-  void physicsStep(float deltaTime); // Overrides Shape::physicsStep()
+  void physicsStep(float &deltaTime);
+};
+
+class Poppy : public Entity
+{
+public:
+  char stage; // #: Runing between stages, W: Steadfast Presence stage (spam w to charge), E: Heroic Charge stage (quick time press e at the right moment), S: Scuttle Stage (No action)
+  int scoreW; // TODO: need the input handler to interact directly with poppy to get these scores
+  float betweenStageDelay;
+  ScuttleCrab *crab;
+
+public:
+  Poppy();
+
+  // Todo: Make constructor that passes in scuttle crab
+
+  void stageStep(float &deltaTime);
+
+  // void stageRunStep(float &deltaTime); // if stagestep is too big then split into smaller functions
+
+  void hitScuttleCrab();
 };
 
 /**
@@ -53,7 +74,7 @@ private:
    * 0: The object is close to the camera. When the camera moves, the object moves on the screen.
    * 1: The object is far from the camera. When the camera moves, the object remains still on the screen.
    */
-  float parallax;
+  float parallax; // Todo: implement
 
 public:
   Environment();
@@ -61,7 +82,7 @@ public:
   Environment(std::pair<float, float> position_, std::pair<int, int> size_, float parallax_);
 
   /**
-   * @return All sprites needed to render an x-axis repeating environment texture
+   * @return All sprites needed to render an environment texture that is repeating on the x-axis
    */
   std::vector<Sprite *> getSprites(ImageCache *images, Renderer &renderer);
 };
