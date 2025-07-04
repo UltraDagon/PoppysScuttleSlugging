@@ -20,6 +20,7 @@ Sprite *Entity::getSprite(ImageCache *images)
 
 ScuttleCrab::ScuttleCrab()
 {
+  size = {75, 75};
   active = false;
   position = {0, WORLD_FLOOR_Y - size.second / 2};
 }

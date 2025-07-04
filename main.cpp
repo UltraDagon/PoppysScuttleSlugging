@@ -2,6 +2,7 @@
 #include "InputHandler.h"
 #include "ImageCache.h"
 #include "Sprite.h"
+#include "ResourceManager.h" // todo: Might need to move somewhere else
 
 #include "scenes/GameScene.h"
 
@@ -20,10 +21,11 @@ using namespace std; // Todo: remove
 int main(int argc, char *argv[])
 {
   cout << "Hello World!" << endl;
-  bool running = true;
+  bool running = false;
 
   Renderer renderer(1600, 900);
   InputHandler inputHandler(&running, &renderer);
+  ResourceManager resourceManager;
 
   GameScene *gameScene = new GameScene();
 

@@ -1,5 +1,5 @@
 #include "InputHandler.h"
-#include <iostream>
+#include <iostream> // TODO: remove
 
 InputHandler::InputHandler(bool *_running, Renderer *_renderer)
 {

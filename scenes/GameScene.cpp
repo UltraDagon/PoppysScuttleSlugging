@@ -6,7 +6,6 @@ GameScene::GameScene() // Lot of debugging can be done here
 {
   floor = Environment(std::pair<float, float>{0, WORLD_FLOOR_Y + 15}, std::pair<int, int>{200, 30}, 0);
   // floor = Entity(std::pair<float, float>{0, 0}, std::pair<int, int>{100, 900});
-  scuttleCrab.size.first = 50; // Todo: move to scuttle crab constructor
   poppy.crab = &scuttleCrab;
 }
 
