@@ -21,7 +21,7 @@ using namespace std; // Todo: remove
 int main(int argc, char *argv[])
 {
   cout << "Hello World!" << endl;
-  bool running = false;
+  bool running = true;
 
   Renderer renderer(1600, 900);
   InputHandler inputHandler(&running, &renderer);
@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
   {
     inputHandler.handleInput();
 
-    gameScene->physicsStep(renderer.deltaTime());
+    gameScene->physicsStep(renderer.deltaTime(), renderer.getCamera());
     gameScene->render(renderer);
     renderer.update();
   }

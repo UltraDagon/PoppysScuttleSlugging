@@ -70,7 +70,12 @@ Poppy::Poppy()
   scoreW = 0;
 }
 
-void Poppy::stageStep(float &deltaTime)
+Poppy::~Poppy()
+{
+  delete crab;
+}
+
+void Poppy::stageStep(float &deltaTime, Camera &camera)
 {
   switch (stage)
   {
@@ -85,7 +90,7 @@ void Poppy::stageStep(float &deltaTime)
     if (betweenStageDelay < 0)
     {
       // Hit the scuttle crab
-      hitScuttleCrab();
+      hitScuttleCrab(camera);
       stage = 'S';
     }
     break;
@@ -97,7 +102,7 @@ void Poppy::stageStep(float &deltaTime)
   }
 }
 
-void Poppy::hitScuttleCrab()
+void Poppy::hitScuttleCrab(Camera &camera)
 {
   crab->bouncesRemaining = 10.0f;
   crab->verticalPower = 20.0f; // 20.0f
@@ -105,6 +110,8 @@ void Poppy::hitScuttleCrab()
   crab->minimumSpeed = 10;
   crab->velocity.first = 100;
   crab->active = true;
+
+  camera.transition(6);
 }
 
 Environment::Environment()

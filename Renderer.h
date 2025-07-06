@@ -10,15 +10,30 @@
 
 class Camera
 {
-public: // Maybe make private
+public: // Todo: Maybe make private
   int x;
   int y;
   double zoom;
+  float transitionDuration;
+  float transitionRemaining;
 
 public:
   Camera();
 
   Camera(int _x, int _y, float _zoom);
+
+  void transition(float duration);
+
+  // TODO: replace transition with linear one by doing this:
+  /*
+  transition:
+  take in:
+    snapshot of current position relative to desired position (or just both positions), (can lowkey just be X)
+    duration of transition
+
+  save relative position, and whenever it focuses, add (1 - (timeElapsed/duration))*offset to the focused position
+  possibly switch functions depending on whether or not there is a transition active or not, not sure how it will affect performance but I should test it!
+  */
 };
 
 class Renderer
@@ -50,6 +65,8 @@ public:
    * @return ImageCache pointer
    */
   ImageCache *getImageCache();
+
+  Camera &getCamera();
 
   /**
    * Get the deltaTime, or change in time between the most recently called Renderer::update() and the update before that.
@@ -101,7 +118,10 @@ public:
   // zoom into/out of point (x,y)
   // move to point (x,y)
 
+  // Todo: If needed, change this to focusCamera(pos, type[left, center (default), right])
   void focusCameraLeft(std::pair<int, int> focusPoint);
+
+  void transitionCamera(float duration);
 };
 
 #endif

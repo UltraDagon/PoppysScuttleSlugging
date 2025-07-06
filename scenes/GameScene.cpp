@@ -11,14 +11,10 @@ GameScene::GameScene() // Lot of debugging can be done here
 
 void GameScene::render(Renderer &renderer)
 {
-  switch (poppy.stage)
-  {
-  case 'S':
+  if (poppy.stage == 'S') // Focus camera on the scuttle crab when it is flying
     renderer.focusCameraLeft(scuttleCrab.position);
-    break;
-  default:
+  else // Otherwise, focus the camera on Poppy
     renderer.focusCameraLeft(poppy.position);
-  }
 
   for (Sprite *s : floor.getSprites(renderer.getImageCache(), renderer))
     renderer.addSprite(s);
@@ -27,8 +23,8 @@ void GameScene::render(Renderer &renderer)
   renderer.addSprite(poppy.getSprite(renderer.getImageCache())); // Maybe dont render poppy if out of frame? It probably won't effect performance too much
 }
 
-void GameScene::physicsStep(float deltaTime)
+void GameScene::physicsStep(float deltaTime, Camera &camera)
 {
-  poppy.stageStep(deltaTime);
+  poppy.stageStep(deltaTime, camera);
   scuttleCrab.physicsStep(deltaTime);
 }

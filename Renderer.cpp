@@ -5,6 +5,8 @@ Camera::Camera()
   x = 0;
   y = 0;
   zoom = 1;
+  transitionDuration = 1;
+  transitionRemaining = 0;
 }
 
 Camera::Camera(int _x, int _y, float _zoom)
@@ -12,6 +14,17 @@ Camera::Camera(int _x, int _y, float _zoom)
   x = _x;
   y = _y;
   zoom = _zoom;
+  transitionDuration = 1;
+  transitionRemaining = 0;
+}
+
+void Camera::transition(float duration)
+{
+  transitionRemaining = duration;
+
+  if (duration <= 0) // Don't divide by zero silly!
+    duration = 1;
+  transitionDuration = duration;
 }
 
 Renderer::Renderer()
@@ -49,6 +62,11 @@ Renderer::~Renderer()
 ImageCache *Renderer::getImageCache()
 {
   return images;
+}
+
+Camera &Renderer::getCamera()
+{
+  return camera;
 }
 
 float Renderer::deltaTime()
@@ -114,7 +132,7 @@ void Renderer::update()
   prevFrameTime = currentFrameTime; // Save last frame time
   currentFrameTime = clock();       // Get current frame time, difference is time the last frame took to process/render
 
-  // std::cout << 1.0f / deltaTime() << "fps" << std::endl;
+  std::cout << 1.0f / deltaTime() << "fps" << std::endl;
 }
 
 void Renderer::adjustCamera(int rel_x, int rel_y, float rel_zoom)
@@ -127,15 +145,22 @@ void Renderer::adjustCamera(int rel_x, int rel_y, float rel_zoom)
     camera.zoom = 1;
 }
 
-void Renderer::focusCameraLeft(std::pair<int, int> position) // Change this to focusCamera(pos, type[left, center (default), right])
+void Renderer::focusCameraLeft(std::pair<int, int> position)
 {
-  camera.x = position.first + windowWidth / 6; // Scuttle is 1/3 of the window width from the left
+  camera.transitionRemaining -= deltaTime();
+  if (camera.transitionRemaining < 0)
+    camera.transitionRemaining = 0;
+
+  // 0.5 because its adding each dt/total, so 0/10 + 1/10 + 2/10 + 3/10 + 4/10 = 10/10. Cutting in half should make it more accurate to desired duration
+  camera.x += (position.first + windowWidth / 6 - camera.x) * (1.0f - 0.5 * camera.transitionRemaining / camera.transitionDuration); // Scuttle is 1/3 of the window width from the left
+
   if (position.second < -350)
-  {
     camera.y = position.second + 350;
-  }
   else
-  {
     camera.y = 0;
-  }
+}
+
+void Renderer::transitionCamera(float duration)
+{
+  camera.transition(duration);
 }

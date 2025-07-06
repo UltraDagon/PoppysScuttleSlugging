@@ -19,7 +19,7 @@ public:
 
   void render(Renderer &renderer);
 
-  void physicsStep(float deltaTime);
+  void physicsStep(float deltaTime, Camera &camera);
 };
 
 #endif

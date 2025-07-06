@@ -56,11 +56,13 @@ public:
 
   // Todo: Make constructor that passes in scuttle crab
 
-  void stageStep(float &deltaTime);
+  ~Poppy();
+
+  void stageStep(float &deltaTime, Camera &camera);
 
   // void stageRunStep(float &deltaTime); // if stagestep is too big then split into smaller functions
 
-  void hitScuttleCrab();
+  void hitScuttleCrab(Camera &camera);
 };
 
 /**
