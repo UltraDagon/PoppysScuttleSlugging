@@ -16,13 +16,14 @@ public: // Todo: Maybe make private
   double zoom;
   float transitionDuration;
   float transitionRemaining;
+  std::pair<int, int> transitionOffset;
 
 public:
   Camera();
 
   Camera(int _x, int _y, float _zoom);
 
-  void transition(float duration);
+  void transition(std::pair<int, int> offset, float duration);
 
   // TODO: replace transition with linear one by doing this:
   /*
@@ -121,7 +122,7 @@ public:
   // Todo: If needed, change this to focusCamera(pos, type[left, center (default), right])
   void focusCameraLeft(std::pair<int, int> focusPoint);
 
-  void transitionCamera(float duration);
+  void transitionCamera(std::pair<int, int> offset, float duration);
 };
 
 #endif

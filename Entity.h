@@ -62,6 +62,7 @@ public:
 
   // void stageRunStep(float &deltaTime); // if stagestep is too big then split into smaller functions
 
+  // Todo: if optimizing for performance, it would probably be better to just give poppy a pointer to the camera
   void hitScuttleCrab(Camera &camera);
 };
 

@@ -14,14 +14,17 @@ private:
   std::unordered_map<std::string, std::string> saveData = {
       {"gold", "0"}};
 
-  void loadResources(std::string &source, std::unordered_map<std::string, std::string> &resourceMap);
+  void loadResources(std::string source, std::unordered_map<std::string, std::string> &resourceMap);
 
-  void saveResources(std::string &destination, std::unordered_map<std::string, std::string> &resourceMap);
+  void saveResources(std::string destination, std::unordered_map<std::string, std::string> &resourceMap);
 
 public:
   // ResourceManager();
 
   // TODO: make default save/load that does both settings and savedata
+  void loadAllResources();
+
+  void saveAllResources();
 
   void loadResources(std::string source);
 

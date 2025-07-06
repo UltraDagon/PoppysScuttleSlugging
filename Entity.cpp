@@ -111,7 +111,7 @@ void Poppy::hitScuttleCrab(Camera &camera)
   crab->velocity.first = 100;
   crab->active = true;
 
-  camera.transition(6);
+  camera.transition(std::pair<int, int>{position.first - crab->position.first, position.second - crab->position.second}, 2);
 }
 
 Environment::Environment()

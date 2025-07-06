@@ -2,7 +2,13 @@
 #include <iostream>
 #include <string>
 
-void ResourceManager::loadResources(std::string &source, std::unordered_map<std::string, std::string> &resourceMap)
+void ResourceManager::loadAllResources()
+{
+  loadResources("saveData", saveData);
+  loadResources("settings", settings);
+}
+
+void ResourceManager::loadResources(std::string source, std::unordered_map<std::string, std::string> &resourceMap)
 {
   std::ifstream readFile(source + ".txt");
   std::string line;
@@ -48,7 +54,13 @@ void ResourceManager::loadResources(std::string source)
     loadResources(source, settings);
 }
 
-void ResourceManager::saveResources(std::string &destination, std::unordered_map<std::string, std::string> &resourceMap)
+void ResourceManager::saveAllResources()
+{
+  saveResources("saveData", saveData);
+  saveResources("settings", settings);
+}
+
+void ResourceManager::saveResources(std::string destination, std::unordered_map<std::string, std::string> &resourceMap)
 {
   std::ofstream writeFile(destination + ".txt");
 
@@ -68,10 +80,10 @@ void ResourceManager::saveResources(std::string destination)
 
 std::string ResourceManager::getStringResource(std::string source, std::string resource)
 {
-  if (source == "settings") // todo: flip these
-    return (settings.at(resource));
-  else if (source == "saveData")
+  if (source == "saveData")
     return (saveData.at(resource));
+  else if (source == "settings")
+    return (settings.at(resource));
   else           // In case of invalid source
     return (""); // Return nothing
 }
@@ -81,10 +93,10 @@ double ResourceManager::getNumberResource(std::string source, std::string resour
   std::string rawValue;
   double value;
 
-  if (source == "settings") // todo: flip these
-    rawValue = settings.at(resource);
-  else if (source == "saveData")
+  if (source == "saveData")
     rawValue = saveData.at(resource);
+  else if (source == "settings")
+    rawValue = settings.at(resource);
   else // In case of invalid source
     return 0;
 

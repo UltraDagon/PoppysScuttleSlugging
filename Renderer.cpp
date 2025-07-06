@@ -7,6 +7,7 @@ Camera::Camera()
   zoom = 1;
   transitionDuration = 1;
   transitionRemaining = 0;
+  transitionOffset = {0, 0};
 }
 
 Camera::Camera(int _x, int _y, float _zoom)
@@ -16,11 +17,13 @@ Camera::Camera(int _x, int _y, float _zoom)
   zoom = _zoom;
   transitionDuration = 1;
   transitionRemaining = 0;
+  transitionOffset = {0, 0};
 }
 
-void Camera::transition(float duration)
+void Camera::transition(std::pair<int, int> offset, float duration)
 {
   transitionRemaining = duration;
+  transitionOffset = offset;
 
   if (duration <= 0) // Don't divide by zero silly!
     duration = 1;
@@ -145,22 +148,25 @@ void Renderer::adjustCamera(int rel_x, int rel_y, float rel_zoom)
     camera.zoom = 1;
 }
 
+// Maybe make this a camera function?
 void Renderer::focusCameraLeft(std::pair<int, int> position)
 {
-  camera.transitionRemaining -= deltaTime();
-  if (camera.transitionRemaining < 0)
-    camera.transitionRemaining = 0;
-
-  // 0.5 because its adding each dt/total, so 0/10 + 1/10 + 2/10 + 3/10 + 4/10 = 10/10. Cutting in half should make it more accurate to desired duration
-  camera.x += (position.first + windowWidth / 6 - camera.x) * (1.0f - 0.5 * camera.transitionRemaining / camera.transitionDuration); // Scuttle is 1/3 of the window width from the left
+  camera.x = position.first + windowWidth / 6; // Object is 1/3 of the window width from the left
 
   if (position.second < -350)
     camera.y = position.second + 350;
   else
     camera.y = 0;
+
+  if (camera.transitionRemaining > 0) // If there is a transition active
+  {
+    camera.x += camera.transitionOffset.first * (camera.transitionRemaining / camera.transitionDuration);
+    camera.y += camera.transitionOffset.second * (camera.transitionRemaining / camera.transitionDuration);
+    camera.transitionRemaining -= deltaTime();
+  }
 }
 
-void Renderer::transitionCamera(float duration)
+void Renderer::transitionCamera(std::pair<int, int> offset, float duration)
 {
-  camera.transition(duration);
+  camera.transition(offset, duration);
 }
