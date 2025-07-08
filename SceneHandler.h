@@ -2,7 +2,7 @@
 This should not be used until multiple scenes are needed
 */
 
-#include "scenes/GameScene.h"
+/*#include "scenes/GameScene.h"
 
 #ifndef SCENEHANDLER_H
 #define SCENEHANDLER_H
@@ -36,4 +36,4 @@ public:
   }
 };
 
-#endif
+#endif*/

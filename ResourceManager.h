@@ -21,7 +21,6 @@ private:
 public:
   // ResourceManager();
 
-  // TODO: make default save/load that does both settings and savedata
   void loadAllResources();
 
   void saveAllResources();

@@ -5,6 +5,7 @@
 #include "Renderer.h"
 
 #include <utility>
+#include <memory>
 
 const int WORLD_FLOOR_Y = 350;
 const int WORLD_GRAVITY = 100; // World gravity in pixels per second^2
@@ -53,8 +54,6 @@ public:
 
 public:
   Poppy();
-
-  // Todo: Make constructor that passes in scuttle crab
 
   ~Poppy();
 

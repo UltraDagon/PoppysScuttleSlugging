@@ -5,11 +5,13 @@
 #include "ResourceManager.h" // todo: Might need to move somewhere else
 
 #include "scenes/GameScene.h"
+#include "scenes/ShopScene.h"
 
 #include <iostream>
+#include <memory>
 
 // Poppy's Scuttle Slugging was created under Riot Games's "Legal Jibber Jabber" policy using intellectual property owned by Riot Games.
-// This project is not affiliated with Riot Games in any way.
+// This project is not affiliated with Riot Games.
 
 // Documentation formatted under https://developer.lsst.io/cpp/api-docs.html
 
@@ -24,18 +26,25 @@ int main(int argc, char *argv[])
   bool running = true;
 
   Renderer renderer(1600, 900);
-  InputHandler inputHandler(&running, &renderer);
   ResourceManager resourceManager;
 
-  GameScene *gameScene = new GameScene();
+  std::unique_ptr<GameScene> gameScene = std::make_unique<GameScene>();
+  // ShopScene *shopScene;
+
+  InputHandler inputHandler(&running, &renderer); // Has access to renderer to change camera stuff
 
   while (running)
   {
     inputHandler.handleInput();
 
+    // When switching scenes, image cache should be cleared. If possible: put this
+
     gameScene->physicsStep(renderer.deltaTime(), renderer.getCamera());
     gameScene->render(renderer);
     renderer.update();
   }
+
+  gameScene.reset(nullptr);
+
   return 0;
 }

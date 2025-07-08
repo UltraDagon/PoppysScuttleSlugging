@@ -10,12 +10,12 @@ class GameScene
 private:
   ScuttleCrab scuttleCrab;
   Poppy poppy;
-  Environment floor; // TODO: Rename (or dont)
+  Environment floor;
 
 public:
   GameScene();
 
-  //~GameScene();
+  ~GameScene();
 
   void render(Renderer &renderer);
 

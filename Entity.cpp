@@ -72,7 +72,7 @@ Poppy::Poppy()
 
 Poppy::~Poppy()
 {
-  delete crab;
+  crab = nullptr;
 }
 
 void Poppy::stageStep(float &deltaTime, Camera &camera)

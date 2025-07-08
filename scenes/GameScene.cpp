@@ -9,6 +9,10 @@ GameScene::GameScene() // Lot of debugging can be done here
   poppy.crab = &scuttleCrab;
 }
 
+GameScene::~GameScene()
+{
+}
+
 void GameScene::render(Renderer &renderer)
 {
   if (poppy.stage == 'S') // Focus camera on the scuttle crab when it is flying
