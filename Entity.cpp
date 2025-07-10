@@ -16,7 +16,14 @@ Entity::Entity(std::pair<float, float> position_, std::pair<int, int> size_)
 
 Sprite *Entity::getSprite(ImageCache *images)
 {
-  return new Sprite(position.first, position.second, size.first, size.second, animationData.frameSize, {0, 0}, "assets/" + spriteSheet, images);
+  return new Sprite(position.first, position.second, size.first, size.second, animationData.frameSize, {floor(animationData.currentFrame) * animationData.frameSize.first, animationData.animation * animationData.frameSize.first}, "assets/" + spriteSheet, images);
+}
+
+void Entity::updateAnimation(float &deltaTime)
+{
+  animationData.currentFrame += animationData.speed * deltaTime;
+  if (animationData.currentFrame > animationData.totalFrames)
+    animationData.currentFrame -= animationData.totalFrames;
 }
 
 ScuttleCrab::ScuttleCrab()
@@ -28,6 +35,8 @@ ScuttleCrab::ScuttleCrab()
 
 void ScuttleCrab::physicsStep(float &deltaTime)
 {
+  updateAnimation(deltaTime);
+
   if (!active) // If the scuttle crab is not active, don't move.
     return;
 
@@ -67,6 +76,8 @@ Poppy::Poppy()
   scoreW = 0;
   spriteSheet = "Poppy.bmp";
   animationData.frameSize = {320, 256};
+  animationData.totalFrames = 8;
+  animationData.speed = 4;
 }
 
 Poppy::~Poppy()
@@ -76,6 +87,8 @@ Poppy::~Poppy()
 
 void Poppy::stageStep(float &deltaTime, Camera &camera)
 {
+  updateAnimation(deltaTime);
+
   switch (stage)
   {
   // Stage 0: Run for betweenStageDelay seconds before starting the next stage.

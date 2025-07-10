@@ -6,6 +6,7 @@
 
 #include <utility>
 #include <memory>
+#include <cmath>
 
 const int WORLD_FLOOR_Y = 350;
 const int WORLD_GRAVITY = 100; // World gravity in pixels per second^2
@@ -16,22 +17,22 @@ public:
   std::pair<float, float> position;
   std::pair<int, int> size;
   std::string spriteSheet;
-
   struct
   {
     std::pair<int, int> frameSize;
     int totalFrames = 1;
-    int currentFrame = 0;
     int animation = 0; // Which animation is playing
-    float speed;       // Frames per second
-
+    float speed = 1;   // Frames per second
+    float currentFrame = 0;
   } animationData;
 
   Entity();
 
   Entity(std::pair<float, float> position_, std::pair<int, int> size_);
 
-  virtual Sprite *getSprite(ImageCache *images); // I think this should be a virtual function or something
+  Sprite *getSprite(ImageCache *images); // I think this should be a virtual function or something
+
+  void updateAnimation(float &deltaTime);
 };
 
 class ScuttleCrab : public Entity
