@@ -5,6 +5,7 @@ Entity::Entity()
   position = {0.0f, 0.0f};
   size = {100, 100};
   spriteSheet = "image.bmp";
+  animationData.frameSize = {1215, 717};
 }
 
 Entity::Entity(std::pair<float, float> position_, std::pair<int, int> size_)
@@ -15,7 +16,7 @@ Entity::Entity(std::pair<float, float> position_, std::pair<int, int> size_)
 
 Sprite *Entity::getSprite(ImageCache *images)
 {
-  return new Sprite(position.first, position.second, size.first, size.second, "assets/" + spriteSheet, images);
+  return new Sprite(position.first, position.second, size.first, size.second, animationData.frameSize, {0, 0}, "assets/" + spriteSheet, images);
 }
 
 ScuttleCrab::ScuttleCrab()
@@ -24,11 +25,6 @@ ScuttleCrab::ScuttleCrab()
   active = false;
   position = {0, WORLD_FLOOR_Y - size.second / 2};
 }
-
-/*Sprite *ScuttleCrab::getSprite(ImageCache *images)
-{
-  return new Sprite(position.first, position.second, size.first, size.second, "assets/image.bmp", images);
-}*/
 
 void ScuttleCrab::physicsStep(float &deltaTime)
 {
@@ -65,14 +61,17 @@ void ScuttleCrab::physicsStep(float &deltaTime)
 Poppy::Poppy()
 {
   position = {-300, WORLD_FLOOR_Y - size.second / 2};
+  size = {125, 100};
   betweenStageDelay = 3; // In seconds TODO: maybe make a setting
   stage = '0';
   scoreW = 0;
+  spriteSheet = "Poppy.bmp";
+  animationData.frameSize = {320, 256};
 }
 
 Poppy::~Poppy()
 {
-  crab = nullptr;
+  crab = nullptr; // I don't think this is needed
 }
 
 void Poppy::stageStep(float &deltaTime, Camera &camera)
@@ -139,7 +138,7 @@ std::vector<Sprite *> Environment::getSprites(ImageCache *images, Renderer &rend
 
   for (int xPos = startPos; xPos < endPos; xPos += size.first)
   {
-    output.push_back(new Sprite((int)position.first % size.first + xPos, position.second, size.first, size.second, "assets/image.bmp", images));
+    output.push_back(new Sprite((int)position.first % size.first + xPos, position.second, size.first, size.second, animationData.frameSize, {0, 0}, "assets/image.bmp", images));
   }
 
   return output;

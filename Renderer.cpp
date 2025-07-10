@@ -112,7 +112,7 @@ void Renderer::renderSprite(Sprite *sprite)
   destination.x = windowWidth / 2 + (sprite->x - camera.x) * camera.zoom - destination.w * 0.5; // Center the sprites at their origin
   destination.y = windowHeight / 2 + (sprite->y - camera.y) * camera.zoom - destination.h * 0.5;
 
-  SDL_RenderCopy(sdlRenderer, sprite->getTexture(sdlRenderer), NULL, &destination);
+  SDL_RenderCopy(sdlRenderer, sprite->getTexture(sdlRenderer), &sprite->frameRect, &destination); //&sprite->frameRect
 }
 
 void Renderer::renderSprites()

@@ -17,6 +17,16 @@ public:
   std::pair<int, int> size;
   std::string spriteSheet;
 
+  struct
+  {
+    std::pair<int, int> frameSize;
+    int totalFrames = 1;
+    int currentFrame = 0;
+    int animation = 0; // Which animation is playing
+    float speed;       // Frames per second
+
+  } animationData;
+
   Entity();
 
   Entity(std::pair<float, float> position_, std::pair<int, int> size_);
