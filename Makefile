@@ -1,6 +1,10 @@
 run:
-	g++ -I src/include -L src/lib -o main.exe *.cpp *.h scenes/*.cpp scenes/*.h -lmingw32 -lSDL2main -lSDL2
+	g++ -I src/include -L src/lib -o main.exe *.cpp *.h scenes/*.cpp scenes/*.h entities/*.cpp entities/*.h -lmingw32 -lSDL2main -lSDL2
 	./main.exe
+debug:
+	g++ -g -I src/include -L src/lib -o main.exe *.cpp *.h scenes/*.cpp scenes/*.h -lmingw32 -lSDL2main -lSDL2
+	gdb main.exe
+
 push message=none:
 	@if [$(message) = "none"]; then\
 		echo "Uh oh!";\

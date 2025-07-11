@@ -1,9 +1,13 @@
 #ifndef GAMESCENE_H
 #define GAMESCENE_H
 
-#include "../Entity.h"
+// #include "../entities/Entity.h" // Included by ScuttleCrab.h
+// #include "../entities/ScuttleCrab.h" // Included by Poppy.h
+#include "../entities/Poppy.h"
+#include "../entities/Environment.h"
+
+// #include "../ImageCache.h" // Included by Sprite.h included by Renderer.h
 #include "../Renderer.h"
-#include "../ImageCache.h"
 
 class GameScene
 {
