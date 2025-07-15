@@ -18,6 +18,8 @@
 // Credits (keeping here so I can remember for later)
 // References for drawing characters: https://modelviewer.lol/,
 
+// No code within this project was generated using artificial intelligence.
+
 using namespace std; // Todo: remove
 
 int main(int argc, char *argv[])
@@ -29,7 +31,7 @@ int main(int argc, char *argv[])
   ResourceManager resourceManager;
 
   std::unique_ptr<GameScene> gameScene = std::make_unique<GameScene>();
-  // ShopScene *shopScene;
+  std::unique_ptr<ShopScene> shopScene = std::make_unique<ShopScene>();
 
   InputHandler inputHandler(&running, &renderer); // Has access to renderer to change camera stuff
 
@@ -37,14 +39,18 @@ int main(int argc, char *argv[])
   {
     inputHandler.handleInput();
 
-    // When switching scenes, image cache should be cleared. If possible: put this
+    // When switching scenes, image cache should be cleared. If possible: put this in scenehandler
 
-    gameScene->physicsStep(renderer.deltaTime(), renderer.getCamera());
-    gameScene->render(renderer);
+    // gameScene->physicsStep(renderer.deltaTime(), renderer.getCamera());
+    // gameScene->render(renderer);
+
+    shopScene->render(renderer);
+
     renderer.update();
   }
 
   gameScene.reset(nullptr);
+  shopScene.reset(nullptr);
 
   return 0;
 }

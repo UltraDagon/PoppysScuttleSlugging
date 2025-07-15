@@ -25,7 +25,7 @@ public: // make private
 public:
   Sprite(int _x, int _y, int _width, int _height, std::string bmpAddress, ImageCache *images);
 
-  Sprite(int _x, int _y, int _width, int _height, std::pair<int, int> _frameSize, std::pair<int, int> _frameOffset, std::string bmpAddress, ImageCache *images);
+  Sprite(int x_, int y_, int width_, int height_, std::pair<int, int> frameSize, std::pair<int, int> frameOffset, std::string bmpAddress, ImageCache *images);
 
   ~Sprite();
 

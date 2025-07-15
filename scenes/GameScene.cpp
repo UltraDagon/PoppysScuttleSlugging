@@ -20,6 +20,7 @@ void GameScene::render(Renderer &renderer)
   else // Otherwise, focus the camera on Poppy
     renderer.focusCameraLeft(poppy.position);
 
+  // Print horizontal expanding environment entities
   for (Sprite *s : floor.getSprites(renderer.getImageCache(), renderer))
     renderer.addSprite(s);
 

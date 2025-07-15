@@ -36,7 +36,7 @@ Renderer::Renderer()
 
   windowWidth = 0;
   windowHeight = 0;
-  window = SDL_CreateWindow("Hello SDL World", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight, SDL_WINDOW_ALLOW_HIGHDPI);
+  window = SDL_CreateWindow("Poppy's Scuttle Slugging!", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight, SDL_WINDOW_ALLOW_HIGHDPI);
   sdlRenderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 }
 
@@ -52,6 +52,7 @@ Renderer::Renderer(int _windowWidth, int _windowHeight)
   camera = Camera(0, 0, 1);
 
   initTime = prevFrameTime = currentFrameTime = clock();
+  // todo: remove v
   std::cout << "initTime: " << initTime << ", prevFrameTime: " << prevFrameTime << ", currentFrameTime: " << currentFrameTime << std::endl;
 }
 
@@ -90,6 +91,7 @@ std::pair<int, int> Renderer::getCameraPos()
 
 void Renderer::addSprite(Sprite *sprite)
 {
+  // todo: here I should put if framerect is negative, dont add to list
   sprites.push_back(sprite);
 }
 
@@ -108,7 +110,6 @@ void Renderer::renderSprite(Sprite *sprite)
 
   destination.w = sprite->width * camera.zoom;
   destination.h = sprite->height * camera.zoom;
-  // Maybe need to change windowWidth and windowHeight to a "focus" variable for where the camera zooms into/out of
   destination.x = windowWidth / 2 + (sprite->x - camera.x) * camera.zoom - destination.w * 0.5; // Center the sprites at their origin
   destination.y = windowHeight / 2 + (sprite->y - camera.y) * camera.zoom - destination.h * 0.5;
 

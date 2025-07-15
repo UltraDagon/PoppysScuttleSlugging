@@ -1,12 +1,12 @@
+#ifndef RENDERER_H
+#define RENDERER_H
+
 #include "Sprite.h"
 
 #include <SDL2/SDL.h>
 #include <vector>
 #include <ctime>
 #include <iostream> //DEBUG
-
-#ifndef RENDERER_H
-#define RENDERER_H
 
 class Camera
 {

@@ -19,7 +19,7 @@ private:
 public:
   GameScene();
 
-  ~GameScene();
+  ~GameScene(); // Currently Empty
 
   void render(Renderer &renderer);
 

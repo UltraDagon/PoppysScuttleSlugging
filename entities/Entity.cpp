@@ -8,12 +8,6 @@ Entity::Entity()
   animationData.frameSize = {1215, 717};
 }
 
-Entity::Entity(std::pair<float, float> position_, std::pair<int, int> size_)
-{
-  position = position_;
-  size = size_;
-}
-
 Sprite *Entity::getSprite(ImageCache *images)
 {
   return new Sprite(position.first, position.second, size.first, size.second, animationData.frameSize, {floor(animationData.currentFrame) * animationData.frameSize.first, animationData.animation * animationData.frameSize.first}, "assets/" + spriteSheet, images);

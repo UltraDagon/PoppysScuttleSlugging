@@ -15,13 +15,13 @@ Sprite::Sprite(int _x, int _y, int _width, int _height, std::string bmpAddress, 
 }
 
 // Todo: look up if _ should be on other side
-Sprite::Sprite(int _x, int _y, int _width, int _height, std::pair<int, int> frameSize, std::pair<int, int> frameOffset, std::string bmpAddress, ImageCache *images)
+Sprite::Sprite(int x_, int y_, int width_, int height_, std::pair<int, int> frameSize, std::pair<int, int> frameOffset, std::string bmpAddress, ImageCache *images)
 {
-  x = _x;
-  y = _y;
+  x = x_;
+  y = y_;
 
-  width = _width;
-  height = _height;
+  width = width_;
+  height = height_;
   surface = images->get_image(bmpAddress);
 
   frameRect = {frameOffset.first, frameOffset.second, frameSize.first, frameSize.second};

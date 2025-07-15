@@ -21,16 +21,14 @@ public:
   {
     std::pair<int, int> frameSize;
     int totalFrames = 1;
-    int animation = 0; // Which animation is playing
+    int animation = 0; // Which animation is playing. If negative, don't render entity
     float speed = 1;   // Frames per second
     float currentFrame = 0;
   } animationData;
 
   Entity();
 
-  Entity(std::pair<float, float> position_, std::pair<int, int> size_);
-
-  Sprite *getSprite(ImageCache *images); // I think this should be a virtual function or something
+  virtual Sprite *getSprite(ImageCache *images); // I think this should be a virtual function or something
 
   void updateAnimation(float &deltaTime);
 };
