@@ -17,6 +17,7 @@
 
 // Credits (keeping here so I can remember for later)
 // References for drawing characters: https://modelviewer.lol/,
+// (company)'s SDL2 was used for all graphics, input, and sound.
 
 // No code within this project was generated using artificial intelligence.
 
@@ -41,10 +42,10 @@ int main(int argc, char *argv[])
 
     // When switching scenes, image cache should be cleared. If possible: put this in scenehandler
 
-    // gameScene->physicsStep(renderer.deltaTime(), renderer.getCamera());
-    // gameScene->render(renderer);
+    gameScene->physicsStep(renderer.deltaTime(), renderer.getCamera());
+    gameScene->render(renderer);
 
-    shopScene->render(renderer);
+    // shopScene->render(renderer);
 
     renderer.update();
   }

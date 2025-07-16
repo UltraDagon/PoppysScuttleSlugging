@@ -113,7 +113,7 @@ void Renderer::renderSprite(Sprite *sprite)
   destination.x = windowWidth / 2 + (sprite->x - camera.x) * camera.zoom - destination.w * 0.5; // Center the sprites at their origin
   destination.y = windowHeight / 2 + (sprite->y - camera.y) * camera.zoom - destination.h * 0.5;
 
-  SDL_RenderCopy(sdlRenderer, sprite->getTexture(sdlRenderer), &sprite->frameRect, &destination); //&sprite->frameRect
+  SDL_RenderCopy(sdlRenderer, sprite->getTexture(sdlRenderer, images), &sprite->frameRect, &destination); //&sprite->frameRect
 }
 
 void Renderer::renderSprites()
@@ -126,6 +126,32 @@ void Renderer::renderSprites()
 
 void Renderer::update()
 {
+  /*
+  Note on below: Caching textures is making it run super smoothly, already,
+  it can be optimized more by caching sprites or making renderer.sprites a
+  vector of pointers to sprites contained by different entities. These sprites
+  would live across frames and be modified physicsSteps and similar functions.
+  */
+  /*
+  Read note above ^
+
+  I think I'll be able to speed up rendering by keeping sprites alive
+  (in a map or array or something) and just updating the textures when needed
+  (see https://wiki.libsdl.org/SDL2/SDL_UpdateTexture). First try keeping
+  needed sprites alive in a map and instead of destroying the texture just
+  update it. I think the way it works is the texture is just width and height,
+  and position is determined at runtime (so faster).
+
+  Try this first for real vvv
+  Lowkey I might just be able to have the image cache contain textures
+
+  I think how it works is surfaces are the image files themselves,
+  then textures give them widths and heights, then rendercopy gives a position
+  and possibly a stretched width/height.
+  */
+
+  std::cout << "check 1" << std::endl;
+
   SDL_SetRenderDrawColor(sdlRenderer, 191, 191, 255, 255);
   SDL_RenderClear(sdlRenderer);
   renderSprites();

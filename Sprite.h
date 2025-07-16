@@ -17,8 +17,9 @@ public: // make private
   int y;
   int width;
   int height;
+  std::string bmpAddress;
 
-  SDL_Surface *surface;
+  // SDL_Surface *surface;
   SDL_Texture *texture;
   SDL_Rect frameRect; // Snippet of image to be rendered
 
@@ -29,7 +30,7 @@ public:
 
   ~Sprite();
 
-  SDL_Texture *getTexture(SDL_Renderer *sdlRenderer);
+  SDL_Texture *getTexture(SDL_Renderer *sdlRenderer, ImageCache *images);
 };
 
 #endif
