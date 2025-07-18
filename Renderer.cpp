@@ -124,6 +124,10 @@ void Renderer::renderSprites()
   }
 }
 
+/**
+ * Render all sprites to the screen for the current frame.
+ * Also updates the deltaTime to match the time that has elapsed since the last call of update().
+ */
 void Renderer::update()
 {
   /*
@@ -149,8 +153,6 @@ void Renderer::update()
   then textures give them widths and heights, then rendercopy gives a position
   and possibly a stretched width/height.
   */
-
-  std::cout << "check 1" << std::endl;
 
   SDL_SetRenderDrawColor(sdlRenderer, 191, 191, 255, 255);
   SDL_RenderClear(sdlRenderer);

@@ -25,19 +25,19 @@ SDL_Texture *ImageCache::getTexture(std::string file, SDL_Renderer *sdlRenderer)
 
 void ImageCache::flush()
 {
+  std::map<std::string, SDL_Texture *>::iterator j = textureCache.begin();
+  for (; j != textureCache.end(); ++j)
+  {
+    SDL_DestroyTexture(j->second);
+  }
+  textureCache.clear();
+
   std::map<std::string, SDL_Surface *>::iterator i = surfaceCache.begin();
   for (; i != surfaceCache.end(); ++i)
   {
     SDL_FreeSurface(i->second);
   }
   surfaceCache.clear();
-
-  std::map<std::string, SDL_Texture *>::iterator j = textureCache.begin();
-  for (; j != textureCache.end(); ++i)
-  {
-    SDL_DestroyTexture(j->second);
-  }
-  textureCache.clear();
 }
 
 ImageCache::~ImageCache()
