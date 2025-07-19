@@ -42,10 +42,11 @@ int main(int argc, char *argv[])
 
     // When switching scenes, image cache should be cleared. If possible: put this in scenehandler
 
-    gameScene->physicsStep(renderer.deltaTime(), renderer.getCamera());
-    gameScene->render(renderer);
+    // gameScene->physicsStep(renderer.deltaTime(), renderer.getCamera());
+    // gameScene->render(renderer);
 
-    // shopScene->render(renderer);
+    shopScene->physicsStep(renderer.deltaTime(), inputHandler, renderer);
+    shopScene->render(renderer);
 
     renderer.update();
   }

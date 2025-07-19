@@ -9,9 +9,7 @@ InputHandler::InputHandler(bool *_running, Renderer *_renderer)
 
 void InputHandler::handleInput()
 {
-  SDL_GetMouseState(&mouseX, &mouseY);
-
-  std::cout << "Mouse: " << mouseX << ", " << mouseY << " | ";
+  mouseState = SDL_GetMouseState(&mouseX, &mouseY);
 
   while (SDL_PollEvent(&event))
   {

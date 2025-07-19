@@ -7,11 +7,22 @@
 #include "../Renderer.h"
 #include "../ResourceManager.h"
 #include "../ImageCache.h"
+#include "../InputHandler.h"
+
+struct ButtonData
+{
+  int x;
+  int y;
+  int w;
+  int h;
+  char state = 'd'; // d: default, h: hovered, p: pressed
+};
 
 class ShopScene
 {
 public:
   ResourceManager *resourceManager;
+  std::unordered_map<std::string, ButtonData> buttons; // Buttons have a name (key) and rect [x,y,w,h] (value)
 
   /**
    * Render the UIElements to display an upgrade in the shop.
@@ -34,6 +45,8 @@ public:
    * @param renderer the renderer object used to draw to the window.
    */
   void render(Renderer &renderer);
+
+  void physicsStep(float deltaTime, InputHandler &input, Renderer &renderer); // todo: maybe rename?
 
   /**
    * Set the ResourceManager to be read from and written to by the shop scene.

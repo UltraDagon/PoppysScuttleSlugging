@@ -13,6 +13,8 @@ public:
   bool active = true;
   UIElement *parent = nullptr;
 
+  std::pair<int, int> absolutePosition();
+
 public:
   UIElement();
 

@@ -82,6 +82,12 @@ public:
   int getWindowWidth();
 
   /**
+   * Get the width of the window.
+   * @return the windows width (in pixels)
+   */
+  int getWindowHeight();
+
+  /**
    * Get the Camera's current position.
    * @return The Camera's position as a pair (in pixels)
    */

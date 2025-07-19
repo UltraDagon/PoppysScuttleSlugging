@@ -16,6 +16,7 @@ public: // TODO: Make private
   std::unordered_map<int, bool> keysPressed;
   int mouseX;
   int mouseY;
+  Uint32 mouseState;
 
 public:
   InputHandler(bool *_running, Renderer *_renderer); // Controls the running state of the program, the renderer,
