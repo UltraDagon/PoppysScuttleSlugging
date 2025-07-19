@@ -14,7 +14,7 @@ void ShopScene::renderUpgrade(int index, std::string resource, std::string name_
   // Update button hitbox to match new position
   std::pair<int, int> upgradeButtonAbsPos = upgradeButton.absolutePosition();
 
-  buttons[resource] = {upgradeButtonAbsPos.first, upgradeButtonAbsPos.second, upgradeButton.size.first, upgradeButton.size.second};
+  buttons[resource] = {upgradeButtonAbsPos.first, upgradeButtonAbsPos.second, upgradeButton.size.first, upgradeButton.size.second, buttons[resource].state};
 
   renderer.addSprite(backplate.getSprite(renderer.getImageCache()));
   renderer.addSprite(icon.getSprite(renderer.getImageCache()));
@@ -39,21 +39,36 @@ void ShopScene::render(Renderer &renderer)
 void ShopScene::physicsStep(float deltaTime, InputHandler &input, Renderer &renderer)
 {
   // std::cout << "Mouse: " << input.mouseX - renderer.getWindowWidth() / 2 << ", " << input.mouseY - renderer.getWindowHeight() / 2 << " Buttons: ";
-  for (auto b : buttons)
+  for (auto &b : buttons)
   {
-    // std::cout << b.first << "[" << b.second.x << ", " << b.second.y << ", " << b.second.w << ", " << b.second.h << "] (";
+    // std::cout << b.first << ": " << b.second.state << "->";
     if (b.second.x - b.second.w / 2 < input.mouseX - renderer.getWindowWidth() / 2 && input.mouseX - renderer.getWindowWidth() / 2 < b.second.x + b.second.w / 2 &&
         b.second.y - b.second.h / 2 < input.mouseY - renderer.getWindowHeight() / 2 && input.mouseY - renderer.getWindowHeight() / 2 < b.second.y + b.second.h / 2)
     {
-      // Mouse is hovering button
+      // TODO: Rewrite this to look prettier
       if (input.mouseState & SDL_BUTTON_LMASK) // Left click down
       {
-        std::cout << "Clicked " << b.first << "!" << std::endl;
+        if (b.second.state == 'h') // Don't press if it isn't hovered first to avoid misclicks
+          b.second.state = 'p';    // Button is pressed
+      }
+      else if (b.second.state == 'p') // If button was pressed but left click is no longer down
+      {
+        std::cout << "Clicked " << b.first << "! " << b.second.state << std::endl;
+        b.second.state = 'h'; // Return to hovered
+      }
+      else
+      {
+        b.second.state = 'h'; // Button is hovered
       }
     }
-    // std::cout << ")";
+    else // Mouse is not over button
+    {
+      b.second.state = 'd'; // Button is in default state
+    }
+    // std::cout << b.first << ": " << b.second.state << ", ";
+    //    std::cout << ")";
   }
-  std::cout << std::endl;
+  // std::cout << std::endl;
 }
 
 void ShopScene::setResourceManager(ResourceManager &resManager)
