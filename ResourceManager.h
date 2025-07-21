@@ -1,6 +1,6 @@
 #include <fstream>
 #include <unordered_map>
-#include <typeinfo>
+#include <typeinfo> // Todo: see if I can remove this
 
 #ifndef RESOURCEMANAGER_H
 #define RESOURCEMANAGER_H

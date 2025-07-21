@@ -63,7 +63,7 @@ public:
 
   /**
    * Get the Renderer's image cache.
-   * @return ImageCache pointer
+   * @return ImageCache*
    */
   ImageCache *getImageCache();
 
