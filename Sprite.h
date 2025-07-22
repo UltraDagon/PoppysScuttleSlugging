@@ -52,7 +52,7 @@ public:
    * 
    * @param sdlRenderer the SDL_Renderer that the Sprite will be renderered on
    * @param images the ImageCache that manages image files
-   * @return SDL_Texture*
+   * @return pointer to the SDL_Texture of the Sprite
    */
   SDL_Texture *getTexture(SDL_Renderer *sdlRenderer, ImageCache *images);
 };

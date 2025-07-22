@@ -4,15 +4,25 @@
 #include "Entity.h"
 
 /**
- * UI Elements are Entities that are able to be positioned relative to a parent
- * Entity and are able to be clickable buttons.
+ * UI Elements are Entities that are able to be positioned relative to a parent.
  */
 class UIElement : public Entity
 {
 public:
+  /// Determines whether the UIElement is rendered or not.
   bool active = true;
+  /**
+   * The UIElement's position is relative to this parent UIElement.
+   * 
+   * If nullptr, the position is relative to the world.
+   */
   UIElement *parent = nullptr;
 
+  /**
+   * Get the absolute position in the world of the UIElement.
+   * 
+   * @return the position relative to the world
+   */
   std::pair<int, int> absolutePosition();
 
 public:

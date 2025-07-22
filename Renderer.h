@@ -63,7 +63,7 @@ public:
 
   /**
    * Get the Renderer's image cache.
-   * @return ImageCache*
+   * @return pointer the Renderer's image cache
    */
   ImageCache *getImageCache();
 
@@ -71,7 +71,7 @@ public:
 
   /**
    * Get the deltaTime, or change in time between the most recently called Renderer::update() and the update before that.
-   * @return The deltaTime (in seconds)
+   * @return the deltaTime (in seconds)
    */
   float deltaTime();
 
@@ -89,7 +89,7 @@ public:
 
   /**
    * Get the Camera's current position.
-   * @return The Camera's position as a pair (in pixels)
+   * @return the Camera's position as a pair (in pixels)
    */
   std::pair<int, int> getCameraPos();
 

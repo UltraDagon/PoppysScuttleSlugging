@@ -47,6 +47,7 @@ void Poppy::stageStep(float &deltaTime, Camera &camera)
   }
 }
 
+// Todo: if optimizing for performance, it would probably be better to just give poppy a pointer to the camera
 void Poppy::hitScuttleCrab(Camera &camera)
 {
   crab->bouncesRemaining = 10.0f;

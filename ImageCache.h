@@ -25,7 +25,7 @@ public:
    * Get and cache an SDL_Surface object.
    * 
    * @param file the name of the image file in the assets folder
-   * @return SDL_Surface* 
+   * @return pointer to the cached SDL_Surface
    */
   SDL_Surface *getSurface(std::string file);
 
@@ -34,7 +34,7 @@ public:
    * 
    * @param file the name of the image file in the assets folder
    * @param sdlRenderer the SDL_Renderer that will display the texture
-   * @return SDL_Texture* 
+   * @return pointer to the cached SDL_Texture
    */
   SDL_Texture *getTexture(std::string file, SDL_Renderer *sdlRenderer);
 

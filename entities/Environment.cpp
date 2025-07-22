@@ -6,7 +6,7 @@ Environment::Environment()
 }
 
 /**
- * TODO: Finish
+ * TODO: Finish parralax
  * Note that for environments, position.first is the offset of the image used rather than the starting x position, as the image should repeat along the x axis infinitely
  */
 Environment::Environment(std::pair<float, float> position_, std::pair<int, int> size_, float parallax_)
