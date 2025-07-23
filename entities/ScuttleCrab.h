@@ -33,7 +33,7 @@ public:
   // Sprite *getSprite(ImageCache *images);
 
   /**
-   * Progresses the physics of the ScuttleCrab each frame.
+   * Progress the physics of the ScuttleCrab each frame.
    * 
    * @param deltaTime the time that has elapsed since the previous frame
    */

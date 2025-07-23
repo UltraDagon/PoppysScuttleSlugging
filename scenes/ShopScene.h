@@ -9,30 +9,49 @@
 #include "../ImageCache.h"
 #include "../InputHandler.h"
 
+/// Data needed to set the click hitbox and state of a button.
 struct ButtonData
 {
+  /// X position of the button's hitbox in the world.
   int x;
+  /// Y position of the button's hitbox in the world.
   int y;
+  /// Width of the button's hitbox.
   int w;
+  /// Height of the button's hitbox.
   int h;
-  char state = 'd'; // d: default, h: hovered, p: pressed
+  /**
+   * The current state of the button in relation to the player's cursor.
+   * 
+   * d: default.
+   * h: hovered.
+   * p: pressed.
+   */
+  char state = 'd';
 };
 
+/**
+ * The ShopScene is where the player is able to purchase upgrades for use during the GameScene.
+ * 
+ * This scene is preceded by the MainMenuScene or the GameScene, and is followed by the MainMenuScene or the GameScene.
+ */
 class ShopScene
 {
 public:
+  /// Pointer to the ResourceManager that controls internally and externally saved resources.
   ResourceManager *resourceManager;
-  std::unordered_map<std::string, ButtonData> buttons; // Buttons have a name (key) and rect [x,y,w,h] (value)
+  /// Map of all buttons that allow for clickable actions on the screen.
+  std::unordered_map<std::string, ButtonData> buttons;
 
   /**
    * Render the UIElements to display an upgrade in the shop.
    *
-   * @param index the positon of the upgrade on the shop board. (0 <= index < 6)
-   * @param resource the name of the resource in saveData that will be upgraded and displayed.
-   * @param name_ the name of the upgrade that will be displayed.
-   * @param icon_ the name of the image file to be used as the upgrade's icon.
-   * @param renderer the renderer object used to draw to the window.
-   * @param parent the parent object (should be an upgrade board) that the upgrade will render inside of.
+   * @param index the positon of the upgrade on the shop board (0 <= index < 6)
+   * @param resource the name of the resource in saveData that will be upgraded and displayed
+   * @param name_ the name of the upgrade that will be displayed
+   * @param icon_ the name of the image file to be used as the upgrade's icon
+   * @param renderer the renderer object used to draw to the window
+   * @param parent the parent object (should be an upgrade board) that the upgrade will render inside of
    */
   void renderUpgrade(int index, std::string resource, std::string name_, std::string icon_, Renderer &renderer, UIElement *parent = nullptr);
 
@@ -42,16 +61,23 @@ public:
   /**
    * Render the shop scene.
    *
-   * @param renderer the renderer object used to draw to the window.
+   * @param renderer the Renderer that controls the window rendering and camera
    */
   void render(Renderer &renderer);
 
-  void physicsStep(float deltaTime, InputHandler &input, Renderer &renderer); // todo: maybe rename?
+  /**
+   * Progress the animation and input effects of the ShopScene.
+   * 
+   * @param deltaTime the time that has elapsed since the previous frame
+   * @param input the InputHandler used to handle keyboard and mouse input from the player
+   * @param renderer the Renderer that controls the window rendering and camera
+   */
+  void physicsStep(float deltaTime, InputHandler &input, Renderer &renderer);
 
   /**
    * Set the ResourceManager to be read from and written to by the shop scene.
    *
-   * @param resManager the resource manager to be used.
+   * @param resManager the ResourceManager that controls internally and externally saved resources
    */
   void setResourceManager(ResourceManager &resManager);
 };
