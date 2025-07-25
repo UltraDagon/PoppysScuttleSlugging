@@ -2,23 +2,16 @@
 
 bool ResourceManager::purchaseUpgrade(std::string name)
 {
-  std::cout << upgradeCosts.size() << std::endl;
-  std::cout << upgradeCosts.at("r_level1") << std::endl;
-  int currentLevel = getNumberResource(name, "saveData");
-  int currentGold = getNumberResource("gold", "saveData");
+  int currentLevel = getNumberResource("saveData", name);
+  int currentGold = getNumberResource("saveData", "gold");
   std::string upgradeName = name + std::to_string(currentLevel + 1);
-  std::cout << upgradeName << std::endl;
   int price = INT_MAX;
-
-  std::cout << "check 1" << std::endl;
 
   // If upgrade is not found (max level or incorrect name)
   if (upgradeCosts.count(upgradeName) == 0)
     return false;
 
-  std::cout << "check 2" << std::endl;
-
-  price = upgradeCosts.at("r_level1");
+  price = upgradeCosts.at(upgradeName);
 
   // If the player does not have enough gold to purchase the upgrade
   if (currentGold < price)
@@ -110,13 +103,15 @@ std::string ResourceManager::getStringResource(std::string source, std::string r
   if (source == "saveData")
   {
     // If the resource isn't in saveData, add it with value ""
-    saveData.try_emplace(resource, "");
+    if (saveData.count(resource) == 0)
+      saveData.emplace(resource, "");
     return (saveData.at(resource));
   }
   else if (source == "settings")
   {
     // If the resource isn't in settings, add it with value ""
-    settings.try_emplace(resource, "");
+    if (settings.count(resource) == 0)
+      settings.emplace(resource, "");
     return (settings.at(resource));
   }
   else           // In case of invalid source

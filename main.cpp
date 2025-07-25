@@ -34,6 +34,7 @@ int main(int argc, char *argv[])
 
   std::unique_ptr<GameScene> gameScene = std::make_unique<GameScene>();
   std::unique_ptr<ShopScene> shopScene = std::make_unique<ShopScene>();
+  shopScene->setResourceManager(resourceManager);
 
   InputHandler inputHandler(&running, &renderer); // Has access to renderer to change camera stuff
 

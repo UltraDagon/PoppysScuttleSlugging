@@ -25,7 +25,10 @@ ShopScene::ShopScene()
 {
 }
 
-// ShopScene::ShopScene(ResourceManager *resManager){}
+ShopScene::ShopScene(ResourceManager &resManager)
+{
+  setResourceManager(resManager);
+}
 
 void ShopScene::render(Renderer &renderer)
 {
@@ -38,6 +41,7 @@ void ShopScene::render(Renderer &renderer)
 
 void ShopScene::physicsStep(float deltaTime, InputHandler &input, Renderer &renderer)
 {
+  bool purchaseSuccess = false;
   // std::cout << "Mouse: " << input.mouseX - renderer.getWindowWidth() / 2 << ", " << input.mouseY - renderer.getWindowHeight() / 2 << " Buttons: ";
   for (auto &b : buttons)
   {
@@ -52,9 +56,10 @@ void ShopScene::physicsStep(float deltaTime, InputHandler &input, Renderer &rend
         if (b.second.state == 'h') // Don't press if it isn't hovered first to avoid misclicks
           b.second.state = 'p';    // Button is pressed
       }
-      else if (b.second.state == 'p') // If button was pressed but left click is no longer down
+      else if (b.second.state == 'p') // If button was pressed but left click is no longer down, the button has been clicked
       {
-        std::cout << "Clicked " << b.first << "! " << b.second.state << std::endl;
+        purchaseSuccess = resourceManager->purchaseUpgrade(b.first);
+        std::cout << "Clicked " << b.first << "! Enough gold?: " << purchaseSuccess << std::endl;
         b.second.state = 'h'; // Return to hovered
       }
       else

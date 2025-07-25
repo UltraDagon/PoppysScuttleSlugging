@@ -22,7 +22,7 @@ struct ButtonData
   int h;
   /**
    * The current state of the button in relation to the player's cursor.
-   * 
+   *
    * d: default.
    * h: hovered.
    * p: pressed.
@@ -32,7 +32,7 @@ struct ButtonData
 
 /**
  * The ShopScene is where the player is able to purchase upgrades for use during the GameScene.
- * 
+ *
  * This scene is preceded by the MainMenuScene or the GameScene, and is followed by the MainMenuScene or the GameScene.
  */
 class ShopScene
@@ -58,6 +58,8 @@ public:
 public:
   ShopScene();
 
+  ShopScene(ResourceManager &resManager);
+
   /**
    * Render the shop scene.
    *
@@ -67,7 +69,7 @@ public:
 
   /**
    * Progress the animation and input effects of the ShopScene.
-   * 
+   *
    * @param deltaTime the time that has elapsed since the previous frame
    * @param input the InputHandler used to handle keyboard and mouse input from the player
    * @param renderer the Renderer that controls the window rendering and camera
