@@ -30,6 +30,7 @@ int main(int argc, char *argv[])
 
   Renderer renderer(1600, 900);
   ResourceManager resourceManager;
+  resourceManager.loadAllResources();
 
   std::unique_ptr<GameScene> gameScene = std::make_unique<GameScene>();
   std::unique_ptr<ShopScene> shopScene = std::make_unique<ShopScene>();

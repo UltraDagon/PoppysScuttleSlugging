@@ -1,6 +1,33 @@
 #include "ResourceManager.h"
-#include <iostream>
-#include <string>
+
+bool ResourceManager::purchaseUpgrade(std::string name)
+{
+  std::cout << upgradeCosts.size() << std::endl;
+  std::cout << upgradeCosts.at("r_level1") << std::endl;
+  int currentLevel = getNumberResource(name, "saveData");
+  int currentGold = getNumberResource("gold", "saveData");
+  std::string upgradeName = name + std::to_string(currentLevel + 1);
+  std::cout << upgradeName << std::endl;
+  int price = INT_MAX;
+
+  std::cout << "check 1" << std::endl;
+
+  // If upgrade is not found (max level or incorrect name)
+  if (upgradeCosts.count(upgradeName) == 0)
+    return false;
+
+  std::cout << "check 2" << std::endl;
+
+  price = upgradeCosts.at("r_level1");
+
+  // If the player does not have enough gold to purchase the upgrade
+  if (currentGold < price)
+    return false;
+
+  std::cout << "\"Bought\" upgrade! Gold: " << currentGold << " -> " << currentGold - price << std::endl;
+
+  return true;
+}
 
 void ResourceManager::loadAllResources()
 {
@@ -40,7 +67,7 @@ void ResourceManager::loadResources(std::string source, std::unordered_map<std::
       }
     }
 
-    resourceMap.at(key) = value; // Add resource and value to resourceMap
+    resourceMap.emplace(key, value); // Add resource and value to resourceMap
   }
 
   readFile.close();
@@ -81,23 +108,27 @@ void ResourceManager::saveResources(std::string destination)
 std::string ResourceManager::getStringResource(std::string source, std::string resource)
 {
   if (source == "saveData")
+  {
+    // If the resource isn't in saveData, add it with value ""
+    saveData.try_emplace(resource, "");
     return (saveData.at(resource));
+  }
   else if (source == "settings")
+  {
+    // If the resource isn't in settings, add it with value ""
+    settings.try_emplace(resource, "");
     return (settings.at(resource));
+  }
   else           // In case of invalid source
     return (""); // Return nothing
 }
 
 double ResourceManager::getNumberResource(std::string source, std::string resource)
 {
-  std::string rawValue;
+  std::string rawValue = getStringResource(source, resource);
   double value;
 
-  if (source == "saveData")
-    rawValue = saveData.at(resource);
-  else if (source == "settings")
-    rawValue = settings.at(resource);
-  else // In case of invalid source
+  if (rawValue == "")
     return 0;
 
   try // Check to see if value is a valid number
@@ -106,10 +137,10 @@ double ResourceManager::getNumberResource(std::string source, std::string resour
   }
   catch (int e)
   { // In case of invalid value
-    return 0;
+    value = 0;
   }
 
-  return std::stof(rawValue);
+  return value;
 }
 
 void ResourceManager::setResource(std::string source, std::string resource, std::string value)
