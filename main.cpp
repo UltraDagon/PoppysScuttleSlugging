@@ -4,6 +4,7 @@
 #include "Sprite.h"
 #include "ResourceManager.h" // todo: Might need to move somewhere else
 
+#include "SceneManager.h"
 #include "scenes/GameScene.h"
 #include "scenes/ShopScene.h"
 
@@ -32,29 +33,19 @@ int main(int argc, char *argv[])
   ResourceManager resourceManager;
   resourceManager.loadAllResources();
 
-  std::unique_ptr<GameScene> gameScene = std::make_unique<GameScene>();
-  std::unique_ptr<ShopScene> shopScene = std::make_unique<ShopScene>();
-  shopScene->setResourceManager(resourceManager);
-
   InputHandler inputHandler(&running, &renderer); // Has access to renderer to change camera stuff
+
+  SceneManager sceneManager('g', resourceManager);
 
   while (running)
   {
     inputHandler.handleInput();
 
     // When switching scenes, image cache should be cleared. If possible: put this in scenehandler
-
-    // gameScene->physicsStep(renderer.deltaTime(), renderer.getCamera());
-    // gameScene->render(renderer);
-
-    shopScene->physicsStep(renderer.deltaTime(), inputHandler, renderer);
-    shopScene->render(renderer);
+    sceneManager.render(renderer, inputHandler);
 
     renderer.update();
   }
-
-  gameScene.reset(nullptr);
-  shopScene.reset(nullptr);
 
   return 0;
 }
