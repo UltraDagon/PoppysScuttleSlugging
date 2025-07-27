@@ -43,9 +43,16 @@ int main(int argc, char *argv[])
 
     // Switch scenes via keypress
     if (inputHandler.keysPressed['s'])
-      sceneManager.setScene('s');
+      resourceManager.changeScene('s');
     if (inputHandler.keysPressed['g'])
-      sceneManager.setScene('g');
+      resourceManager.changeScene('g');
+
+    // Scenes should only switch when requested by the resource manager (to prevent header file looping) and when the new scene differs from the current one
+    if (resourceManager.getNewScene() != ' ' && resourceManager.getNewScene() != sceneManager.getActiveScene())
+    {
+      sceneManager.setScene(resourceManager.getNewScene());
+      resourceManager.changeScene(' ');
+    }
 
     // When switching scenes, image cache should be cleared. If possible: put this in scenehandler
     sceneManager.render(renderer, inputHandler);

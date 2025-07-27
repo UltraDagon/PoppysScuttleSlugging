@@ -25,7 +25,6 @@ UIElement::UIElement(std::pair<int, int> position_, std::pair<int, int> size_, s
   position = position_;
   size = size_;
   spriteSheet = spriteSheet_;
-  // Todo: maybe make some sort of loop prevention?
   parent = parent_;
 }
 

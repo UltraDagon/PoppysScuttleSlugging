@@ -22,6 +22,11 @@ bool ResourceManager::purchaseUpgrade(std::string name)
   return true;
 }
 
+char ResourceManager::getNewScene()
+{
+  return newScene;
+}
+
 void ResourceManager::loadAllResources()
 {
   loadResources("saveData", saveData);
@@ -149,4 +154,9 @@ void ResourceManager::setResource(std::string source, std::string resource, std:
 void ResourceManager::setResource(std::string source, std::string resource, double value)
 {
   setResource(source, resource, std::to_string(value));
+}
+
+void ResourceManager::changeScene(char newScene_)
+{
+  newScene = newScene_;
 }

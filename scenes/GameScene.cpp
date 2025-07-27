@@ -11,7 +11,6 @@ GameScene::GameScene() // Lot of debugging can be done here
 
 GameScene::~GameScene()
 {
-  std::cout << "Destroyed gamescene" << std::endl;
 }
 
 void GameScene::render(Renderer &renderer)

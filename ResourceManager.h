@@ -14,6 +14,8 @@
 class ResourceManager
 {
 private:
+  /// The scene will be changed to this char upon request by a scene
+  char newScene = ' ';
   /// Costs of upgrading to each level of an upgrade
   const std::unordered_map<std::string, int> upgradeCosts = {
       {"r_level1", 10},
@@ -55,6 +57,13 @@ public:
    * @param resource the name of the upgrade/resource
    */
   bool purchaseUpgrade(std::string resource);
+
+  /**
+   * Get the scene the Resource Manager requests to change to.
+   *
+   * @return the new scene to be changed to
+   */
+  char getNewScene();
 
   /**
    * Load the data from saveData.txt and settings.txt to the respective resource maps.
@@ -117,6 +126,13 @@ public:
    * @param value value to set the resource to in the form of a double
    */
   void setResource(std::string source, std::string resource, double value);
+
+  /**
+   * Change the current scene.
+   *
+   * @param newScene the name of the scene to be switched to
+   */
+  void changeScene(char newScene_);
 };
 
 #endif

@@ -62,7 +62,9 @@ void ShopScene::physicsStep(float deltaTime, InputHandler &input, Renderer &rend
         case BUTTON_UPGRADE:
           purchaseSuccess = resourceManager->purchaseUpgrade(b.first);
           std::cout << "Clicked " << b.first << "! Enough gold?: " << purchaseSuccess << std::endl;
+          break;
         case BUTTON_SCENE_NAVIGATION:
+          resourceManager->changeScene(b.first.at(0)); // Change scene to first char in scene name
           break;
         default:
           break;

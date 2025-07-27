@@ -12,6 +12,11 @@ SceneManager::~SceneManager()
   shopScene.reset(nullptr);
 }
 
+char SceneManager::getActiveScene()
+{
+  return activeScene;
+}
+
 void SceneManager::setScene(char activeScene_)
 {
   activeScene = activeScene_;

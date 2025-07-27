@@ -20,6 +20,8 @@ public:
 
   ~SceneManager();
 
+  char getActiveScene();
+
   void setScene(char activeScene_);
 
   void render(Renderer &renderer, InputHandler &inputHandler);
