@@ -32,5 +32,5 @@ Sprite *UIElement::getSprite(ImageCache *images)
 {
   std::pair<int, int> absPos = absolutePosition();
 
-  return new Sprite(absPos.first, absPos.second, size.first, size.second, animationData.frameSize, {floor(animationData.currentFrame) * animationData.frameSize.first, animationData.animation * animationData.frameSize.first}, "assets/" + spriteSheet, images);
+  return new Sprite(absPos.first, absPos.second, size.first, size.second, animationData.frameSize, {floor(animationData.currentFrame) * animationData.frameSize.first, animationData.animation * animationData.frameSize.second}, "assets/" + spriteSheet, images);
 }

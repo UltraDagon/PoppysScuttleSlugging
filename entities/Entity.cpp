@@ -10,7 +10,7 @@ Entity::Entity()
 
 Sprite *Entity::getSprite(ImageCache *images)
 {
-  return new Sprite(position.first, position.second, size.first, size.second, animationData.frameSize, {floor(animationData.currentFrame) * animationData.frameSize.first, animationData.animation * animationData.frameSize.first}, "assets/" + spriteSheet, images);
+  return new Sprite(position.first, position.second, size.first, size.second, animationData.frameSize, {floor(animationData.currentFrame) * animationData.frameSize.first, animationData.animation * animationData.frameSize.second}, "assets/" + spriteSheet, images);
 }
 
 void Entity::updateAnimation(float &deltaTime)
