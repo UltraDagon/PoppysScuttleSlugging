@@ -22,10 +22,11 @@ void ScuttleCrab::physicsStep(float &deltaTime)
 
   position.first += velocity.first * deltaTime;
   position.second += velocity.second * deltaTime;
-  velocity.first += -1 * airResistance;
+  // velocity.first += -1 * airResistance; // TODO: make this match description in scuttlecrab.h
   velocity.second += WORLD_GRAVITY * deltaTime;
 
-  if (position.second + size.second / 2 >= WORLD_FLOOR_Y && bouncesRemaining > 0) // Hit the ground?
+  // Hit the ground?
+  if (position.second + size.second / 2 > WORLD_FLOOR_Y && bouncesRemaining > 0)
   {
     position.second = WORLD_FLOOR_Y - size.second / 2;
     velocity.second = -1 * bouncesRemaining * verticalPower; // pixels per second^2 // TODO: This is not done! Should scale with more things

@@ -8,17 +8,19 @@ class SceneManager
 {
 private:
   char activeScene;
-  std::unique_ptr<GameScene> gameScene = std::make_unique<GameScene>();
+  std::unique_ptr<GameScene> gameScene;
   std::unique_ptr<ShopScene> shopScene;
-
+  /// Pointer to the Renderer that controls the window rendering and camera
+  Renderer *renderer;
+  /// Pointer to the ResourceManager that controls internally and externally saved resources.
   ResourceManager *resourceManager;
 
 public:
-  SceneManager(char _activeScene, ResourceManager &resManager);
+  SceneManager(char activeScene, Renderer &renderer_, ResourceManager &resManager);
 
   ~SceneManager();
 
-  void setScene(char _activeScene);
+  void setScene(char activeScene_);
 
   void render(Renderer &renderer, InputHandler &inputHandler);
 };

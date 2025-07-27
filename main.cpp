@@ -35,11 +35,17 @@ int main(int argc, char *argv[])
 
   InputHandler inputHandler(&running, &renderer); // Has access to renderer to change camera stuff
 
-  SceneManager sceneManager('g', resourceManager);
+  SceneManager sceneManager('g', renderer, resourceManager);
 
   while (running)
   {
     inputHandler.handleInput();
+
+    // Switch scenes via keypress
+    if (inputHandler.keysPressed['s'])
+      sceneManager.setScene('s');
+    if (inputHandler.keysPressed['g'])
+      sceneManager.setScene('g');
 
     // When switching scenes, image cache should be cleared. If possible: put this in scenehandler
     sceneManager.render(renderer, inputHandler);

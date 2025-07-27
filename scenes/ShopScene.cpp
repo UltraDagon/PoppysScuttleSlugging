@@ -41,16 +41,15 @@ void ShopScene::render(Renderer &renderer)
 
 void ShopScene::physicsStep(float deltaTime, InputHandler &input, Renderer &renderer)
 {
+  // TODO: This is really messy (almost breaks 50 line function limit), should move to other functions. Maybe name handleButtons(std::vector<Button> &buttons) and move to UIElement.h, as it should be used in all scenes
   bool purchaseSuccess = false;
-  // std::cout << "Mouse: " << input.mouseX - renderer.getWindowWidth() / 2 << ", " << input.mouseY - renderer.getWindowHeight() / 2 << " Buttons: ";
   for (auto &b : buttons)
   {
-    // std::cout << b.first << ": " << b.second.state << "->";
     // TODO: Fix this so it works if buttons move in the world, right now it only works if camera is @ 0,0
     if (b.second.x - b.second.w / 2 < input.mouseX - renderer.getWindowWidth() / 2 && input.mouseX - renderer.getWindowWidth() / 2 < b.second.x + b.second.w / 2 &&
         b.second.y - b.second.h / 2 < input.mouseY - renderer.getWindowHeight() / 2 && input.mouseY - renderer.getWindowHeight() / 2 < b.second.y + b.second.h / 2)
     {
-      // TODO: Rewrite this to look prettier (switch case)
+      // TODO: Rewrite this to look prettier (switch case?)
       if (input.mouseState & SDL_BUTTON_LMASK) // Left click down
       {
         if (b.second.state == 'h') // Don't press if it isn't hovered first to avoid misclicks
@@ -58,8 +57,16 @@ void ShopScene::physicsStep(float deltaTime, InputHandler &input, Renderer &rend
       }
       else if (b.second.state == 'p') // If button was pressed but left click is no longer down, the button has been clicked
       {
-        purchaseSuccess = resourceManager->purchaseUpgrade(b.first);
-        std::cout << "Clicked " << b.first << "! Enough gold?: " << purchaseSuccess << std::endl;
+        switch (b.second.type)
+        {
+        case BUTTON_UPGRADE:
+          purchaseSuccess = resourceManager->purchaseUpgrade(b.first);
+          std::cout << "Clicked " << b.first << "! Enough gold?: " << purchaseSuccess << std::endl;
+        case BUTTON_SCENE_NAVIGATION:
+          break;
+        default:
+          break;
+        }
         b.second.state = 'h'; // Return to hovered
       }
       else
@@ -71,10 +78,7 @@ void ShopScene::physicsStep(float deltaTime, InputHandler &input, Renderer &rend
     {
       b.second.state = 'd'; // Button is in default state
     }
-    // std::cout << b.first << ": " << b.second.state << ", ";
-    //    std::cout << ")";
   }
-  // std::cout << std::endl;
 }
 
 void ShopScene::setResourceManager(ResourceManager &resManager)

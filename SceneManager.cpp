@@ -1,14 +1,9 @@
 #include "SceneManager.h"
 
-SceneManager::SceneManager(char activeScene_, ResourceManager &resManager)
+SceneManager::SceneManager(char activeScene, Renderer &renderer_, ResourceManager &resManager)
+    : renderer(&renderer_), resourceManager(&resManager)
 {
-  activeScene = activeScene_;
-  resourceManager = &resManager;
-
-  shopScene = std::make_unique<ShopScene>(); ////
-  gameScene = std::make_unique<GameScene>(); ////
-
-  shopScene->setResourceManager(resManager);
+  setScene(activeScene);
 }
 
 SceneManager::~SceneManager()
@@ -20,6 +15,27 @@ SceneManager::~SceneManager()
 void SceneManager::setScene(char activeScene_)
 {
   activeScene = activeScene_;
+
+  gameScene.reset(nullptr);
+  shopScene.reset(nullptr);
+
+  renderer->getCamera().x = renderer->getCamera().x = 0;
+
+  switch (activeScene)
+  {
+  case 'm':
+    setScene('s'); // todo: this is temp until MainMenuScene is done
+    break;
+  case 's':
+    shopScene = std::make_unique<ShopScene>();
+    shopScene->setResourceManager(*resourceManager);
+    break;
+  case 'g':
+    gameScene = std::make_unique<GameScene>();
+    break;
+  default: // Default to main menu if something goes wrong
+    setScene('m');
+  }
 }
 
 void SceneManager::render(Renderer &renderer, InputHandler &inputHandler)

@@ -15,7 +15,7 @@ class ResourceManager
 {
 private:
   /// Costs of upgrading to each level of an upgrade
-  std::unordered_map<std::string, int> upgradeCosts = {
+  const std::unordered_map<std::string, int> upgradeCosts = {
       {"r_level1", 10},
       {"r_level2", 10},
       {"r_level3", 10},

@@ -9,27 +9,6 @@
 #include "../ImageCache.h"
 #include "../InputHandler.h"
 
-/// Data needed to set the click hitbox and state of a button.
-struct ButtonData
-{
-  /// X position of the button's hitbox in the world.
-  int x;
-  /// Y position of the button's hitbox in the world.
-  int y;
-  /// Width of the button's hitbox.
-  int w;
-  /// Height of the button's hitbox.
-  int h;
-  /**
-   * The current state of the button in relation to the player's cursor.
-   *
-   * d: default.
-   * h: hovered.
-   * p: pressed.
-   */
-  char state = 'd';
-};
-
 /**
  * The ShopScene is where the player is able to purchase upgrades for use during the GameScene.
  *
