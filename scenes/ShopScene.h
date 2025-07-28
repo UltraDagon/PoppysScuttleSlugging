@@ -20,7 +20,7 @@ public:
   /// Pointer to the ResourceManager that controls internally and externally saved resources.
   ResourceManager *resourceManager;
   /// Map of all buttons that allow for clickable actions on the screen.
-  std::unordered_map<std::string, ButtonData> buttons;
+  std::unordered_map<std::string, UIElement::ButtonData> buttons;
 
   /**
    * Render the UIElements to display an upgrade in the shop.

@@ -41,11 +41,11 @@ void ShopScene::handleButtons(InputHandler &input, Renderer &renderer)
     // Handle the button being clicked
     switch (b.second.type)
     {
-    case BUTTON_UPGRADE:
+    case UIElement::BUTTON_UPGRADE:
       purchaseSuccess = resourceManager->purchaseUpgrade(b.first);
       std::cout << "Clicked " << b.first << "! Enough gold?: " << purchaseSuccess << std::endl;
       break;
-    case BUTTON_SCENE_NAVIGATION:
+    case UIElement::BUTTON_SCENE_NAVIGATION:
       resourceManager->changeScene(b.first.at(0)); // Change scene to first char in scene name
       break;
     default:

@@ -1,6 +1,6 @@
 #include "UIElement.h"
 
-char ButtonData::getNewState(int &mouseX, int &mouseY, bool &leftClickDown)
+char UIElement::ButtonData::getNewState(int &mouseX, int &mouseY, bool &leftClickDown)
 {
   // If mouse pos isn't inside of the button
   if (mouseX < x - w / 2 || x + w / 2 < mouseX ||

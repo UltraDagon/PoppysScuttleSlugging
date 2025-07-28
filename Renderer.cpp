@@ -112,7 +112,8 @@ void Renderer::renderSprite(Sprite *sprite)
   SDL_Rect destination;
   SDL_Rect *frameRect_ = &sprite->frameRect;
 
-  if (frameRect_->w < 0 || frameRect_->h < 0)
+  // Display entire image if size of frameRect is less than or equal to zero
+  if (frameRect_->w <= 0 || frameRect_->h <= 0)
     frameRect_ = NULL;
 
   destination.w = sprite->width * camera.zoom;

@@ -29,7 +29,7 @@ public:
   struct
   {
     /// The size of the frame rectangle within the sprite sheet. If either are negative, the entire texture is rendered.
-    std::pair<int, int> frameSize;
+    std::pair<int, int> frameSize = {-1, -1};
     /// The total animation frames (columns) in the sprite sheet
     int totalFrames = 1;
     /// Which animation (row of frames) is playing. If negative, don't render the Entity.
