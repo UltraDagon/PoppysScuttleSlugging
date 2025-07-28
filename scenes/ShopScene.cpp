@@ -28,6 +28,32 @@ void ShopScene::renderUpgrade(int index, std::string resource, std::string name_
   renderer.addSprite(upgradeButton.getSprite(renderer.getImageCache()));
 }
 
+void ShopScene::handleButtons(InputHandler &input, Renderer &renderer)
+{
+  bool purchaseSuccess = false;
+  for (auto &b : buttons)
+  {
+    // TODO: Fix this so it works if buttons move in the world, right now it only works if camera is @ 0,0
+    b.second.updateState(input.mouseX - renderer.getWindowWidth() / 2, input.mouseY - renderer.getWindowHeight() / 2, input.mouseState & SDL_BUTTON_LMASK);
+    if (b.second.state != 'c') // If button isn't clicked
+      continue;
+
+    // Handle the button being clicked
+    switch (b.second.type)
+    {
+    case BUTTON_UPGRADE:
+      purchaseSuccess = resourceManager->purchaseUpgrade(b.first);
+      std::cout << "Clicked " << b.first << "! Enough gold?: " << purchaseSuccess << std::endl;
+      break;
+    case BUTTON_SCENE_NAVIGATION:
+      resourceManager->changeScene(b.first.at(0)); // Change scene to first char in scene name
+      break;
+    default:
+      break;
+    }
+  }
+}
+
 ShopScene::ShopScene()
 {
 }
@@ -48,46 +74,7 @@ void ShopScene::render(Renderer &renderer)
 
 void ShopScene::physicsStep(float deltaTime, InputHandler &input, Renderer &renderer)
 {
-  // TODO: This is really messy (almost breaks 50 line function limit), should move to other functions. Maybe name handleButtons(std::vector<Button> &buttons) and move to UIElement.h, as it should be used in all scenes
-  bool purchaseSuccess = false;
-  for (auto &b : buttons)
-  {
-    // TODO: Fix this so it works if buttons move in the world, right now it only works if camera is @ 0,0
-    if (b.second.x - b.second.w / 2 < input.mouseX - renderer.getWindowWidth() / 2 && input.mouseX - renderer.getWindowWidth() / 2 < b.second.x + b.second.w / 2 &&
-        b.second.y - b.second.h / 2 < input.mouseY - renderer.getWindowHeight() / 2 && input.mouseY - renderer.getWindowHeight() / 2 < b.second.y + b.second.h / 2)
-    {
-      // TODO: Rewrite this to look prettier (switch case?)
-      if (input.mouseState & SDL_BUTTON_LMASK) // Left click down
-      {
-        if (b.second.state == 'h') // Don't press if it isn't hovered first to avoid misclicks
-          b.second.state = 'p';    // Button is pressed
-      }
-      else if (b.second.state == 'p') // If button was pressed but left click is no longer down, the button has been clicked
-      {
-        switch (b.second.type)
-        {
-        case BUTTON_UPGRADE:
-          purchaseSuccess = resourceManager->purchaseUpgrade(b.first);
-          std::cout << "Clicked " << b.first << "! Enough gold?: " << purchaseSuccess << std::endl;
-          break;
-        case BUTTON_SCENE_NAVIGATION:
-          resourceManager->changeScene(b.first.at(0)); // Change scene to first char in scene name
-          break;
-        default:
-          break;
-        }
-        b.second.state = 'h'; // Return to hovered
-      }
-      else
-      {
-        b.second.state = 'h'; // Button is hovered
-      }
-    }
-    else // Mouse is not over button
-    {
-      b.second.state = 'd'; // Button is in default state
-    }
-  }
+  handleButtons(input, renderer);
 }
 
 void ShopScene::setResourceManager(ResourceManager &resManager)

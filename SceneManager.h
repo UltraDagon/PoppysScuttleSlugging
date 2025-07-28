@@ -1,5 +1,6 @@
 #include "scenes/GameScene.h"
 #include "scenes/ShopScene.h"
+#include "scenes/MainMenuScene.h"
 
 #ifndef SCENEMANAGER_H
 #define SCENEMANAGER_H
@@ -8,6 +9,7 @@ class SceneManager
 {
 private:
   char activeScene;
+  std::unique_ptr<MainMenuScene> mainMenuScene;
   std::unique_ptr<GameScene> gameScene;
   std::unique_ptr<ShopScene> shopScene;
   /// Pointer to the Renderer that controls the window rendering and camera

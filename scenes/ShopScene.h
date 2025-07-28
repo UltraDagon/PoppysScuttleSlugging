@@ -34,13 +34,27 @@ public:
    */
   void renderUpgrade(int index, std::string resource, std::string name_, std::string icon_, Renderer &renderer, UIElement *parent = nullptr);
 
+  /**
+   * Handle any button presses that occur.
+   *
+   * @param input the InputHandler used to handle keyboard and mouse input from the player
+   * @param renderer the Renderer that controls the window rendering and camera
+   */
+  void handleButtons(InputHandler &input, Renderer &renderer);
+
 public:
+  /// Shop Scene default constructor
   ShopScene();
 
+  /**
+   * Shop Scene constructor with required resourceManager reference
+   *
+   * @param resManager the ResourceManager that controls internally and externally saved resources
+   */
   ShopScene(ResourceManager &resManager);
 
   /**
-   * Render the shop scene.
+   * Render the ShopScene.
    *
    * @param renderer the Renderer that controls the window rendering and camera
    */

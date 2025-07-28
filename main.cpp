@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 
   InputHandler inputHandler(&running, &renderer); // Has access to renderer to change camera stuff
 
-  SceneManager sceneManager('g', renderer, resourceManager);
+  SceneManager sceneManager('s', renderer, resourceManager); // Todo: should be 'm'
 
   while (running)
   {
@@ -46,6 +46,8 @@ int main(int argc, char *argv[])
       resourceManager.changeScene('s');
     if (inputHandler.keysPressed['g'])
       resourceManager.changeScene('g');
+    if (inputHandler.keysPressed['m'])
+      resourceManager.changeScene('m');
 
     // Scenes should only switch when requested by the resource manager (to prevent header file looping) and when the new scene differs from the current one
     if (resourceManager.getNewScene() != ' ' && resourceManager.getNewScene() != sceneManager.getActiveScene())

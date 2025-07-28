@@ -9,8 +9,6 @@ Sprite::Sprite(int _x, int _y, int _width, int _height, std::string bmpAddress_,
   width = _width;
   height = _height;
   bmpAddress = bmpAddress_;
-  // surface = images->get_image(bmpAddress);
-  // SDL_SetColorKey(surface, SDL_TRUE, SDL_MapRGB(surface->format, 254, 1, 254));
 
   frameRect = {0, 0, _width, _height};
 }

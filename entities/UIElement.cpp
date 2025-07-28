@@ -1,5 +1,22 @@
 #include "UIElement.h"
 
+char ButtonData::getNewState(int &mouseX, int &mouseY, bool &leftClickDown)
+{
+  // If mouse pos isn't inside of the button
+  if (mouseX < x - w / 2 || x + w / 2 < mouseX ||
+      mouseY < y - h / 2 || y + h / 2 < mouseY)
+    return 'd'; // Button is in default state
+
+  if (leftClickDown)
+    return 'p'; // Button is pressed
+
+  // If button was pressed last frame but left click no longer held down
+  if (state == 'p')
+    return 'c'; // Button has been clicked
+
+  return 'h'; // Button is hovered
+}
+
 std::pair<int, int> UIElement::absolutePosition()
 {
   int finalXPosition = position.first;

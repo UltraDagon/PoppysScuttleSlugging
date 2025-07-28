@@ -52,8 +52,6 @@ Renderer::Renderer(int _windowWidth, int _windowHeight)
   camera = Camera(0, 0, 1);
 
   initTime = prevFrameTime = currentFrameTime = clock();
-  // todo: remove v
-  std::cout << "initTime: " << initTime << ", prevFrameTime: " << prevFrameTime << ", currentFrameTime: " << currentFrameTime << std::endl;
 }
 
 Renderer::~Renderer()

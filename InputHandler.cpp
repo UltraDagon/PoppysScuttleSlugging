@@ -32,7 +32,7 @@ void InputHandler::handleInput()
   // DEBUG: Adjust the camera according to input
   int rel_x = keysPressed[SDLK_RIGHT] - keysPressed[SDLK_LEFT];
   int rel_y = keysPressed[SDLK_DOWN] - keysPressed[SDLK_UP];
-  double rel_zoom = 1 + 0.01 * keysPressed[SDLK_RIGHTBRACKET] - 0.01 * keysPressed[SDLK_LEFTBRACKET];
+  double rel_zoom = 1 + 0.001 * keysPressed[SDLK_RIGHTBRACKET] - 0.001 * keysPressed[SDLK_LEFTBRACKET];
   if (keysPressed[SDLK_z])
     rel_zoom = -1;
 

@@ -27,10 +27,18 @@ struct ButtonData
    * d: default.
    * h: hovered.
    * p: pressed.
+   * c: clicked.
    */
   char state = 'd';
   /// The type of button
   ButtonType type;
+
+  char getNewState(int &mouseX, int &mouseY, bool &leftClickDown);
+
+  inline void updateState(int mouseX, int mouseY, bool leftClickDown)
+  {
+    state = getNewState(mouseX, mouseY, leftClickDown);
+  }
 };
 
 /**
