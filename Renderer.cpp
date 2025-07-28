@@ -110,21 +110,23 @@ void Renderer::flushSprites()
 void Renderer::renderSprite(Sprite *sprite)
 {
   SDL_Rect destination;
+  SDL_Rect *frameRect_ = &sprite->frameRect;
+
+  if (frameRect_->w < 0 || frameRect_->h < 0)
+    frameRect_ = NULL;
 
   destination.w = sprite->width * camera.zoom;
   destination.h = sprite->height * camera.zoom;
   destination.x = windowWidth / 2 + (sprite->x - camera.x) * camera.zoom - destination.w * 0.5; // Center the sprites at their origin
   destination.y = windowHeight / 2 + (sprite->y - camera.y) * camera.zoom - destination.h * 0.5;
 
-  SDL_RenderCopy(sdlRenderer, sprite->getTexture(sdlRenderer, images), &sprite->frameRect, &destination); //&sprite->frameRect
+  SDL_RenderCopy(sdlRenderer, sprite->getTexture(sdlRenderer, images), frameRect_, &destination); //&sprite->frameRect
 }
 
 void Renderer::renderSprites()
 {
   for (Sprite *s : sprites)
-  {
     renderSprite(s);
-  }
 }
 
 /**

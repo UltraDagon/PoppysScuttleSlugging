@@ -28,7 +28,7 @@ public:
   /// All data related to animating sprites.
   struct
   {
-    /// The size of the frame rectangle within the sprite sheet.
+    /// The size of the frame rectangle within the sprite sheet. If either are negative, the entire texture is rendered.
     std::pair<int, int> frameSize;
     /// The total animation frames (columns) in the sprite sheet
     int totalFrames = 1;
@@ -45,7 +45,7 @@ public:
 
   /**
    * Get the Sprite object used to render the Entity.
-   * 
+   *
    * @param images the ImageCache that manages image files
    * @return pointer to the newly constructed Sprite object
    */
@@ -53,7 +53,7 @@ public:
 
   /**
    * Progress/loop the animation of the Entity.
-   * 
+   *
    * @param deltaTime the time that has elapsed since the previous frame
    */
   void updateAnimation(float &deltaTime);

@@ -11,6 +11,7 @@ Poppy::Poppy()
   animationData.frameSize = {320, 256};
   animationData.totalFrames = 8;
   animationData.speed = 4;
+  animationData.animation = 1;
 }
 
 Poppy::~Poppy()

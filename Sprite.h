@@ -21,16 +21,16 @@ public: // make private
   std::string bmpAddress;
   /// The pointer of the texture used to render the Sprite.
   SDL_Texture *texture;
-  /// The rect within the image to render to the screen. Must be smaller than the image dimensions.
+  /// The rect within the image to render to the screen. Must be smaller than or equal to the image dimensions.
   SDL_Rect frameRect;
 
 public:
-// Phase this one out
+  // Phase this one out
   Sprite(int _x, int _y, int _width, int _height, std::string bmpAddress, ImageCache *images);
 
   /**
    * Construct a new Sprite object.
-   * 
+   *
    * @param x_ x position in the world
    * @param y_ y position in the world
    * @param width_ width of the sprite in the world
@@ -49,7 +49,7 @@ public:
 
   /**
    * Get the SDL_Texture of the Sprite.
-   * 
+   *
    * @param sdlRenderer the SDL_Renderer that the Sprite will be renderered on
    * @param images the ImageCache that manages image files
    * @return pointer to the SDL_Texture of the Sprite

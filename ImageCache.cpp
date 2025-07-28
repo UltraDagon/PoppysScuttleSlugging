@@ -8,7 +8,7 @@ SDL_Surface *ImageCache::getSurface(std::string file)
   {
     SDL_Surface *surf = SDL_LoadBMP(file.c_str());
     i = surfaceCache.insert(i, make_pair(file, surf));
-    SDL_SetColorKey(surf, SDL_TRUE, SDL_MapRGB(surf->format, 254, 1, 254)); // This makes the background transparent
+    SDL_SetColorKey(surf, SDL_TRUE, SDL_MapRGB(surf->format, 1, 1, 1)); // This makes the background transparent
   }
   return i->second;
 }

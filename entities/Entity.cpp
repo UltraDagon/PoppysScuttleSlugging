@@ -5,7 +5,7 @@ Entity::Entity()
   position = {0.0f, 0.0f};
   size = {100, 100};
   spriteSheet = "image.bmp";
-  animationData.frameSize = {1215, 717};
+  animationData.frameSize = {-1, -1};
 }
 
 Sprite *Entity::getSprite(ImageCache *images)

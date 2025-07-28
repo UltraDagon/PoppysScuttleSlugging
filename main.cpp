@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 
   InputHandler inputHandler(&running, &renderer); // Has access to renderer to change camera stuff
 
-  SceneManager sceneManager('s', renderer, resourceManager); // Todo: should be 'm'
+  SceneManager sceneManager('m', renderer, resourceManager); // Todo: should be 'm'
 
   while (running)
   {
