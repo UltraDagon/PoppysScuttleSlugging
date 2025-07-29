@@ -20,7 +20,7 @@ void GameScene::render(Renderer &renderer)
   else // Otherwise, focus the camera on Poppy
     renderer.focusCameraLeft(poppy.position);
 
-  renderer.addSprites(floor.getSprites(renderer.getImageCache(), renderer));
+  renderer.addSprites(floor.getSprites(renderer));
   renderer.addSprite(scuttleCrab.getSprite(renderer.getImageCache()));
   renderer.addSprite(poppy.getSprite(renderer.getImageCache())); // Maybe dont render poppy if out of frame? It probably won't effect performance too much
 }

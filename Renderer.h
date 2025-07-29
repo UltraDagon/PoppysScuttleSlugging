@@ -105,6 +105,8 @@ public:
    */
   void addSprites(std::vector<Sprite *> sprites);
 
+  // Todo: make template functions for entity children where you do addSprite(entity) (maybe addSpriteFrom, or change addSprite to addRawSprite) and it runs the current addSprite function to the getSprite of the object
+
   /**
    * Deletes all sprites in the Renderer's vector of sprites.
    */

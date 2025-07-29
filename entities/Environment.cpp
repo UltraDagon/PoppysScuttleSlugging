@@ -16,7 +16,7 @@ Environment::Environment(std::pair<float, float> position_, std::pair<int, int> 
   parallax = parallax_;
 }
 
-std::vector<Sprite *> Environment::getSprites(ImageCache *images, Renderer &renderer)
+std::vector<Sprite *> Environment::getSprites(Renderer &renderer)
 {
   std::vector<Sprite *> output;
   // These work by finding the amount of widths needed to reach the left side and right side of the screen from the center (screenWidth/2), then rounding up, then multiplying by the size of the widths, then removing the offset caused by the entity's position being their center
@@ -25,7 +25,7 @@ std::vector<Sprite *> Environment::getSprites(ImageCache *images, Renderer &rend
 
   for (int xPos = startPos; xPos < endPos; xPos += size.first)
   {
-    output.push_back(new Sprite((int)position.first % size.first + xPos, position.second, size.first, size.second, animationData.frameSize, {0, 0}, "assets/image.bmp", images));
+    output.push_back(new Sprite((int)position.first % size.first + xPos, position.second, size.first, size.second, animationData.frameSize, {0, 0}, "assets/image.bmp", renderer.getImageCache()));
   }
 
   return output;

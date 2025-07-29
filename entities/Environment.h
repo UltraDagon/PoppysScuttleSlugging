@@ -34,11 +34,10 @@ public:
   /**
    * Get all sprites needed to render an Environment's texture that is repeating on the x-axis.
    *
-   * @param images the ImageCache that manages image files
    * @param renderer the Renderer that controls the window rendering and camera
    * @return the vector of Sprites needed to render the Environment entity
    */
-  std::vector<Sprite *> getSprites(ImageCache *images, Renderer &renderer);
+  std::vector<Sprite *> getSprites(Renderer &renderer);
 };
 
 #endif

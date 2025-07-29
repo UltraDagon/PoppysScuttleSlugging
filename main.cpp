@@ -19,6 +19,7 @@
 // Credits (keeping here so I can remember for later)
 // References for drawing characters: https://modelviewer.lol/,
 // (company)'s SDL2 was used for all graphics, input, and sound.
+// Font used in default_font is https://www.fontspace.com/mono-font-f57596
 
 // No code within this project was generated using artificial intelligence.
 
