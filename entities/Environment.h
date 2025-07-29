@@ -24,7 +24,7 @@ public:
 
   /**
    * Environment object constructor.
-   * 
+   *
    * @param position_ first: the x offset of the x-axis repeating entity, second: the y position of the entity in the world
    * @param size_ the size of the entity.
    * @param parallax_ the rate at which the sprite moves relative to the camera. (0 to 1)
@@ -33,7 +33,7 @@ public:
 
   /**
    * Get all sprites needed to render an Environment's texture that is repeating on the x-axis.
-   * 
+   *
    * @param images the ImageCache that manages image files
    * @param renderer the Renderer that controls the window rendering and camera
    * @return the vector of Sprites needed to render the Environment entity

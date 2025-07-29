@@ -7,7 +7,7 @@ Poppy::Poppy()
   betweenStageDelay = 3; // In seconds TODO: maybe make a setting
   stage = '0';
   scoreW = 0;
-  spriteSheet = "Poppy.bmp";
+  spriteSheet = "poppy.bmp";
   animationData.frameSize = {320, 256};
   animationData.totalFrames = 8;
   animationData.speed = 4;

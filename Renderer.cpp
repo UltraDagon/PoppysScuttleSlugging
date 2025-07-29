@@ -98,6 +98,12 @@ void Renderer::addSprite(Sprite *sprite)
   sprites.push_back(sprite);
 }
 
+void Renderer::addSprites(std::vector<Sprite *> sprites)
+{
+  for (Sprite *s : sprites)
+    addSprite(s);
+}
+
 void Renderer::flushSprites()
 {
   while (sprites.size() > 0)

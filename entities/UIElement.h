@@ -27,10 +27,10 @@ public:
 
 public:
   /// Types of buttons
-  enum ButtonType
+  enum class ButtonType
   {
-    BUTTON_UPGRADE,
-    BUTTON_SCENE_NAVIGATION
+    UPGRADE,
+    SCENE_NAVIGATION
   };
 
   /// Data needed to set the click hitbox and state of a button.

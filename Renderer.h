@@ -100,6 +100,12 @@ public:
   void addSprite(Sprite *sprite);
 
   /**
+   * Add multiple sprites to the vector of sprites to be rendered.
+   * @param sprites Vector of pointers to sprite objects
+   */
+  void addSprites(std::vector<Sprite *> sprites);
+
+  /**
    * Deletes all sprites in the Renderer's vector of sprites.
    */
   void flushSprites();

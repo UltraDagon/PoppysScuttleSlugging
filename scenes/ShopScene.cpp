@@ -7,7 +7,7 @@ void ShopScene::renderUpgrade(int index, std::string resource, std::string name_
   const int indexPosX = (index % 3 - 1) * parent->size.first / 3;
   const int indexPosY = (floor(index / 3) - 0.5) * parent->size.second / 2;
 
-  UIElement backplate({indexPosX, indexPosY}, {backplateSizeX, backplateSizeY}, "Poppy.bmp" /*<-- Todo: This should be a backplate image*/, parent);
+  UIElement backplate({indexPosX, indexPosY}, {backplateSizeX, backplateSizeY}, "poppy.bmp" /*<-- Todo: This should be a backplate image*/, parent);
   UIElement icon({120 / 2 - backplateSizeX / 2, -120 / 2 + backplateSizeY / 2}, {120, 120}, "image.bmp", &backplate);
   UIElement upgradeButton({-120 / 2 + backplateSizeX / 2, -60 / 2 + backplateSizeY / 2}, {120, 60}, "Upgrade_Button.bmp", &backplate);
   upgradeButton.animationData.frameSize = {120, 60};
@@ -41,11 +41,11 @@ void ShopScene::handleButtons(InputHandler &input, Renderer &renderer)
     // Handle the button being clicked
     switch (b.second.type)
     {
-    case UIElement::BUTTON_UPGRADE:
+    case UIElement::ButtonType::UPGRADE:
       purchaseSuccess = resourceManager->purchaseUpgrade(b.first);
       std::cout << "Clicked " << b.first << "! Enough gold?: " << purchaseSuccess << std::endl;
       break;
-    case UIElement::BUTTON_SCENE_NAVIGATION:
+    case UIElement::ButtonType::SCENE_NAVIGATION:
       resourceManager->changeScene(b.first.at(0)); // Change scene to first char in scene name
       break;
     default:
@@ -65,7 +65,7 @@ ShopScene::ShopScene(ResourceManager &resManager)
 
 void ShopScene::render(Renderer &renderer)
 {
-  UIElement poppyUpgradeBoard({0, 175}, {1450, 550}, "Poppy.bmp");
+  UIElement poppyUpgradeBoard({0, 175}, {1450, 550}, "poppy.bmp");
 
   renderer.addSprite(poppyUpgradeBoard.getSprite(renderer.getImageCache()));
   renderUpgrade(0, "r_level", "Keeper's Verdict", "image.bmp", renderer, &poppyUpgradeBoard);

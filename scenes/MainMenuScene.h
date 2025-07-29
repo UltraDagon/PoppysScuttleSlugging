@@ -1,7 +1,7 @@
 #ifndef MAINMENUSCENE_H
 #define MAINMENUSCENE_H
 
-#include "../entities/UIElement.h"
+#include "../entities/TextElement.h"
 
 #include "../Renderer.h"
 #include "../ResourceManager.h"
