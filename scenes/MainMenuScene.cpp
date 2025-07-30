@@ -5,7 +5,6 @@ void MainMenuScene::handleButtons(InputHandler &input, Renderer &renderer)
   for (auto &b : buttons)
   {
     b.second.updateState(input.mouseX - renderer.getWindowWidth() / 2, input.mouseY - renderer.getWindowHeight() / 2, input.mouseState & SDL_BUTTON_LMASK);
-    std::cout << "Button " << b.first << ": " << b.second.state << std::endl;
     if (b.second.state != 'c') // If button isn't clicked
       continue;
 

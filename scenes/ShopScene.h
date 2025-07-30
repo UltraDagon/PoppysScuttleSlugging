@@ -1,8 +1,7 @@
 #ifndef SHOPSCENE_H
 #define SHOPSCENE_H
 
-#include "../entities/UIElement.h"
-// #include "../entities/Entity.h"
+#include "../entities/TextElement.h"
 
 #include "../Renderer.h"
 #include "../ResourceManager.h"

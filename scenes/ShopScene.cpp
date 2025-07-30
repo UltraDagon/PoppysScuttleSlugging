@@ -66,10 +66,27 @@ ShopScene::ShopScene(ResourceManager &resManager)
 void ShopScene::render(Renderer &renderer)
 {
   UIElement poppyUpgradeBoard({0, 175}, {1450, 550}, "poppy.bmp");
+  UIElement mainMenuButton({-renderer.getWindowWidth() / 2 + 100, -renderer.getWindowHeight() / 2 + 100}, {200, 200}, "upgrade_button.bmp");
+  UIElement playButton({renderer.getWindowWidth() / 2 - 100, -renderer.getWindowHeight() / 2 + 100}, {200, 200}, "upgrade_button.bmp");
+  TextElement playText("PLAY", {0, 0}, 50, TextElement::TextAlignment::CENTER, 8, &playButton);
+  TextElement mainMenuText1("MAIN", {0, -27}, 50, TextElement::TextAlignment::CENTER, 8, &mainMenuButton);
+  TextElement mainMenuText2("MENU", {0, 27}, 50, TextElement::TextAlignment::CENTER, 8, &mainMenuButton);
+
+  const std::pair<int, int> mainMenuButtonAbsPos = mainMenuButton.absolutePosition();
+  const std::pair<int, int> playButtonAbsPos = playButton.absolutePosition();
+
+  buttons["m"] = {mainMenuButtonAbsPos.first, mainMenuButtonAbsPos.second, mainMenuButton.size.first, mainMenuButton.size.second, buttons["m"].state, UIElement::ButtonType::SCENE_NAVIGATION};
+  buttons["g"] = {playButtonAbsPos.first, playButtonAbsPos.second, playButton.size.first, playButton.size.second, buttons["g"].state, UIElement::ButtonType::SCENE_NAVIGATION};
 
   renderer.addSprite(poppyUpgradeBoard.getSprite(renderer.getImageCache()));
   renderUpgrade(0, "r_level", "Keeper's Verdict", "image.bmp", renderer, &poppyUpgradeBoard);
   renderUpgrade(5, "w_level", "Steadfast Presence", "image.bmp", renderer, &poppyUpgradeBoard);
+  renderer.addSprite(mainMenuButton.getSprite(renderer.getImageCache()));
+  renderer.addSprite(playButton.getSprite(renderer.getImageCache()));
+
+  renderer.addSprites(playText.getSprites(renderer));
+  renderer.addSprites(mainMenuText1.getSprites(renderer));
+  renderer.addSprites(mainMenuText2.getSprites(renderer));
 }
 
 void ShopScene::physicsStep(float deltaTime, InputHandler &input, Renderer &renderer)

@@ -30,6 +30,7 @@ TextElement::TextElement(std::string text_, std::pair<int, int> position_, int c
 
 std::vector<Sprite *> TextElement::getSprites(Renderer &renderer)
 {
+  // int yOffset
   std::pair<int, int> parentPos = {0, 0};
   if (parent != nullptr)
     parentPos = parent->absolutePosition();
@@ -38,16 +39,16 @@ std::vector<Sprite *> TextElement::getSprites(Renderer &renderer)
   // Position of character on the font spritesheet, if char is not found: its a space
   for (int i = 0; i < text.size(); ++i)
   {
-    if (65 <= text[i] && text[i] <= 90) // Uppercase letter
-      animationData.animation = text[i] - 65;
+    if ('A' <= text[i] && text[i] <= 'Z') // Uppercase letter
+      animationData.animation = text[i] - 'A';
 
-    else if (97 <= text[i] && text[i] <= 122) // Lowercase letter
-      animationData.animation = text[i] - 97;
+    else if ('a' <= text[i] && text[i] <= 'z') // Lowercase letter
+      animationData.animation = text[i] - 'a';
 
-    else if (48 <= text[i] && text[i] <= 57) // Number
-      animationData.animation = text[i] - 48 + 26;
+    else if ('0' <= text[i] && text[i] <= '9') // Number
+      animationData.animation = text[i] - '0' + 26;
 
-    else if (text[i] == 39) // Single quote (')
+    else if (text[i] == '\'') // Single quote
       animationData.animation = 36;
 
     else
