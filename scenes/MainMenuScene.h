@@ -10,8 +10,17 @@
 
 class MainMenuScene
 {
-public:
+private:
   ResourceManager *resourceManager;
+  std::unordered_map<std::string, UIElement::ButtonData> buttons;
+
+  /**
+   * Handle any button presses that occur.
+   *
+   * @param input the InputHandler used to handle keyboard and mouse input from the player
+   * @param renderer the Renderer that controls the window rendering and camera
+   */
+  void handleButtons(InputHandler &input, Renderer &renderer);
 
 public:
   /**
@@ -30,6 +39,7 @@ public:
 
   /**
    * Progress the animation and input effects of the MainMenuScene
+   *
    * @param input the InputHandler used to handle keyboard and mouse input from the player
    * @param renderer the Renderer that controls the window rendering and camera
    */

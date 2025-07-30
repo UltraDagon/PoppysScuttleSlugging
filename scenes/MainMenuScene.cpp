@@ -1,5 +1,26 @@
 #include "MainMenuScene.h"
 
+void MainMenuScene::handleButtons(InputHandler &input, Renderer &renderer)
+{
+  for (auto &b : buttons)
+  {
+    b.second.updateState(input.mouseX - renderer.getWindowWidth() / 2, input.mouseY - renderer.getWindowHeight() / 2, input.mouseState & SDL_BUTTON_LMASK);
+    std::cout << "Button " << b.first << ": " << b.second.state << std::endl;
+    if (b.second.state != 'c') // If button isn't clicked
+      continue;
+
+    // Handle the button being clicked
+    switch (b.second.type)
+    {
+    case UIElement::ButtonType::SCENE_NAVIGATION:
+      resourceManager->changeScene(b.first.at(0)); // Change scene to first char in scene name
+      break;
+    default:
+      break;
+    }
+  }
+}
+
 MainMenuScene::MainMenuScene(ResourceManager &resManager)
 {
   resourceManager = &resManager;
@@ -7,23 +28,19 @@ MainMenuScene::MainMenuScene(ResourceManager &resManager)
 
 void MainMenuScene::render(Renderer &renderer)
 {
-  UIElement gameTitle({0, -200}, {1200, 500}, "poppy.bmp");
-  TextElement textPlay("PLAY GAME 123's", {0, -100}, {900, 60});
-  TextElement textPlay2("PLAY GAME 123's", {0, 0}, {900, 60}, 16);
-  TextElement testing("PLAY GAME 123's", {0, 100}, 60, TextElement::TextAlignment::CENTER);
-  TextElement testing2("PLAY GAME 123's", {0, 200}, 60, TextElement::TextAlignment::CENTER, 16);
-  TextElement testing3("PLAY GAME 123's", {0, 300}, 60, TextElement::TextAlignment::LEFT, 16);
-  TextElement testing4("PLAY GAME 123's", {0, 400}, 60, TextElement::TextAlignment::RIGHT, 16);
+  UIElement gameTitle({0, -200}, {1000, 450}, "poppy.bmp");
+  UIElement playButton({0, 150}, {525, 125}, "upgrade_button.bmp");
+  TextElement playText("PLAY GAME", {0, 0}, 60, TextElement::TextAlignment::CENTER, 8, &playButton);
+
+  const std::pair<int, int> playButtonAbsPos = playButton.absolutePosition();
+  buttons["g"] = {playButtonAbsPos.first, playButtonAbsPos.second, playButton.size.first, playButton.size.second, buttons["g"].state, UIElement::ButtonType::SCENE_NAVIGATION};
 
   renderer.addSprite(gameTitle.getSprite(renderer.getImageCache()));
-  renderer.addSprites(textPlay.getSprites(renderer));
-  renderer.addSprites(textPlay2.getSprites(renderer));
-  renderer.addSprites(testing.getSprites(renderer));
-  renderer.addSprites(testing2.getSprites(renderer));
-  renderer.addSprites(testing3.getSprites(renderer));
-  renderer.addSprites(testing4.getSprites(renderer));
+  renderer.addSprite(playButton.getSprite(renderer.getImageCache()));
+  renderer.addSprites(playText.getSprites(renderer));
 }
 
 void MainMenuScene::physicsStep(InputHandler &input, Renderer &renderer)
 {
+  handleButtons(input, renderer);
 }

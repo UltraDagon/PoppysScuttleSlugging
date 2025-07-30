@@ -9,13 +9,13 @@ void ShopScene::renderUpgrade(int index, std::string resource, std::string name_
 
   UIElement backplate({indexPosX, indexPosY}, {backplateSizeX, backplateSizeY}, "poppy.bmp" /*<-- Todo: This should be a backplate image*/, parent);
   UIElement icon({120 / 2 - backplateSizeX / 2, -120 / 2 + backplateSizeY / 2}, {120, 120}, "image.bmp", &backplate);
-  UIElement upgradeButton({-120 / 2 + backplateSizeX / 2, -60 / 2 + backplateSizeY / 2}, {120, 60}, "Upgrade_Button.bmp", &backplate);
+  UIElement upgradeButton({-120 / 2 + backplateSizeX / 2, -60 / 2 + backplateSizeY / 2}, {120, 60}, "upgrade_button.bmp", &backplate);
   upgradeButton.animationData.frameSize = {120, 60};
 
   // Update button hitbox to match new position
-  std::pair<int, int> upgradeButtonAbsPos = upgradeButton.absolutePosition();
+  const std::pair<int, int> upgradeButtonAbsPos = upgradeButton.absolutePosition();
 
-  buttons[resource] = {upgradeButtonAbsPos.first, upgradeButtonAbsPos.second, upgradeButton.size.first, upgradeButton.size.second, buttons[resource].state};
+  buttons[resource] = {upgradeButtonAbsPos.first, upgradeButtonAbsPos.second, upgradeButton.size.first, upgradeButton.size.second, buttons[resource].state, UIElement::ButtonType::UPGRADE};
 
   // Change upgrade button to be pressed sprite when pressed
   if (buttons[resource].state == 'p')
