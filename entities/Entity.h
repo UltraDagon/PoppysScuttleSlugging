@@ -52,6 +52,16 @@ public:
   virtual Sprite *getSprite(ImageCache *images);
 
   /**
+   * Adds the sprite of the Entity to the renderer's vector of sprites to render.
+   *
+   * @param renderer the Renderer that controls the window rendering and camera
+   */
+  virtual inline void render(Renderer &renderer)
+  {
+    renderer.addSprite(getSprite(renderer.getImageCache()));
+  };
+
+  /**
    * Progress/loop the animation of the Entity.
    *
    * @param deltaTime the time that has elapsed since the previous frame

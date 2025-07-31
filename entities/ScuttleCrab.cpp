@@ -2,6 +2,7 @@
 
 ScuttleCrab::ScuttleCrab()
 {
+  bouncesRemaining = 1; // Must not be 0 otherwise end screen will randomly appear too early.
   size = {75, 75};
   active = false;
   position = {0, WORLD_FLOOR_Y - size.second / 2};

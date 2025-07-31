@@ -53,6 +53,16 @@ public:
    * @return the vector of Sprites needed to render the text
    */
   std::vector<Sprite *> getSprites(Renderer &renderer);
+
+  /**
+   * Adds the sprites of the TextElement to the renderer's vector of sprites to render.
+   *
+   * @param renderer the Renderer that controls the window rendering and camera
+   */
+  inline void render(Renderer &renderer)
+  {
+    renderer.addSprites(getSprites(renderer));
+  };
 };
 
 #endif // TEXTELEMENT_H

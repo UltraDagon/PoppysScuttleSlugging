@@ -34,9 +34,9 @@ void MainMenuScene::render(Renderer &renderer)
   const std::pair<int, int> playButtonAbsPos = playButton.absolutePosition();
   buttons["g"] = {playButtonAbsPos.first, playButtonAbsPos.second, playButton.size.first, playButton.size.second, buttons["g"].state, UIElement::ButtonType::SCENE_NAVIGATION};
 
-  renderer.addSprite(gameTitle.getSprite(renderer.getImageCache()));
-  renderer.addSprite(playButton.getSprite(renderer.getImageCache()));
-  renderer.addSprites(playText.getSprites(renderer));
+  gameTitle.render(renderer);
+  playButton.render(renderer);
+  playText.render(renderer);
 }
 
 void MainMenuScene::physicsStep(InputHandler &input, Renderer &renderer)

@@ -57,7 +57,7 @@ void SceneManager::render(Renderer &renderer, InputHandler &inputHandler)
     shopScene->render(renderer);
     break;
   case 'g':
-    gameScene->physicsStep(renderer.deltaTime(), renderer.getCamera());
+    gameScene->physicsStep(renderer.deltaTime(), inputHandler, renderer);
     gameScene->render(renderer);
     break;
   default: // If something goes wrong and the activeScene is lost,

@@ -13,8 +13,8 @@ class Environment : public Entity
 private:
   /**
    * The rate at which the sprite moves relative to the camera. (0 to 1)
-   * 0: The object is close to the camera. When the camera moves, the object moves on the screen.
-   * 1: The object is far from the camera. When the camera moves, the object remains still on the screen.
+   * 0: The object is far from the camera. When the camera moves, the object remains still on the screen.
+   * 1: The object is close to the camera. When the camera moves, the object moves on the screen.
    */
   float parallax; // Todo: implement
 
@@ -38,6 +38,16 @@ public:
    * @return the vector of Sprites needed to render the Environment entity
    */
   std::vector<Sprite *> getSprites(Renderer &renderer);
+
+  /**
+   * Adds the sprites of the Environment to the renderer's vector of sprites to render.
+   *
+   * @param renderer the Renderer that controls the window rendering and camera
+   */
+  inline void render(Renderer &renderer)
+  {
+    renderer.addSprites(getSprites(renderer));
+  };
 };
 
 #endif

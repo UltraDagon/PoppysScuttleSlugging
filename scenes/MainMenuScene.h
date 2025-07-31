@@ -6,7 +6,6 @@
 #include "../Renderer.h"
 #include "../ResourceManager.h"
 #include "../InputHandler.h"
-#include "../ImageCache.h"
 
 class MainMenuScene
 {
