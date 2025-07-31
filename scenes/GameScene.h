@@ -49,11 +49,15 @@ private:
   void handleButtons(InputHandler &input, Renderer &renderer);
 
 public:
-  /// GameScene constructor.
-  GameScene();
+  /**
+   * GameScene constructor with required resourceManager reference
+   *
+   * @param resManager the ResourceManager that controls internally and externally saved resources
+   */
+  GameScene(ResourceManager &resManager);
 
   /// GameScene destructor.
-  ~GameScene(); // Currently Empty
+  ~GameScene();
 
   /**
    * Render all entities in the scene.

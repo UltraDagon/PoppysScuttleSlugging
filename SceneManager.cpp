@@ -33,11 +33,10 @@ void SceneManager::setScene(char activeScene_)
     mainMenuScene = std::make_unique<MainMenuScene>(*resourceManager);
     break;
   case 's':
-    shopScene = std::make_unique<ShopScene>();
-    shopScene->setResourceManager(*resourceManager);
+    shopScene = std::make_unique<ShopScene>(*resourceManager);
     break;
   case 'g':
-    gameScene = std::make_unique<GameScene>();
+    gameScene = std::make_unique<GameScene>(*resourceManager);
     break;
   default: // Default to main menu if something goes wrong
     setScene('m');

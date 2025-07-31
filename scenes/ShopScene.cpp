@@ -54,13 +54,9 @@ void ShopScene::handleButtons(InputHandler &input, Renderer &renderer)
   }
 }
 
-ShopScene::ShopScene()
-{
-}
-
 ShopScene::ShopScene(ResourceManager &resManager)
 {
-  setResourceManager(resManager);
+  resourceManager = &resManager;
 }
 
 void ShopScene::render(Renderer &renderer)
@@ -92,9 +88,4 @@ void ShopScene::render(Renderer &renderer)
 void ShopScene::physicsStep(float deltaTime, InputHandler &input, Renderer &renderer)
 {
   handleButtons(input, renderer);
-}
-
-void ShopScene::setResourceManager(ResourceManager &resManager)
-{
-  resourceManager = &resManager;
 }

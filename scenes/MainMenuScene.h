@@ -23,7 +23,7 @@ private:
 
 public:
   /**
-   * Shop Scene constructor with required resourceManager reference
+   * MainMenuScene constructor with required resourceManager reference
    *
    * @param resManager the ResourceManager that controls internally and externally saved resources
    */

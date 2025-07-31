@@ -34,6 +34,7 @@ void GameScene::handleButtons(InputHandler &input, Renderer &renderer)
     switch (b.second.type)
     {
     case UIElement::ButtonType::SCENE_NAVIGATION:
+      std::cout << b.first << std::endl;
       resourceManager->changeScene(b.first.at(0)); // Change scene to first char in scene name
       break;
     default:
@@ -42,11 +43,12 @@ void GameScene::handleButtons(InputHandler &input, Renderer &renderer)
   }
 }
 
-GameScene::GameScene() // Lot of debugging can be done here
+GameScene::GameScene(ResourceManager &resManager)
 {
   floor = Environment(std::pair<float, float>{0, WORLD_FLOOR_Y + 15}, std::pair<int, int>{200, 30}, 0);
   // floor = Entity(std::pair<float, float>{0, 0}, std::pair<int, int>{100, 900});
   poppy.crab = &scuttleCrab;
+  resourceManager = &resManager;
 }
 
 GameScene::~GameScene()

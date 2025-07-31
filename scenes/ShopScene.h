@@ -42,9 +42,6 @@ public:
   void handleButtons(InputHandler &input, Renderer &renderer);
 
 public:
-  /// Shop Scene default constructor
-  ShopScene();
-
   /**
    * Shop Scene constructor with required resourceManager reference
    *
