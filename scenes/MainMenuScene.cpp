@@ -27,8 +27,8 @@ MainMenuScene::MainMenuScene(ResourceManager &resManager)
 
 void MainMenuScene::render(Renderer &renderer)
 {
-  UIElement gameTitle({0, -200}, {1000, 450}, "poppy.bmp");
-  UIElement playButton({0, 150}, {525, 125}, "upgrade_button.bmp");
+  UIElement gameTitle({-350, 0}, {700, 700}, "upgrade_button.bmp");
+  UIElement playButton({440, -150}, {525, 125}, "upgrade_button.bmp");
   TextElement playText("PLAY GAME", {0, 0}, 60, TextElement::TextAlignment::CENTER, 8, &playButton);
 
   const std::pair<int, int> playButtonAbsPos = playButton.absolutePosition();

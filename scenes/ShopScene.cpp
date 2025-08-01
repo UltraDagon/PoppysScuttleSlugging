@@ -2,30 +2,46 @@
 
 void ShopScene::renderUpgrade(int index, std::string resource, std::string name_, std::string icon_, Renderer &renderer, UIElement *parent)
 {
-  const int backplateSizeX = 400;
-  const int backplateSizeY = 180;
+  const int backplateSizeX = 420;
+  const int backplateSizeY = 200;
   const int indexPosX = (index % 3 - 1) * parent->size.first / 3;
   const int indexPosY = (floor(index / 3) - 0.5) * parent->size.second / 2;
+  const int upgradeCost = resourceManager->getUpgradeCost(resource + std::to_string((int)resourceManager->getNumberResource("saveData", resource) + 1));
 
-  UIElement backplate({indexPosX, indexPosY}, {backplateSizeX, backplateSizeY}, "poppy.bmp" /*<-- Todo: This should be a backplate image*/, parent);
-  UIElement icon({120 / 2 - backplateSizeX / 2, -120 / 2 + backplateSizeY / 2}, {120, 120}, "image.bmp", &backplate);
-  UIElement upgradeButton({-120 / 2 + backplateSizeX / 2, -60 / 2 + backplateSizeY / 2}, {120, 60}, "upgrade_button.bmp", &backplate);
+  std::string priceString1;
+  std::string priceString2;
+  if (upgradeCost != -1) // If an upgrade is available
+  {
+    priceString1 = "PRICE:";
+    priceString2 = std::to_string(upgradeCost) + "G";
+  }
+  else
+  {
+    priceString1 = "MAX";
+    priceString2 = "LVL";
+  }
+
+  UIElement backplate({indexPosX, indexPosY}, {backplateSizeX, backplateSizeY}, "metal_plate.bmp", parent);
+  UIElement icon({20 + 120 / 2 - backplateSizeX / 2, -20 + -120 / 2 + backplateSizeY / 2}, {120, 120}, "image.bmp", &backplate);
+  UIElement upgradeButton({-20 + -120 / 2 + backplateSizeX / 2, -20 + -60 / 2 + backplateSizeY / 2}, {120, 60}, "upgrade_button.bmp", &backplate);
   upgradeButton.animationData.frameSize = {120, 60};
+  TextElement upgradeNameText(name_, {0, 36 - backplateSizeY / 2}, 27, TextElement::TextAlignment::CENTER, 8, &backplate);
+  TextElement priceText1(priceString1, {-64, -63 + backplateSizeY / 2}, 27, TextElement::TextAlignment::LEFT, 8, &backplate);
+  TextElement priceText2(priceString2, {-64, -32 + backplateSizeY / 2}, 27, TextElement::TextAlignment::LEFT, 8, &backplate);
 
   // Update button hitbox to match new position
   const std::pair<int, int> upgradeButtonAbsPos = upgradeButton.absolutePosition();
-
   buttons[resource] = {upgradeButtonAbsPos.first, upgradeButtonAbsPos.second, upgradeButton.size.first, upgradeButton.size.second, buttons[resource].state, UIElement::ButtonType::UPGRADE};
 
   // Change upgrade button to be pressed sprite when pressed
-  if (buttons[resource].state == 'p')
-    upgradeButton.animationData.animation = 1;
-  else
-    upgradeButton.animationData.animation = 0;
+  upgradeButton.animationData.animation = (buttons[resource].state == 'p');
 
-  renderer.addSprite(backplate.getSprite(renderer.getImageCache()));
-  renderer.addSprite(icon.getSprite(renderer.getImageCache()));
-  renderer.addSprite(upgradeButton.getSprite(renderer.getImageCache()));
+  backplate.render(renderer);
+  icon.render(renderer);
+  upgradeButton.render(renderer);
+  upgradeNameText.render(renderer);
+  priceText1.render(renderer);
+  priceText2.render(renderer);
 }
 
 void ShopScene::handleButtons(InputHandler &input, Renderer &renderer)
@@ -61,21 +77,29 @@ ShopScene::ShopScene(ResourceManager &resManager)
 
 void ShopScene::render(Renderer &renderer)
 {
-  UIElement poppyUpgradeBoard({0, 175}, {1450, 550}, "poppy.bmp");
-  UIElement mainMenuButton({-renderer.getWindowWidth() / 2 + 100, -renderer.getWindowHeight() / 2 + 100}, {200, 200}, "upgrade_button.bmp");
-  UIElement playButton({renderer.getWindowWidth() / 2 - 100, -renderer.getWindowHeight() / 2 + 100}, {200, 200}, "upgrade_button.bmp");
+  // Create all entities to be displayed in the frame
+  UIElement poppyUpgradeBoard({0, 160}, {1550, 580}, "wooden_sign.bmp");
+  poppyUpgradeBoard.animationData.frameSize = {400, 200}; // todo: Remove once poppy upgrade board image is done
+  UIElement mainMenuButton({-renderer.getWindowWidth() / 2 + 100, -renderer.getWindowHeight() / 2 + 100}, {200, 200}, "wooden_sign.bmp");
+  UIElement playButton({renderer.getWindowWidth() / 2 - 100, -renderer.getWindowHeight() / 2 + 100}, {200, 200}, "wooden_sign.bmp");
   TextElement playText("PLAY", {0, 0}, 50, TextElement::TextAlignment::CENTER, 8, &playButton);
   TextElement mainMenuText1("MAIN", {0, -27}, 50, TextElement::TextAlignment::CENTER, 8, &mainMenuButton);
   TextElement mainMenuText2("MENU", {0, 27}, 50, TextElement::TextAlignment::CENTER, 8, &mainMenuButton);
 
+  // Update button data to match positions and states of buttons
   const std::pair<int, int> mainMenuButtonAbsPos = mainMenuButton.absolutePosition();
+  mainMenuButton.animationData.frameSize = {400, 200};
+  mainMenuButton.animationData.animation = (buttons["m"].state == 'p');
   const std::pair<int, int> playButtonAbsPos = playButton.absolutePosition();
+  playButton.animationData.frameSize = {400, 200};
+  playButton.animationData.animation = (buttons["g"].state == 'p');
 
   buttons["m"] = {mainMenuButtonAbsPos.first, mainMenuButtonAbsPos.second, mainMenuButton.size.first, mainMenuButton.size.second, buttons["m"].state, UIElement::ButtonType::SCENE_NAVIGATION};
   buttons["g"] = {playButtonAbsPos.first, playButtonAbsPos.second, playButton.size.first, playButton.size.second, buttons["g"].state, UIElement::ButtonType::SCENE_NAVIGATION};
 
   renderer.addSprite(poppyUpgradeBoard.getSprite(renderer.getImageCache()));
   renderUpgrade(0, "r_level", "Keeper's Verdict", "image.bmp", renderer, &poppyUpgradeBoard);
+  renderUpgrade(1, "p_level", "Keeper's Verdict", "image.bmp", renderer, &poppyUpgradeBoard);
   renderUpgrade(5, "w_level", "Steadfast Presence", "image.bmp", renderer, &poppyUpgradeBoard);
   renderer.addSprite(mainMenuButton.getSprite(renderer.getImageCache()));
   renderer.addSprite(playButton.getSprite(renderer.getImageCache()));

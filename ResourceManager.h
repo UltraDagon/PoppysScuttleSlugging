@@ -19,15 +19,15 @@ private:
   /// Costs of upgrading to each level of an upgrade
   const std::unordered_map<std::string, int> upgradeCosts = {
       {"r_level1", 10},
-      {"r_level2", 10},
-      {"r_level3", 10},
-      {"r_level4", 10},
-      {"r_level5", 10},
-      {"r_level6", 10},
-      {"r_level7", 10},
-      {"r_level8", 10},
-      {"r_level9", 10},
-      {"r_level10", 10}};
+      {"r_level2", 20},
+      {"r_level3", 30},
+      {"r_level4", 40},
+      {"r_level5", 50},
+      {"r_level6", 60},
+      {"r_level7", 70},
+      {"r_level8", 80},
+      {"r_level9", 90},
+      {"r_level10", 100}};
 
   std::unordered_map<std::string, std::string> settings;
   std::unordered_map<std::string, std::string> saveData;
@@ -52,9 +52,20 @@ public:
   // ResourceManager();
 
   /**
+   * Get the cost of an upgrade.
+   *
+   * If the upgrade is max level or not found, returns -1.
+   *
+   * @param upgrade the upgrade to get the cost of. Ex: r_level3
+   * @return the cost of the upgrade in gold
+   */
+  int getUpgradeCost(std::string upgrade);
+
+  /**
    * Attempt to purchase an upgrade from the shop.
    *
    * @param resource the name of the upgrade/resource
+   * @return whether or not the upgrade purchase succeeded
    */
   bool purchaseUpgrade(std::string resource);
 

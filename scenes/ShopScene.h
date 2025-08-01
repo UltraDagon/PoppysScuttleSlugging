@@ -54,7 +54,8 @@ public:
    *
    * @param renderer the Renderer that controls the window rendering and camera
    */
-  void render(Renderer &renderer);
+  void
+  render(Renderer &renderer);
 
   /**
    * Progress the animation and input effects of the ShopScene.
@@ -64,13 +65,6 @@ public:
    * @param renderer the Renderer that controls the window rendering and camera
    */
   void physicsStep(float deltaTime, InputHandler &input, Renderer &renderer);
-
-  /**
-   * Set the ResourceManager to be read from and written to by the shop scene.
-   *
-   * @param resManager the ResourceManager that controls internally and externally saved resources
-   */
-  void setResourceManager(ResourceManager &resManager);
 };
 
 #endif

@@ -1,0 +1,4 @@
+w_level:
+p_level:
+r_level:5.000000
+gold:46.000000

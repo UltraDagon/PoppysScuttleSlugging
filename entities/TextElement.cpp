@@ -51,6 +51,9 @@ std::vector<Sprite *> TextElement::getSprites(Renderer &renderer)
     else if (text[i] == '\'') // Single quote
       animationData.animation = 36;
 
+    else if (text[i] == ':') // Single quote
+      animationData.animation = 37;
+
     else
       animationData.animation = -1;
     // x: position.x + (i+0.5)*character_width - total_width/2 + parentPos.x

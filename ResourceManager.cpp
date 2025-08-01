@@ -1,5 +1,14 @@
 #include "ResourceManager.h"
 
+int ResourceManager::getUpgradeCost(std::string upgrade)
+{
+  // If upgrade is not found (max level or incorrect name)
+  if (upgradeCosts.count(upgrade) == 0)
+    return -1;
+
+  return upgradeCosts.at(upgrade);
+}
+
 bool ResourceManager::purchaseUpgrade(std::string name)
 {
   int currentLevel = getNumberResource("saveData", name);
@@ -7,17 +16,18 @@ bool ResourceManager::purchaseUpgrade(std::string name)
   std::string upgradeName = name + std::to_string(currentLevel + 1);
   int price = INT_MAX;
 
-  // If upgrade is not found (max level or incorrect name)
-  if (upgradeCosts.count(upgradeName) == 0)
-    return false;
+  price = getUpgradeCost(upgradeName);
 
-  price = upgradeCosts.at(upgradeName);
+  if (price == -1)
+    return false;
 
   // If the player does not have enough gold to purchase the upgrade
   if (currentGold < price)
     return false;
 
   std::cout << "\"Bought\" upgrade! Gold: " << currentGold << " -> " << currentGold - price << std::endl;
+  setResource("saveData", "gold", currentGold - price);
+  setResource("saveData", name, currentLevel + 1);
 
   return true;
 }
@@ -137,7 +147,7 @@ double ResourceManager::getNumberResource(std::string source, std::string resour
   }
   catch (int e)
   { // In case of invalid value
-    value = 0;
+    return 0;
   }
 
   return value;

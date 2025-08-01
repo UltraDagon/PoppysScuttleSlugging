@@ -19,6 +19,7 @@ char SceneManager::getActiveScene()
 
 void SceneManager::setScene(char activeScene_)
 {
+  resourceManager->saveAllResources();
   activeScene = activeScene_;
 
   gameScene.reset(nullptr);
