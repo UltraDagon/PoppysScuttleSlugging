@@ -37,6 +37,7 @@ void MainMenuScene::render(Renderer &renderer)
   gameTitle.render(renderer);
   playButton.render(renderer);
   playText.render(renderer);
+  TextElement("THIS GAME IS NOT AFFILIATED WITH RIOT GAMES", {-renderer.getWindowWidth() / 2, -16 + renderer.getWindowHeight() / 2}, 24, TextElement::TextAlignment::LEFT).render(renderer), 8;
 }
 
 void MainMenuScene::physicsStep(InputHandler &input, Renderer &renderer)
