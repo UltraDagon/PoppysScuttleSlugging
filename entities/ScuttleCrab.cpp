@@ -5,7 +5,9 @@ ScuttleCrab::ScuttleCrab()
   bouncesRemaining = 1; // Must not be 0 otherwise end screen will randomly appear too early.
   size = {75, 75};
   active = false;
-  position = {0, WORLD_FLOOR_Y - size.second / 2};
+  position = {0, hitboxThinning + WORLD_FLOOR_Y - size.second / 2};
+  animationData = {{142, 142}, 8, 0, 0, 0};
+  spriteSheet = "scuttle_crab.bmp";
 }
 
 void ScuttleCrab::physicsStep(float &deltaTime)
@@ -17,6 +19,7 @@ void ScuttleCrab::physicsStep(float &deltaTime)
 
   if (bouncesRemaining == 0)
   {
+    animationData.speed = 0;
     // Slide animation
     return;
   }
@@ -27,9 +30,9 @@ void ScuttleCrab::physicsStep(float &deltaTime)
   velocity.second += WORLD_GRAVITY * deltaTime;
 
   // Hit the ground?
-  if (position.second + size.second / 2 > WORLD_FLOOR_Y && bouncesRemaining > 0)
+  if (position.second - hitboxThinning + size.second / 2 > WORLD_FLOOR_Y && bouncesRemaining > 0)
   {
-    position.second = WORLD_FLOOR_Y - size.second / 2;
+    position.second = hitboxThinning + WORLD_FLOOR_Y - size.second / 2;
     velocity.second = -1 * bouncesRemaining * verticalPower; // pixels per second^2 // TODO: This is not done! Should scale with more things
 
     velocity.first -= (velocity.first - minimumSpeed) / bouncesRemaining;

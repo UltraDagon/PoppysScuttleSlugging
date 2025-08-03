@@ -7,13 +7,15 @@
 class ScuttleCrab : public Entity
 {
 public:
+  /// Reduces the hitbox of the ScuttleCrab by this many pixels on each side
+  const int hitboxThinning = 16;
   /// Whether or not the ScuttleCrab should be updated during the GameScene's physicsStep.
   bool active;
   /// How many bounces remain until the end screen appears.
   float bouncesRemaining;
-  /// Determines how high the Scuttle Crab will bounce
+  /// Determines how high the ScuttleCrab will bounce
   float verticalPower;
-  /// The velocity of the Scuttle Crab, in pixels per second^2
+  /// The velocity of the ScuttleCrab, in pixels per second^2
   std::pair<float, float> velocity;
 
   // Upgradeable stats (maybe make this a map?)
@@ -24,7 +26,7 @@ public:
    *
    * Effects the speed calculated at the start of each bounce.
    */
-   float minimumSpeed;
+  float minimumSpeed;
 
 public:
   /// ScuttleCrab constructor.
@@ -34,7 +36,7 @@ public:
 
   /**
    * Progress the physics of the ScuttleCrab each frame.
-   * 
+   *
    * @param deltaTime the time that has elapsed since the previous frame
    */
   void physicsStep(float &deltaTime);
