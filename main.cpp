@@ -1,12 +1,6 @@
-#include "Renderer.h"
 #include "InputHandler.h"
-#include "ImageCache.h"
-#include "Sprite.h"
-#include "ResourceManager.h" // todo: Might need to move somewhere else
-
-#include "SceneManager.h"
-#include "scenes/GameScene.h"
-#include "scenes/ShopScene.h"
+#include "ResourceManager.h"
+#include "scenes/SceneManager.h"
 
 #include <iostream>
 #include <memory>
@@ -18,25 +12,22 @@
 
 // Credits (keeping here so I can remember for later)
 // References for drawing characters: https://modelviewer.lol/,
-// (company)'s SDL2 was used for all graphics, input, and sound.
+// Sam Lantinga's SDL2 was used for all graphics, input, and sound.
 // Font used in default_font is https://www.fontspace.com/mono-font-f57596
 
 // No code within this project was generated using artificial intelligence.
 
-using namespace std; // Todo: remove
-
 int main(int argc, char *argv[])
 {
-  cout << "Hello World!" << endl;
+  std::cout << "Hello World!" << std::endl;
   bool running = true;
 
   Renderer renderer(1600, 900);
   ResourceManager resourceManager;
   resourceManager.loadAllResources();
 
-  InputHandler inputHandler(&running, &renderer); // Has access to renderer to change camera stuff
-
-  SceneManager sceneManager('m', renderer, resourceManager); // Todo: should be 'm'
+  InputHandler inputHandler(&running, &renderer); // Has access to renderer to control camera
+  SceneManager sceneManager('m', renderer, resourceManager);
 
   while (running)
   {

@@ -1,6 +1,6 @@
-#include "scenes/GameScene.h"
-#include "scenes/ShopScene.h"
-#include "scenes/MainMenuScene.h"
+#include "GameScene.h"
+#include "ShopScene.h"
+#include "MainMenuScene.h"
 
 #ifndef SCENEMANAGER_H
 #define SCENEMANAGER_H

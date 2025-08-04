@@ -9,12 +9,14 @@
 
 /**
  * Manager for using images to be displayed in the program.
- * 
+ *
  * By default the image cache only accesses images in the "assets/" folder.
  */
 class ImageCache
 {
 private:
+  /// The address of the image to use as replacement for another image not loading
+  const char *notFoundImage = "assets/coming_soon.bmp";
   /// Cache for storing the SDL_Surface* for a given image file.
   std::map<std::string, SDL_Surface *> surfaceCache;
   /// Cache for storing the SDL_Texture* for a given image file.
@@ -23,7 +25,7 @@ private:
 public:
   /**
    * Get and cache an SDL_Surface object.
-   * 
+   *
    * @param file the name of the image file in the assets folder
    * @return pointer to the cached SDL_Surface
    */
@@ -31,7 +33,7 @@ public:
 
   /**
    * Get and cache an SDL_Texture object.
-   * 
+   *
    * @param file the name of the image file in the assets folder
    * @param sdlRenderer the SDL_Renderer that will display the texture
    * @return pointer to the cached SDL_Texture

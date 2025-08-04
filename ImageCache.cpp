@@ -6,7 +6,14 @@ SDL_Surface *ImageCache::getSurface(std::string file)
   auto i = surfaceCache.find(file);
   if (i == surfaceCache.end())
   {
-    SDL_Surface *surf = SDL_LoadBMP(file.c_str());
+    SDL_Surface *surf;
+    surf = SDL_LoadBMP(file.c_str());
+    if (surf == NULL) // If file was not found
+    {
+      std::cout << "Failed to load \"" << file << "\", using \"" << notFoundImage << "\" instead." << std::endl;
+      SDL_FreeSurface(surf);
+      surf = SDL_LoadBMP(notFoundImage);
+    }
     i = surfaceCache.insert(i, make_pair(file, surf));
     SDL_SetColorKey(surf, SDL_TRUE, SDL_MapRGB(surf->format, 2, 2, 2)); // This makes the background transparent
   }

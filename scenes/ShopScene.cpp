@@ -36,6 +36,7 @@ void ShopScene::renderUpgrade(int index, std::string resource, std::string name_
   // Change upgrade button to be pressed sprite when pressed
   upgradeButton.animationData.animation = (buttons[resource].state == 'p');
 
+  // Render everything
   backplate.render(renderer);
   icon.render(renderer);
   upgradeButton.render(renderer);
@@ -94,19 +95,20 @@ void ShopScene::render(Renderer &renderer)
   playButton.animationData.frameSize = {400, 200};
   playButton.animationData.animation = (buttons["g"].state == 'p');
 
+  // Update button's hitboxes to match button's positions
   buttons["m"] = {mainMenuButtonAbsPos.first, mainMenuButtonAbsPos.second, mainMenuButton.size.first, mainMenuButton.size.second, buttons["m"].state, UIElement::ButtonType::SCENE_NAVIGATION};
   buttons["g"] = {playButtonAbsPos.first, playButtonAbsPos.second, playButton.size.first, playButton.size.second, buttons["g"].state, UIElement::ButtonType::SCENE_NAVIGATION};
 
-  renderer.addSprite(poppyUpgradeBoard.getSprite(renderer.getImageCache()));
+  // Render everything
+  poppyUpgradeBoard.render(renderer);
   renderUpgrade(0, "r_level", "Keeper's Verdict", "image.bmp", renderer, &poppyUpgradeBoard);
   renderUpgrade(1, "p_level", "Keeper's Verdict", "image.bmp", renderer, &poppyUpgradeBoard);
   renderUpgrade(5, "w_level", "Steadfast Presence", "image.bmp", renderer, &poppyUpgradeBoard);
-  renderer.addSprite(mainMenuButton.getSprite(renderer.getImageCache()));
-  renderer.addSprite(playButton.getSprite(renderer.getImageCache()));
-
-  renderer.addSprites(playText.getSprites(renderer));
-  renderer.addSprites(mainMenuText1.getSprites(renderer));
-  renderer.addSprites(mainMenuText2.getSprites(renderer));
+  mainMenuButton.render(renderer);
+  playButton.render(renderer);
+  playText.render(renderer);
+  mainMenuText1.render(renderer);
+  mainMenuText2.render(renderer);
 }
 
 void ShopScene::physicsStep(float deltaTime, InputHandler &input, Renderer &renderer)

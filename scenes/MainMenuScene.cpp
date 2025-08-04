@@ -27,16 +27,14 @@ MainMenuScene::MainMenuScene(ResourceManager &resManager)
 
 void MainMenuScene::render(Renderer &renderer)
 {
-  UIElement gameTitle({-350, 0}, {700, 700}, "upgrade_button.bmp");
   UIElement playButton({440, -150}, {525, 125}, "upgrade_button.bmp");
-  TextElement playText("PLAY GAME", {0, 0}, 60, TextElement::TextAlignment::CENTER, 8, &playButton);
 
   const std::pair<int, int> playButtonAbsPos = playButton.absolutePosition();
   buttons["g"] = {playButtonAbsPos.first, playButtonAbsPos.second, playButton.size.first, playButton.size.second, buttons["g"].state, UIElement::ButtonType::SCENE_NAVIGATION};
 
-  gameTitle.render(renderer);
+  UIElement({-350, 0}, {700, 700}, "pss_title.bmp").render(renderer);
   playButton.render(renderer);
-  playText.render(renderer);
+  TextElement("PLAY GAME", {0, 0}, 60, TextElement::TextAlignment::CENTER, 8, &playButton).render(renderer);
   TextElement("THIS GAME IS NOT AFFILIATED WITH RIOT GAMES", {-renderer.getWindowWidth() / 2, -16 + renderer.getWindowHeight() / 2}, 24, TextElement::TextAlignment::LEFT).render(renderer), 8;
 }
 
