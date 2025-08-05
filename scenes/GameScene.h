@@ -25,6 +25,8 @@ private:
 
   std::unordered_map<std::string, UIElement::ButtonData> buttons;
 
+  /// The state of the key used for the Q ability from the last frame.
+  bool prevQState = false;
   /// The ScuttleCrab entity used during the run.
   ScuttleCrab scuttleCrab;
   /// The Poppy entity used during the run.
@@ -39,6 +41,8 @@ private:
   } endPopupData;
 
   void renderEndPopup(Renderer &renderer);
+
+  void renderQCharges(Renderer &renderer);
 
   /**
    * Handle any button presses that occur.

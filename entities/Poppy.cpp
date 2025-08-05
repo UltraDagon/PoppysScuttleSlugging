@@ -51,11 +51,13 @@ void Poppy::stageStep(float &deltaTime, Camera &camera)
 // Todo: if optimizing for performance, it would probably be better to just give poppy a pointer to the camera
 void Poppy::hitScuttleCrab(Camera &camera)
 {
-  crab->bouncesRemaining = 10.0f;
-  crab->verticalPower = 20.0f; // 20.0f
+  crab->totalBounces = 5;
+  crab->bouncesRemaining = crab->totalBounces + 1; // +1 to account for initial bounce that happens when the scuttle is hit
+  crab->verticalPower = 30;
+  crab->horizontalPower = 100;
   crab->airResistance = 0;
   crab->minimumSpeed = 10;
-  crab->velocity.first = 100;
+  crab->chargesQ = crab->maxChargesQ = 5; // Maybe make a way for charges to charge faster in case of charge, or start under the maxCharges
   crab->active = true;
   crab->animationData.speed = 4;
 
