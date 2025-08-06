@@ -14,7 +14,7 @@ void ScuttleCrab::physicsStep(float &deltaTime)
 {
   updateAnimation(deltaTime);
 
-  if (!active || bouncesRemaining == 0) // If the scuttle crab is not active or has run out of bounces, don't move.
+  if (!active || bouncesRemaining <= 0) // If the scuttle crab is not active or has run out of bounces, don't move.
   {
     animationData.speed = 0;
     return;
@@ -50,6 +50,6 @@ void ScuttleCrab::abilityQ()
 
   velocity.first = minimumSpeed;
   velocity.second = 1000;
-  bouncesRemaining += 1;
-  chargesQ -= 0.75;
+  bouncesRemaining += 0.5;
+  chargesQ -= 1;
 }

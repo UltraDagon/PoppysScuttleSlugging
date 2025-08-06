@@ -20,6 +20,16 @@ void MainMenuScene::handleButtons(InputHandler &input, Renderer &renderer)
   }
 }
 
+void MainMenuScene::renderLegalBoilerplate(Renderer &renderer)
+{
+  const int charSize = 18;
+
+  TextElement(legalBoilerplate.substr(0, 86), {-renderer.getWindowWidth() / 2, (charSize * 1.25) * -3 - 16 + renderer.getWindowHeight() / 2}, charSize, TextElement::TextAlignment::LEFT).render(renderer), 8;
+  TextElement(legalBoilerplate.substr(87, 89), {-renderer.getWindowWidth() / 2, (charSize * 1.25) * -2 - 16 + renderer.getWindowHeight() / 2}, charSize, TextElement::TextAlignment::LEFT).render(renderer), 8;
+  TextElement(legalBoilerplate.substr(176, 82), {-renderer.getWindowWidth() / 2, (charSize * 1.25) * -1 - 16 + renderer.getWindowHeight() / 2}, charSize, TextElement::TextAlignment::LEFT).render(renderer), 8;
+  TextElement(legalBoilerplate.substr(259, 31), {-renderer.getWindowWidth() / 2, -16 + renderer.getWindowHeight() / 2}, charSize, TextElement::TextAlignment::LEFT).render(renderer), 8;
+}
+
 MainMenuScene::MainMenuScene(ResourceManager &resManager)
 {
   resourceManager = &resManager;
@@ -35,7 +45,7 @@ void MainMenuScene::render(Renderer &renderer)
   UIElement({-350, 0}, {700, 700}, "pss_title.bmp").render(renderer);
   playButton.render(renderer);
   TextElement("PLAY GAME", {0, 0}, 60, TextElement::TextAlignment::CENTER, 8, &playButton).render(renderer);
-  TextElement("THIS GAME IS NOT AFFILIATED WITH RIOT GAMES", {-renderer.getWindowWidth() / 2, -16 + renderer.getWindowHeight() / 2}, 24, TextElement::TextAlignment::LEFT).render(renderer), 8;
+  renderLegalBoilerplate(renderer);
 }
 
 void MainMenuScene::physicsStep(InputHandler &input, Renderer &renderer)

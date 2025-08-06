@@ -101,9 +101,11 @@ void ShopScene::render(Renderer &renderer)
 
   // Render everything
   poppyUpgradeBoard.render(renderer);
-  renderUpgrade(0, "r_level", "Keeper's Verdict", "image.bmp", renderer, &poppyUpgradeBoard);
-  renderUpgrade(1, "p_level", "Keeper's Verdict", "image.bmp", renderer, &poppyUpgradeBoard);
-  renderUpgrade(5, "w_level", "Steadfast Presence", "image.bmp", renderer, &poppyUpgradeBoard);
+  renderUpgrade(0, "r_level", "Keeper's Verdict", "icon_r.bmp", renderer, &poppyUpgradeBoard);
+  renderUpgrade(1, "q_level", "Hammer Shock", "icon_q.bmp", renderer, &poppyUpgradeBoard);
+  renderUpgrade(2, "scuttle_defense_level", "Hardened Shell", "icon_scuttle_defense.bmp", renderer, &poppyUpgradeBoard);
+  renderUpgrade(3, "krug_level", "Monster: Krug", "icon_krug.bmp", renderer, &poppyUpgradeBoard);
+  renderUpgrade(4, "gold_gain_level", "Kleptomancy", "coin.bmp", renderer, &poppyUpgradeBoard);
   mainMenuButton.render(renderer);
   playButton.render(renderer);
   playText.render(renderer);

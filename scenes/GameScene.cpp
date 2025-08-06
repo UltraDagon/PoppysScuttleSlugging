@@ -104,7 +104,7 @@ void GameScene::physicsStep(float deltaTime, InputHandler &input, Renderer &rend
 
   scuttleCrab.physicsStep(deltaTime);
 
-  if (scuttleCrab.bouncesRemaining == 0 && endPopupData.moveInDelayRemaining > 0)
+  if (scuttleCrab.bouncesRemaining <= 0 && endPopupData.moveInDelayRemaining > 0)
   {
     endPopupData.moveInDelayRemaining -= deltaTime;
     if (endPopupData.moveInDelayRemaining < 0)

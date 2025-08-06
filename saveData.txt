@@ -1,4 +1,8 @@
+krug_level:
+scuttle_defense_level:
+q_level:
 w_level:
 p_level:
+gold_gain_level:
 r_level:0.000000
 gold:150.000000
