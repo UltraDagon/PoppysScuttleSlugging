@@ -1,8 +1,8 @@
-krug_level:
-scuttle_defense_level:
-q_level:
-w_level:
-p_level:
+gold:90.000000
+r_level:3.000000
 gold_gain_level:
-r_level:0.000000
-gold:150.000000
+p_level:
+w_level:
+q_level:
+scuttle_defense_level:
+krug_level:

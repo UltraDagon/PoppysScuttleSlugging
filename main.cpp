@@ -19,6 +19,7 @@
 
 int main(int argc, char *argv[])
 {
+  srand(time(0));
   std::cout << "Hello World!" << std::endl;
   bool running = true;
 

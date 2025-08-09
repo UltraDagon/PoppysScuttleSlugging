@@ -4,6 +4,7 @@
 #include "../entities/TextElement.h"
 #include "../entities/Poppy.h"
 #include "../entities/Environment.h"
+#include "../entities/Krug.h"
 
 // #include "../ImageCache.h" // Included by Sprite.h included by Renderer.h
 #include "../Renderer.h"
@@ -40,6 +41,16 @@ private:
     float moveInDelayRemaining = 1;
   } endPopupData;
 
+  enum class monsterTypes
+  {
+    KRUG
+  };
+
+  std::unordered_map<monsterTypes, float> monsterSpawnCooldowns =
+      {{monsterTypes::KRUG, 5}};
+
+  std::vector<Krug *> krugs;
+
   void renderEndPopup(Renderer &renderer);
 
   void renderQCharges(Renderer &renderer);
@@ -51,6 +62,8 @@ private:
    * @param renderer the Renderer that controls the window rendering and camera
    */
   void handleButtons(InputHandler &input, Renderer &renderer);
+
+  void spawnMonsters(float deltaTime, Renderer &renderer);
 
 public:
   /**

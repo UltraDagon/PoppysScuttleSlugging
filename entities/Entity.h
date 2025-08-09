@@ -7,6 +7,8 @@
 #include <utility>
 #include <memory>
 #include <cmath>
+#include <unordered_map>
+#include <random>
 
 const int WORLD_FLOOR_Y = 350;
 const int WORLD_GRAVITY = 100; // World gravity in pixels per second^2

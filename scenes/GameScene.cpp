@@ -67,6 +67,32 @@ void GameScene::handleButtons(InputHandler &input, Renderer &renderer)
   }
 }
 
+void GameScene::spawnMonsters(float deltaTime, Renderer &renderer)
+{
+  int spawnX = renderer.getCameraPos().first + renderer.getWindowWidth() / 2 + 200;
+  int spawnY = WORLD_FLOOR_Y;
+
+  for (auto m : monsterSpawnCooldowns)
+  {
+    monsterSpawnCooldowns[m.first] -= deltaTime;
+    if (monsterSpawnCooldowns[m.first] <= 0)
+    {
+      monsterSpawnCooldowns[m.first] = 5;
+      switch (m.first)
+      {
+      case monsterTypes::KRUG:
+        krugs.insert(krugs.begin(), new Krug({spawnX, spawnY}, 1)); // todo: use krug level
+        // monsterSpawnCooldowns[m.first] = krugs[0]->getSpawnDelay();
+        std::cout << krugs[0]->getSpawnDelay() << std::endl;
+        break;
+      default:
+        monsterSpawnCooldowns[m.first] = 5;
+        break;
+      }
+    }
+  }
+}
+
 GameScene::GameScene(ResourceManager &resManager)
 {
   floor = Environment(std::pair<float, float>{0, WORLD_FLOOR_Y + 15}, std::pair<int, int>{200, 30}, 0);
@@ -77,6 +103,11 @@ GameScene::GameScene(ResourceManager &resManager)
 
 GameScene::~GameScene()
 {
+  for (auto k : krugs)
+  {
+    std::cout << "deleted krug" << std::endl;
+    delete k;
+  }
 }
 
 void GameScene::render(Renderer &renderer)
@@ -87,6 +118,8 @@ void GameScene::render(Renderer &renderer)
     renderer.focusCameraLeft(poppy.position);
 
   floor.render(renderer);
+  for (auto k : krugs)
+    k->render(renderer);
   scuttleCrab.render(renderer);
   poppy.render(renderer); // Maybe dont render poppy if out of frame? It probably won't effect performance too much
   renderQCharges(renderer);
@@ -103,6 +136,8 @@ void GameScene::physicsStep(float deltaTime, InputHandler &input, Renderer &rend
   prevQState = input.keysPressed['q'];
 
   scuttleCrab.physicsStep(deltaTime);
+  if (scuttleCrab.active)
+    spawnMonsters(deltaTime, renderer);
 
   if (scuttleCrab.bouncesRemaining <= 0 && endPopupData.moveInDelayRemaining > 0)
   {
