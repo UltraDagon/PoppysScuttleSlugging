@@ -45,6 +45,8 @@ public:
    */
   void physicsStep(float &deltaTime);
 
+  void bounce();
+
   /**
    * Applies the affects of Poppy's Q ability to the ScuttleCrab.
    *

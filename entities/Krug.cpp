@@ -20,3 +20,14 @@ float Krug::getSpawnDelay()
 {
   return spawnDelay;
 }
+
+void Krug::physicsStep(float &deltaTime)
+{
+}
+
+void Krug::kill(int &gold, float &chargesQ, float &bouncesRemaining)
+{
+  gold += goldDrop;
+  chargesQ += qCharge;
+  bouncesRemaining += bounceRefund;
+}

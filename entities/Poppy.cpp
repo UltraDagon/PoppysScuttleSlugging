@@ -53,8 +53,8 @@ void Poppy::hitScuttleCrab(Camera &camera)
 {
   crab->totalBounces = 5;
   crab->bouncesRemaining = crab->totalBounces + 1; // +1 to account for initial bounce that happens when the scuttle is hit
-  crab->verticalPower = 30;
-  crab->horizontalPower = 100;
+  crab->verticalPower = 30;                        // 30
+  crab->horizontalPower = 200;
   crab->airResistance = 0;
   crab->minimumSpeed = 10;
   crab->chargesQ = crab->maxChargesQ = 5; // Maybe make a way for charges to charge faster in case of charge, or start under the maxCharges

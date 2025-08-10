@@ -47,6 +47,8 @@ public:
    */
   float getSpawnDelay();
 
+  void physicsStep(float &deltaTime);
+
   /**
    * Kill the Krug and add drops to resources.
    *

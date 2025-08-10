@@ -28,12 +28,7 @@ void ScuttleCrab::physicsStep(float &deltaTime)
   // Hit the ground? // Todo: can move to bounce() if need space
   if (position.second - hitboxThinning + size.second / 2 > WORLD_FLOOR_Y && bouncesRemaining > 0)
   {
-    position.second = hitboxThinning + WORLD_FLOOR_Y - size.second / 2;
-    velocity.second = -1 * bouncesRemaining * verticalPower; // pixels per second^2 // TODO: This is not done! Should scale with more things
-
-    velocity.first = (horizontalPower - minimumSpeed) * (bouncesRemaining / totalBounces) + minimumSpeed;
-
-    bouncesRemaining -= 1;
+    bounce();
     return;
   }
 
@@ -41,6 +36,16 @@ void ScuttleCrab::physicsStep(float &deltaTime)
     velocity.first = minimumSpeed;
 
   // For enemies, if it hits below WORLD_FLOOR_Y - enemy.height, bounce with less vpower loss
+}
+
+void ScuttleCrab::bounce()
+{
+  position.second = hitboxThinning + WORLD_FLOOR_Y - size.second / 2;
+  velocity.second = -1 * bouncesRemaining * verticalPower; // pixels per second^2 // TODO: This is not done! Should scale with more things
+
+  velocity.first = (horizontalPower - minimumSpeed) * (bouncesRemaining / totalBounces) + minimumSpeed;
+
+  bouncesRemaining -= 1;
 }
 
 void ScuttleCrab::abilityQ()

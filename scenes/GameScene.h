@@ -26,6 +26,8 @@ private:
 
   std::unordered_map<std::string, UIElement::ButtonData> buttons;
 
+  /// The total gold acquired during the run.
+  int goldAcquired = 0;
   /// The state of the key used for the Q ability from the last frame.
   bool prevQState = false;
   /// The ScuttleCrab entity used during the run.
@@ -47,7 +49,7 @@ private:
   };
 
   std::unordered_map<monsterTypes, float> monsterSpawnCooldowns =
-      {{monsterTypes::KRUG, 5}};
+      {{monsterTypes::KRUG, 1}};
 
   std::vector<Krug *> krugs;
 
@@ -64,6 +66,8 @@ private:
   void handleButtons(InputHandler &input, Renderer &renderer);
 
   void spawnMonsters(float deltaTime, Renderer &renderer);
+
+  void monsterPhysicsStep(float &deltaTime);
 
 public:
   /**

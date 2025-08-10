@@ -4,9 +4,7 @@ void GameScene::renderEndPopup(Renderer &renderer)
 {
   // TODO: refactor to class().render()
   UIElement endPopup({renderer.getCameraPos().first, endPopupData.travelDistancePerSecond * endPopupData.moveInDelayRemaining}, {1200, 675}, "poppy.bmp");
-  TextElement runOverText("RUN OVER", {0, 160 - endPopup.size.second / 2}, 120, TextElement::TextAlignment::CENTER, 8, &endPopup);
-  TextElement distanceTraveledText("DISTANCE TRAVELED: 999M", {0, -20}, 50, TextElement::TextAlignment::CENTER, 8, &endPopup);
-  TextElement goldEarnedText("GOLD EARNED: 99", {0, 80}, 50, TextElement::TextAlignment::CENTER, 8, &endPopup);
+  TextElement goldEarnedText("GOLD EARNED: " + std::to_string(goldAcquired), {0, 80}, 50, TextElement::TextAlignment::CENTER, 8, &endPopup);
   UIElement shopButton({0, endPopup.size.second / 2 - 102}, {525, 125}, "upgrade_button.bmp", &endPopup);
   TextElement visitShopText("VISIT SHOP", {0, 0}, 60, TextElement::TextAlignment::CENTER, 8, &shopButton);
 
@@ -14,8 +12,8 @@ void GameScene::renderEndPopup(Renderer &renderer)
   buttons["s"] = {shopButtonAbsPos.first, shopButtonAbsPos.second, shopButton.size.first, shopButton.size.second, buttons["s"].state, UIElement::ButtonType::SCENE_NAVIGATION};
 
   endPopup.render(renderer);
-  runOverText.render(renderer);
-  distanceTraveledText.render(renderer);
+  TextElement("RUN OVER", {0, 160 - endPopup.size.second / 2}, 120, TextElement::TextAlignment::CENTER, 8, &endPopup).render(renderer);
+  TextElement("DISTANCE TRAVELED: 999M", {0, -20}, 50, TextElement::TextAlignment::CENTER, 8, &endPopup).render(renderer);
   goldEarnedText.render(renderer);
   shopButton.render(renderer);
   visitShopText.render(renderer);
@@ -69,6 +67,9 @@ void GameScene::handleButtons(InputHandler &input, Renderer &renderer)
 
 void GameScene::spawnMonsters(float deltaTime, Renderer &renderer)
 {
+  if (!scuttleCrab.active || scuttleCrab.bouncesRemaining <= 0)
+    return;
+
   int spawnX = renderer.getCameraPos().first + renderer.getWindowWidth() / 2 + 200;
   int spawnY = WORLD_FLOOR_Y;
 
@@ -77,18 +78,37 @@ void GameScene::spawnMonsters(float deltaTime, Renderer &renderer)
     monsterSpawnCooldowns[m.first] -= deltaTime;
     if (monsterSpawnCooldowns[m.first] <= 0)
     {
-      monsterSpawnCooldowns[m.first] = 5;
       switch (m.first)
       {
       case monsterTypes::KRUG:
         krugs.insert(krugs.begin(), new Krug({spawnX, spawnY}, 1)); // todo: use krug level
-        // monsterSpawnCooldowns[m.first] = krugs[0]->getSpawnDelay();
+        monsterSpawnCooldowns[m.first] = krugs[0]->getSpawnDelay();
         std::cout << krugs[0]->getSpawnDelay() << std::endl;
         break;
       default:
         monsterSpawnCooldowns[m.first] = 5;
         break;
       }
+    }
+  }
+}
+
+void GameScene::monsterPhysicsStep(float &deltaTime)
+{
+  for (int i = 0; i < krugs.size(); ++i)
+  {
+    Krug *k = krugs[i];
+    k->physicsStep(deltaTime);
+    // If crab and krug collide
+    if ((scuttleCrab.position.second + scuttleCrab.size.second - scuttleCrab.hitboxThinning > k->position.second + k->size.second) &&
+        (abs(k->position.first - scuttleCrab.position.first) < k->size.first / 2 + scuttleCrab.size.first / 2 - scuttleCrab.hitboxThinning))
+    {
+      k->kill(goldAcquired, scuttleCrab.chargesQ, scuttleCrab.bouncesRemaining);
+      delete k;
+      krugs.erase(krugs.begin() + i);
+      --i;
+      scuttleCrab.bounce();
+      scuttleCrab.velocity.second *= 1.5;
     }
   }
 }
@@ -136,8 +156,8 @@ void GameScene::physicsStep(float deltaTime, InputHandler &input, Renderer &rend
   prevQState = input.keysPressed['q'];
 
   scuttleCrab.physicsStep(deltaTime);
-  if (scuttleCrab.active)
-    spawnMonsters(deltaTime, renderer);
+  monsterPhysicsStep(deltaTime);
+  spawnMonsters(deltaTime, renderer);
 
   if (scuttleCrab.bouncesRemaining <= 0 && endPopupData.moveInDelayRemaining > 0)
   {
