@@ -27,10 +27,11 @@ private:
       {4, {6, 12, 0.425, 0.45, 2, 3.75}},
       {5, {10, 20, 0.5, 0.5, 1.75, 3.5}}};
 
-  int goldDrop;
-  float bounceRefund;
-  float qCharge;
-  float spawnDelay;
+  int goldDrop = 0;
+  float bounceRefund = 0;
+  float qCharge = 0;
+  float spawnDelay = 9999;
+  std::pair<float, float> velocity = {0, 0};
 
 public:
   /**
