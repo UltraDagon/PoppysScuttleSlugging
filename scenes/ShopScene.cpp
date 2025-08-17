@@ -22,7 +22,7 @@ void ShopScene::renderUpgrade(int index, std::string resource, std::string name_
   }
 
   UIElement backplate({indexPosX, indexPosY}, {backplateSizeX, backplateSizeY}, "metal_plate.bmp", parent);
-  UIElement icon({20 + 120 / 2 - backplateSizeX / 2, -20 + -120 / 2 + backplateSizeY / 2}, {120, 120}, "image.bmp", &backplate);
+  UIElement icon({20 + 120 / 2 - backplateSizeX / 2, -20 + -120 / 2 + backplateSizeY / 2}, {120, 120}, icon_, &backplate);
   UIElement upgradeButton({-20 + -120 / 2 + backplateSizeX / 2, -20 + -60 / 2 + backplateSizeY / 2}, {120, 60}, "upgrade_button.bmp", &backplate);
   upgradeButton.animationData.frameSize = {120, 60};
   TextElement upgradeNameText(name_, {0, 36 - backplateSizeY / 2}, 27, TextElement::TextAlignment::CENTER, 8, &backplate);

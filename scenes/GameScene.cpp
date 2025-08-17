@@ -30,13 +30,13 @@ void GameScene::renderQCharges(Renderer &renderer)
   {
     // Maybe define charge here and then just change animation for each part.
     if (scuttleCrab.chargesQ >= i + 1) // Charge fully available
-      charge = UIElement({startX, startY - i * 60}, {40, 40}, "icon_q");
+      charge = UIElement({startX, startY - i * 60}, {40, 40}, "icon_q.bmp");
     else if (scuttleCrab.chargesQ <= i) // Charge fully unavailable
-      charge = UIElement({startX, startY - i * 60}, {40, 40}, "poppy.bmp");
+      charge = UIElement({startX, startY - i * 60}, {40, 40}, "icon_q_gray.bmp");
     else // Partially charged (i < charges < i+1)
     {
-      UIElement({startX, startY - i * 60}, {40, 40}, "poppy.bmp").render(renderer); // Render unavailable charge icon behind partial charge
-      charge = UIElement({startX, startY - i * 60 + 20 * (1 - partialCharge)}, {40, 40 * partialCharge}, "icon_q");
+      UIElement({startX, startY - i * 60}, {40, 40}, "icon_q_gray.bmp").render(renderer); // Render unavailable charge icon behind partial charge
+      charge = UIElement({startX, startY - i * 60 + 20 * (1 - partialCharge)}, {40, 40 * partialCharge}, "icon_q.bmp");
       charge.animationData.frameSize = {120, 120 * partialCharge};
       charge.animationData.animation = 1 / partialCharge - 1;
     }
@@ -108,7 +108,7 @@ void GameScene::monsterPhysicsStep(float &deltaTime)
       krugs.erase(krugs.begin() + i);
       --i;
       scuttleCrab.bounce();
-      scuttleCrab.velocity.second *= 1.5;
+      scuttleCrab.velocity.second = 30 + scuttleCrab.velocity.second * 1.5;
     }
   }
 }
