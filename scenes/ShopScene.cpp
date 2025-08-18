@@ -78,14 +78,13 @@ ShopScene::ShopScene(ResourceManager &resManager)
 
 void ShopScene::render(Renderer &renderer)
 {
-  // Create all entities to be displayed in the frame
+  // Create parent entities to be displayed in the frame
   UIElement poppyUpgradeBoard({0, 160}, {1550, 580}, "wooden_sign.bmp");
   poppyUpgradeBoard.animationData.frameSize = {400, 200}; // todo: Remove once poppy upgrade board image is done
   UIElement mainMenuButton({-renderer.getWindowWidth() / 2 + 100, -renderer.getWindowHeight() / 2 + 100}, {200, 200}, "wooden_sign.bmp");
-  UIElement playButton({renderer.getWindowWidth() / 2 - 100, -renderer.getWindowHeight() / 2 + 100}, {200, 200}, "wooden_sign.bmp");
-  TextElement playText("PLAY", {0, 0}, 50, TextElement::TextAlignment::CENTER, 8, &playButton);
-  TextElement mainMenuText1("MAIN", {0, -27}, 50, TextElement::TextAlignment::CENTER, 8, &mainMenuButton);
-  TextElement mainMenuText2("MENU", {0, 27}, 50, TextElement::TextAlignment::CENTER, 8, &mainMenuButton);
+  UIElement playButton({renderer.getWindowWidth() / 2 - 100, -renderer.getWindowHeight() / 2 + 50}, {200, 100}, "wooden_sign.bmp");
+  UIElement goldBag({poppyUpgradeBoard.size.first / 2 - 375 / 2 - 50, -poppyUpgradeBoard.size.second / 2 - 175 / 2}, {375, 175}, "gold_bag.bmp", &poppyUpgradeBoard);
+  TextElement goldText(std::to_string((int)resourceManager->getNumberResource("saveData", "gold")), {-50 / 2, 25}, 50, TextElement::TextAlignment::CENTER, 8, &goldBag);
 
   // Update button data to match positions and states of buttons
   const std::pair<int, int> mainMenuButtonAbsPos = mainMenuButton.absolutePosition();
@@ -101,6 +100,10 @@ void ShopScene::render(Renderer &renderer)
 
   // Render everything
   poppyUpgradeBoard.render(renderer);
+  goldBag.render(renderer);
+  goldText.render(renderer);
+  UIElement({goldText.size.first / 2 + 50 / 2, 0}, {50, 50}, "coin.bmp", &goldText).render(renderer);
+  UIElement({0, -325}, {800, 200}, "shop_title.bmp").render(renderer);
   renderUpgrade(0, "r_level", "Keeper's Verdict", "icon_r.bmp", renderer, &poppyUpgradeBoard);
   renderUpgrade(1, "q_level", "Hammer Shock", "icon_q.bmp", renderer, &poppyUpgradeBoard);
   renderUpgrade(2, "scuttle_defense_level", "Hardened Shell", "icon_scuttle_defense.bmp", renderer, &poppyUpgradeBoard);
@@ -108,9 +111,9 @@ void ShopScene::render(Renderer &renderer)
   renderUpgrade(4, "gold_gain_level", "Kleptomancy", "coin.bmp", renderer, &poppyUpgradeBoard);
   mainMenuButton.render(renderer);
   playButton.render(renderer);
-  playText.render(renderer);
-  mainMenuText1.render(renderer);
-  mainMenuText2.render(renderer);
+  TextElement("PLAY", {0, 0}, 50, TextElement::TextAlignment::CENTER, 8, &playButton).render(renderer);
+  TextElement("MAIN", {0, -27}, 50, TextElement::TextAlignment::CENTER, 8, &mainMenuButton).render(renderer);
+  TextElement("MENU", {0, 27}, 50, TextElement::TextAlignment::CENTER, 8, &mainMenuButton).render(renderer);
 }
 
 void ShopScene::physicsStep(float deltaTime, InputHandler &input, Renderer &renderer)
