@@ -29,6 +29,12 @@ public:
   /// Pointer to the Scuttle Crab that Poppy hits.
   ScuttleCrab *crab;
 
+  struct
+  {
+    const int bounces[6] = {3, 5, 7, 9, 11, 13};
+    // const int verticalPower[6];
+  } RLevelStats;
+
 public:
   /// Poppy constructor.
   Poppy();
@@ -38,7 +44,7 @@ public:
 
   /**
    * Progress through Poppy's stages and events.
-   * 
+   *
    * @param deltaTime the time that has elapsed since the previous frame
    * @param camera the Camera used to render the world
    */
@@ -48,7 +54,7 @@ public:
 
   /**
    * Hit the Scuttle Crab and update it's variables.
-   * 
+   *
    * @param camera the Camera used to render the world
    */
   void hitScuttleCrab(Camera &camera);

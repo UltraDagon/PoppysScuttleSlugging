@@ -23,11 +23,21 @@ private:
       {"r_level3", 30},
       {"r_level4", 40},
       {"r_level5", 50},
-      {"r_level6", 60},
-      {"r_level7", 70},
-      {"r_level8", 80},
-      {"r_level9", 90},
-      {"r_level10", 100}};
+      {"-r_level6", 60},
+      {"-r_level7", 70},
+      {"-r_level8", 80},
+      {"-r_level9", 90},
+      {"-r_level10", 100},
+      {"krug_level1", 10},
+      {"krug_level2", 20},
+      {"krug_level3", 30},
+      {"krug_level4", 40},
+      {"krug_level5", 50},
+      {"-krug_level6", 60},
+      {"-krug_level7", 70},
+      {"-krug_level8", 80},
+      {"-krug_level9", 90},
+      {"-krug_level10", 100}};
 
   std::unordered_map<std::string, std::string> settings;
   std::unordered_map<std::string, std::string> saveData;

@@ -81,7 +81,7 @@ void GameScene::spawnMonsters(float deltaTime, Renderer &renderer)
       switch (m.first)
       {
       case monsterTypes::KRUG:
-        krugs.insert(krugs.begin(), new Krug({spawnX, spawnY}, 1)); // todo: use krug level
+        krugs.insert(krugs.begin(), new Krug({spawnX, spawnY}, monsterLevels.krug));
         monsterSpawnCooldowns[m.first] = krugs[0]->getSpawnDelay();
         std::cout << krugs[0]->getSpawnDelay() << std::endl;
         break;
@@ -110,6 +110,8 @@ void GameScene::monsterPhysicsStep(float &deltaTime)
       scuttleCrab.bounce();
       scuttleCrab.velocity.second = 30 + scuttleCrab.velocity.second * 1.5;
     }
+
+    // todo: If krug is off screen behind (to the left of) the scuttle crab
   }
 }
 
@@ -119,6 +121,7 @@ GameScene::GameScene(ResourceManager &resManager)
   // floor = Entity(std::pair<float, float>{0, 0}, std::pair<int, int>{100, 900});
   poppy.crab = &scuttleCrab;
   resourceManager = &resManager;
+  monsterLevels.krug = resourceManager->getNumberResource("saveData", "krug_level");
 }
 
 GameScene::~GameScene()
@@ -164,5 +167,11 @@ void GameScene::physicsStep(float deltaTime, InputHandler &input, Renderer &rend
     endPopupData.moveInDelayRemaining -= deltaTime;
     if (endPopupData.moveInDelayRemaining < 0)
       endPopupData.moveInDelayRemaining = 0;
+  }
+
+  if (scuttleCrab.position.second * -1 > maxHeight)
+  {
+    maxHeight = scuttleCrab.position.second * -1;
+    std::cout << "New maxHeight: " << scuttleCrab.position.second * -1 << std::endl;
   }
 }

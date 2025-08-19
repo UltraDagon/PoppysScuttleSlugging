@@ -22,6 +22,8 @@
 class GameScene
 {
 private:
+  int maxHeight = -9999;
+
   ResourceManager *resourceManager;
 
   std::unordered_map<std::string, UIElement::ButtonData> buttons;
@@ -42,6 +44,11 @@ private:
     const int travelDistancePerSecond = 800; // Maybe in the future make this come in from a random position
     float moveInDelayRemaining = 1;
   } endPopupData;
+
+  struct
+  {
+    int krug = 0;
+  } monsterLevels;
 
   enum class monsterTypes
   {

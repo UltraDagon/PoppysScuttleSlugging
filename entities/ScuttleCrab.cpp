@@ -41,8 +41,8 @@ void ScuttleCrab::physicsStep(float &deltaTime)
 void ScuttleCrab::bounce()
 {
   position.second = hitboxThinning + WORLD_FLOOR_Y - size.second / 2;
-  velocity.second = -1 * bouncesRemaining * verticalPower; // pixels per second^2 // TODO: This is not done! Should scale with more things
 
+  velocity.second = -1 * (bouncesRemaining / totalBounces) * verticalPower; // pixels per second^2 // TODO: This is not done! Should scale with more things
   velocity.first = (horizontalPower - minimumSpeed) * (bouncesRemaining / totalBounces) + minimumSpeed;
 
   bouncesRemaining -= 1;

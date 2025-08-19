@@ -7,25 +7,17 @@
 class Krug : public Entity
 {
 private:
-  struct LevelStats
+  struct
   {
-    int minGoldDrop;
-    int maxGoldDrop;
-    float bounceRefund;
-    float qCharge;
+    const int minGoldDrop[6] = {0, 1, 2, 4, 6, 10};
+    const int maxGoldDrop[6] = {0, 3, 5, 8, 12, 20};
+    const float bounceRefund[6] = {0, 0.2, 0.275, 0.35, 0.425, 0.5};
+    const float qCharge[6] = {0, 0.3, 0.35, 0.4, 0.45, 0.5};
     /// The minimum delay possible before spawning the next Krug (in seconds).
-    float spawnDelayMin;
+    const float spawnDelayMin[6] = {9998, 3, 2.5, 2.25, 2, 1.75};
     /// The maximum delay possible before spawning the next Krug (in seconds).
-    float spawnDelayMax;
-  };
-
-  const std::unordered_map<int, LevelStats> krugLevels = {
-      {0, {0, 0, 0, 0, 9999, 9999}},
-      {1, {1, 3, 0.2, 0.3, 3, 5}},
-      {2, {2, 5, 0.275, 0.35, 2.5, 4.5}},
-      {3, {4, 8, 0.35, 0.4, 2.25, 4}},
-      {4, {6, 12, 0.425, 0.45, 2, 3.75}},
-      {5, {10, 20, 0.5, 0.5, 1.75, 3.5}}};
+    const float spawnDelayMax[6] = {9999, 5, 4.5, 4, 3.75, 3.5};
+  } LevelStats;
 
   int goldDrop = 0;
   float bounceRefund = 0;
