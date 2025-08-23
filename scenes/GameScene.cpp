@@ -73,6 +73,7 @@ void GameScene::spawnMonsters(float deltaTime, Renderer &renderer)
   int spawnX = renderer.getCameraPos().first + renderer.getWindowWidth() / 2 + 200;
   int spawnY = WORLD_FLOOR_Y;
 
+  int monsterLevel;
   for (auto m : monsterSpawnCooldowns)
   {
     monsterSpawnCooldowns[m.first] -= deltaTime;
@@ -81,8 +82,17 @@ void GameScene::spawnMonsters(float deltaTime, Renderer &renderer)
       switch (m.first)
       {
       case monsterTypes::KRUG:
-        krugs.insert(krugs.begin(), new Krug({spawnX, spawnY}, resourceManager->getNumberResource("saveData", "krug_level")));
-        monsterSpawnCooldowns[m.first] = krugs[0]->getSpawnDelay();
+        monsterLevel = resourceManager->getNumberResource("saveData", "krug_level");
+
+        if (monsterLevel <= 0)
+        {
+          monsterSpawnCooldowns[m.first] = 9999;
+        }
+        else // Only spawn if krug is higher than level 0
+        {
+          krugs.insert(krugs.begin(), new Krug({spawnX, spawnY}, monsterLevel));
+          monsterSpawnCooldowns[m.first] = krugs[0]->getSpawnDelay();
+        }
         break;
       default:
         monsterSpawnCooldowns[m.first] = 5;
@@ -119,7 +129,7 @@ GameScene::GameScene(ResourceManager &resManager)
   floor = Environment(std::pair<float, float>{0, WORLD_FLOOR_Y + 15}, std::pair<int, int>{200, 30}, 0);
 
   resourceManager = &resManager;
-  poppy.updateLevels(resourceManager->getNumberResource("settings", "vertPow"));
+  poppy.updateLevels(resourceManager->getNumberResource("saveData", "r_level"));
   poppy.crab = &scuttleCrab;
 }
 

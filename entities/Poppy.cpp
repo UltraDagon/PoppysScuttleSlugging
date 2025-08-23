@@ -21,7 +21,7 @@ Poppy::~Poppy()
 
 void Poppy::updateLevels(int RLevel)
 {
-  vertPow = RLevel;
+  RLevelStats.level = RLevel;
 }
 
 void Poppy::stageStep(float &deltaTime, Camera &camera)
@@ -56,10 +56,12 @@ void Poppy::stageStep(float &deltaTime, Camera &camera)
 // Todo: if optimizing for performance, it would probably be better to just give poppy a pointer to the camera
 void Poppy::hitScuttleCrab(Camera &camera)
 {
-  crab->totalBounces = 3;
+  const int RLevel = RLevelStats.level;
+
+  crab->totalBounces = RLevelStats.bounces[RLevel];
   crab->bouncesRemaining = crab->totalBounces + 1; // +1 to account for initial bounce that happens when the scuttle is hit
-  crab->baseMaxHeight = 500;
-  crab->horizontalPower = 100;
+  crab->baseMaxHeight = RLevelStats.baseMaxHeight[RLevel];
+  crab->horizontalPower = RLevelStats.horizontalPower[RLevel];
   crab->airResistance = 0;
   crab->minimumSpeed = 10;
   crab->chargesQ = crab->maxChargesQ = 5; // Maybe make a way for charges to charge faster in case of charge, or start under the maxCharges

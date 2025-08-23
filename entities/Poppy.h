@@ -31,12 +31,11 @@ public:
 
   struct
   {
+    int level = 0;
     const int bounces[6] = {3, 5, 7, 9, 11, 13};
-
-    // const int verticalPower[6];
+    const int baseMaxHeight[6] = {150, 290, 430, 570, 710, 850};
+    const int horizontalPower[6] = {125, 180, 235, 290, 345, 400};
   } RLevelStats;
-
-  int vertPow; // todo: remove
 
 public:
   /// Poppy constructor.
