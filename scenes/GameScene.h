@@ -45,11 +45,6 @@ private:
     float moveInDelayRemaining = 1;
   } endPopupData;
 
-  struct
-  {
-    int krug = 0;
-  } monsterLevels;
-
   enum class monsterTypes
   {
     KRUG

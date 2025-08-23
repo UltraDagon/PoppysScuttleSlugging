@@ -81,9 +81,8 @@ void GameScene::spawnMonsters(float deltaTime, Renderer &renderer)
       switch (m.first)
       {
       case monsterTypes::KRUG:
-        krugs.insert(krugs.begin(), new Krug({spawnX, spawnY}, monsterLevels.krug));
+        krugs.insert(krugs.begin(), new Krug({spawnX, spawnY}, resourceManager->getNumberResource("saveData", "krug_level")));
         monsterSpawnCooldowns[m.first] = krugs[0]->getSpawnDelay();
-        std::cout << krugs[0]->getSpawnDelay() << std::endl;
         break;
       default:
         monsterSpawnCooldowns[m.first] = 5;
@@ -118,17 +117,16 @@ void GameScene::monsterPhysicsStep(float &deltaTime)
 GameScene::GameScene(ResourceManager &resManager)
 {
   floor = Environment(std::pair<float, float>{0, WORLD_FLOOR_Y + 15}, std::pair<int, int>{200, 30}, 0);
-  // floor = Entity(std::pair<float, float>{0, 0}, std::pair<int, int>{100, 900});
-  poppy.crab = &scuttleCrab;
+
   resourceManager = &resManager;
-  monsterLevels.krug = resourceManager->getNumberResource("saveData", "krug_level");
+  poppy.updateLevels(resourceManager->getNumberResource("settings", "vertPow"));
+  poppy.crab = &scuttleCrab;
 }
 
 GameScene::~GameScene()
 {
   for (auto k : krugs)
   {
-    std::cout << "deleted krug" << std::endl;
     delete k;
   }
 }
@@ -171,7 +169,7 @@ void GameScene::physicsStep(float deltaTime, InputHandler &input, Renderer &rend
 
   if (scuttleCrab.position.second * -1 > maxHeight)
   {
+    // Todo: remove this and the maxHeight variable if it is unused
     maxHeight = scuttleCrab.position.second * -1;
-    std::cout << "New maxHeight: " << scuttleCrab.position.second * -1 << std::endl;
   }
 }

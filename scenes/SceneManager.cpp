@@ -20,10 +20,12 @@ char SceneManager::getActiveScene()
 void SceneManager::setScene(char activeScene_)
 {
   resourceManager->saveAllResources();
+  renderer->getImageCache()->flush();
   activeScene = activeScene_;
 
   gameScene.reset(nullptr);
   shopScene.reset(nullptr);
+  mainMenuScene.reset(nullptr);
 
   renderer->getCamera().x = renderer->getCamera().x = 0;
   renderer->getCamera().zoom = 1;

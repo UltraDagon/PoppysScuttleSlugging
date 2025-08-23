@@ -40,12 +40,12 @@ void ScuttleCrab::physicsStep(float &deltaTime)
 
 void ScuttleCrab::bounce()
 {
+  bouncesRemaining -= 1; // Has to be at start so that at the start of the run it uses tb/tb instead of tb+1/tb (total bounces)
+
   position.second = hitboxThinning + WORLD_FLOOR_Y - size.second / 2;
 
-  velocity.second = -1 * (bouncesRemaining / totalBounces) * verticalPower; // pixels per second^2 // TODO: This is not done! Should scale with more things
+  velocity.second = -1 * (bouncesRemaining / totalBounces) * (sqrt(baseMaxHeight * 200));
   velocity.first = (horizontalPower - minimumSpeed) * (bouncesRemaining / totalBounces) + minimumSpeed;
-
-  bouncesRemaining -= 1;
 }
 
 void ScuttleCrab::abilityQ()

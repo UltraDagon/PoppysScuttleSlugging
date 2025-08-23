@@ -32,8 +32,11 @@ public:
   struct
   {
     const int bounces[6] = {3, 5, 7, 9, 11, 13};
+
     // const int verticalPower[6];
   } RLevelStats;
+
+  int vertPow; // todo: remove
 
 public:
   /// Poppy constructor.
@@ -41,6 +44,13 @@ public:
 
   /// Poppy deconstructor.
   ~Poppy();
+
+  /**
+   * Updates Poppy's stats to match the levels provided.
+   *
+   * @param RLevel Poppy's R (Keeper's Verdict) level
+   */
+  void updateLevels(int RLevel);
 
   /**
    * Progress through Poppy's stages and events.

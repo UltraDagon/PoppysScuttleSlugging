@@ -19,8 +19,8 @@ public:
   float totalBounces;
   /// How many bounces remain until the end screen appears.
   float bouncesRemaining;
-  /// Determines how high the ScuttleCrab will bounce.
-  float verticalPower;
+  /// Determines how high the ScuttleCrab will bounce on it's first bounce.
+  float baseMaxHeight;
   /// Determines how fast the ScuttleCrab will move to the right.
   float horizontalPower;
   /// The Scuttle Crab's distance traveled is multiplied by (1 - airResistance).

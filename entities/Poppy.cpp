@@ -19,6 +19,11 @@ Poppy::~Poppy()
   crab = nullptr; // I don't think this is needed
 }
 
+void Poppy::updateLevels(int RLevel)
+{
+  vertPow = RLevel;
+}
+
 void Poppy::stageStep(float &deltaTime, Camera &camera)
 {
   updateAnimation(deltaTime);
@@ -53,7 +58,7 @@ void Poppy::hitScuttleCrab(Camera &camera)
 {
   crab->totalBounces = 3;
   crab->bouncesRemaining = crab->totalBounces + 1; // +1 to account for initial bounce that happens when the scuttle is hit
-  crab->verticalPower = 200;                       // Max height = (verticalPower^2)/112.5 - 328
+  crab->baseMaxHeight = 500;
   crab->horizontalPower = 100;
   crab->airResistance = 0;
   crab->minimumSpeed = 10;
