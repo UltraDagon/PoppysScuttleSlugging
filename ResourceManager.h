@@ -37,7 +37,17 @@ private:
       {"-krug_level7", 70},
       {"-krug_level8", 80},
       {"-krug_level9", 90},
-      {"-krug_level10", 100}};
+      {"-krug_level10", 100},
+      {"q_level1", 10},
+      {"q_level2", 20},
+      {"q_level3", 30},
+      {"q_level4", 40},
+      {"q_level5", 50},
+      {"-q_level6", 60},
+      {"-q_level7", 70},
+      {"-q_level8", 80},
+      {"-q_level9", 90},
+      {"-q_level10", 100}};
 
   std::unordered_map<std::string, std::string> settings;
   std::unordered_map<std::string, std::string> saveData;

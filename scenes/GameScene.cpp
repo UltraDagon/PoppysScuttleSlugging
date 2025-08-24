@@ -129,7 +129,7 @@ GameScene::GameScene(ResourceManager &resManager)
   floor = Environment(std::pair<float, float>{0, WORLD_FLOOR_Y + 15}, std::pair<int, int>{200, 30}, 0);
 
   resourceManager = &resManager;
-  poppy.updateLevels(resourceManager->getNumberResource("saveData", "r_level"));
+  poppy.updateLevels(resourceManager->getNumberResource("saveData", "r_level"), resourceManager->getNumberResource("saveData", "q_level"));
   poppy.crab = &scuttleCrab;
 }
 

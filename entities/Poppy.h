@@ -35,7 +35,13 @@ public:
     const int bounces[6] = {3, 5, 7, 9, 11, 13};
     const int baseMaxHeight[6] = {150, 290, 430, 570, 710, 850};
     const int horizontalPower[6] = {125, 180, 235, 290, 345, 400};
-  } RLevelStats;
+  } rLevelStats;
+
+  struct
+  {
+    int level = 0;
+    const int chargesQ[6] = {0, 1, 2, 3, 4, 5};
+  } qLevelStats;
 
 public:
   /// Poppy constructor.
@@ -47,9 +53,10 @@ public:
   /**
    * Updates Poppy's stats to match the levels provided.
    *
-   * @param RLevel Poppy's R (Keeper's Verdict) level
+   * @param rLevel Poppy's R (Keeper's Verdict) level
+   * @param qLevel Poppy's Q (Hammer Shock) level
    */
-  void updateLevels(int RLevel);
+  void updateLevels(int rLevel, int qLevel);
 
   /**
    * Progress through Poppy's stages and events.

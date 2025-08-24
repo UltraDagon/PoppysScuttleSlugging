@@ -19,9 +19,10 @@ Poppy::~Poppy()
   crab = nullptr; // I don't think this is needed
 }
 
-void Poppy::updateLevels(int RLevel)
+void Poppy::updateLevels(int rLevel, int qLevel)
 {
-  RLevelStats.level = RLevel;
+  rLevelStats.level = rLevel;
+  qLevelStats.level = qLevel;
 }
 
 void Poppy::stageStep(float &deltaTime, Camera &camera)
@@ -56,15 +57,16 @@ void Poppy::stageStep(float &deltaTime, Camera &camera)
 // Todo: if optimizing for performance, it would probably be better to just give poppy a pointer to the camera
 void Poppy::hitScuttleCrab(Camera &camera)
 {
-  const int RLevel = RLevelStats.level;
+  const int rLevel = rLevelStats.level;
+  const int qLevel = qLevelStats.level;
 
-  crab->totalBounces = RLevelStats.bounces[RLevel];
+  crab->totalBounces = rLevelStats.bounces[rLevel];
   crab->bouncesRemaining = crab->totalBounces + 1; // +1 to account for initial bounce that happens when the scuttle is hit
-  crab->baseMaxHeight = RLevelStats.baseMaxHeight[RLevel];
-  crab->horizontalPower = RLevelStats.horizontalPower[RLevel];
+  crab->baseMaxHeight = rLevelStats.baseMaxHeight[rLevel];
+  crab->horizontalPower = rLevelStats.horizontalPower[rLevel];
   crab->airResistance = 0;
   crab->minimumSpeed = 10;
-  crab->chargesQ = crab->maxChargesQ = 5; // Maybe make a way for charges to charge faster in case of charge, or start under the maxCharges
+  crab->chargesQ = crab->maxChargesQ = qLevelStats.chargesQ[qLevel]; // Maybe make a way for charges to charge faster in case of charge, or start under the maxCharges
   crab->active = true;
   crab->animationData.speed = 4;
 
