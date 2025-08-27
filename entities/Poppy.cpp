@@ -2,16 +2,16 @@
 
 Poppy::Poppy()
 {
-  position = {-300, WORLD_FLOOR_Y - size.second / 2};
+  position = {-400, WORLD_FLOOR_Y - size.second / 2};
   size = {125, 100};
-  betweenStageDelay = 3; // In seconds TODO: maybe make a setting
   stage = '0';
   scoreW = 0;
   spriteSheet = "poppy.bmp";
   animationData.frameSize = {320, 256};
   animationData.totalFrames = 8;
   animationData.speed = 4;
-  animationData.animation = 1;
+  animationData.animation = 0;
+  betweenStageDelay = 2 * (animationData.totalFrames / animationData.speed); // Needs to be a multiple of frameDuration
 }
 
 Poppy::~Poppy()
@@ -28,11 +28,17 @@ void Poppy::updateLevels(int rLevel, int qLevel)
 void Poppy::stageStep(float &deltaTime, Camera &camera)
 {
   updateAnimation(deltaTime);
-
+  std::cout << betweenStageDelay << std::endl;
   switch (stage)
   {
   // Stage 0: Run for betweenStageDelay seconds before starting the next stage.
   case '0':
+    // If Poppy will hit the crab at the end of this animation cycle
+    if (animationData.currentFrame < 1 && betweenStageDelay < animationData.totalFrames / animationData.speed)
+    {
+      animationData.animation = 1;
+    }
+
     // Position goes down by distanceToScuttle * dt / delayRemaining, so pushing the scuttle back by performing well in the pre-round minigames will make poppy run faster, since it'll be going the same percent just over a longer distance
     position.first += abs(position.first + size.first / 2 - crab->position.first + crab->size.first / 2) * deltaTime / betweenStageDelay;
 

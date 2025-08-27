@@ -36,7 +36,7 @@ public:
     int totalFrames = 1;
     /// Which animation (row of frames) is playing. If negative, don't render the Entity.
     float animation = 0;
-    /// The how many frames per second the animation plays at.
+    /// How many frames per second the animation plays at.
     float speed = 1;
     /// The current frame (column) that the animation is on
     float currentFrame = 0;

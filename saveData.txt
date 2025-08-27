@@ -1,6 +1,6 @@
-r_level:5.000000
-gold_gain_level:
-gold:70.000000
-q_level:3
-scuttle_defense_level:
 krug_level:0.000000
+scuttle_defense_level:
+q_level:3
+gold:70.000000
+gold_gain_level:
+r_level:5.000000
