@@ -10,7 +10,7 @@
 
 // Documentation formatted under https://developer.lsst.io/cpp/api-docs.html
 
-// Credits (keeping here so I can remember for later)
+// Credits (keeping here so I can remember for later) (may be outdated, check readme.md)
 // References for drawing characters: https://modelviewer.lol/,
 // Sam Lantinga's SDL2 was used for all graphics, input, and sound.
 // Font used in default_font is https://www.fontspace.com/mono-font-f57596
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
   {
     inputHandler.handleInput();
 
-    // Switch scenes via keypress
+    // Switch scenes via keypress (debug feature)
     if (inputHandler.keysPressed['s'])
       resourceManager.changeScene('s');
     if (inputHandler.keysPressed['g'])
