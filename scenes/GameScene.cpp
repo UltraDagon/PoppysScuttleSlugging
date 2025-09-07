@@ -182,8 +182,18 @@ void GameScene::physicsStep(float deltaTime, InputHandler &input, Renderer &rend
 
   if (scuttleCrab.bouncesRemaining <= 0 && endPopupData.moveInDelayRemaining > 0)
   {
+    // Move in end popup
     endPopupData.moveInDelayRemaining -= deltaTime;
     if (endPopupData.moveInDelayRemaining < 0)
       endPopupData.moveInDelayRemaining = 0;
+
+    // Anything in this if statement will run once at the end of the run
+    if (scuttleCrab.active)
+    {
+      std::cout << "RUN ONCE" << std::endl;
+      scuttleCrab.active = false;
+      // Add gold earned this run to total gold
+      resourceManager->setResource("saveData", "gold", resourceManager->getNumberResource("saveData", "gold") + goldAcquired);
+    }
   }
 }
