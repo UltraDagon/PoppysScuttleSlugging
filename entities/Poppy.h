@@ -8,6 +8,7 @@
 class Poppy : public Entity
 {
 public:
+  const int startingX = 1400;
   /**
    * The current stage Poppy is progressing through.
    *

@@ -25,11 +25,12 @@ public:
   /**
    * Environment object constructor.
    *
+   * @param spriteSheet_ the name of the image file used to render the environment object
    * @param position_ first: the x offset of the x-axis repeating entity, second: the y position of the entity in the world
-   * @param size_ the size of the entity.
-   * @param parallax_ the rate at which the sprite moves relative to the camera. (0 to 1)
+   * @param size_ the size of the entity
+   * @param parallax_ the rate at which the sprite moves relative to the camera (0 to 1)
    */
-  Environment(std::pair<float, float> position_, std::pair<int, int> size_, float parallax_);
+  Environment(std::string spriteSheet, std::pair<float, float> position_, std::pair<int, int> size_, float parallax_);
 
   /**
    * Get all sprites needed to render an Environment's texture that is repeating on the x-axis.

@@ -22,8 +22,6 @@
 class GameScene
 {
 private:
-  int maxHeight = -9999;
-
   ResourceManager *resourceManager;
 
   std::unordered_map<std::string, UIElement::ButtonData> buttons;
@@ -38,6 +36,8 @@ private:
   Poppy poppy;
   /// The floor/ground of the environment.
   Environment floor;
+  /// The multiple n layers of background of the environment. 0 is furthest back, n-1 is the closest
+  Environment background[1];
   /// Data for the end of run popup.
   struct
   {
@@ -69,7 +69,7 @@ private:
 
   void spawnMonsters(float deltaTime, Renderer &renderer);
 
-  void monsterPhysicsStep(float &deltaTime);
+  void monsterPhysicsStep(float &deltaTime, Renderer &renderer);
 
 public:
   /**

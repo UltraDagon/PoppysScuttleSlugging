@@ -2,7 +2,7 @@
 
 Poppy::Poppy()
 {
-  position = {-400, WORLD_FLOOR_Y - size.second / 2};
+  position = {startingX, WORLD_FLOOR_Y - size.second / 2};
   size = {125, 100};
   stage = '0';
   scoreW = 0;
@@ -28,7 +28,6 @@ void Poppy::updateLevels(int rLevel, int qLevel)
 void Poppy::stageStep(float &deltaTime, Camera &camera)
 {
   updateAnimation(deltaTime);
-  std::cout << betweenStageDelay << std::endl;
   switch (stage)
   {
   // Stage 0: Run for betweenStageDelay seconds before starting the next stage.
@@ -69,7 +68,7 @@ void Poppy::hitScuttleCrab(Camera &camera)
   crab->totalBounces = rLevelStats.bounces[rLevel];
   crab->bouncesRemaining = crab->totalBounces + 1; // +1 to account for initial bounce that happens when the scuttle is hit
   crab->baseMaxHeight = rLevelStats.baseMaxHeight[rLevel];
-  crab->horizontalPower = rLevelStats.horizontalPower[rLevel];
+  crab->horizontalPower = 1000 /*rLevelStats.horizontalPower[rLevel]*/;
   crab->airResistance = 0;
   crab->minimumSpeed = 10;
   crab->chargesQ = crab->maxChargesQ = qLevelStats.chargesQ[qLevel]; // Maybe make a way for charges to charge faster in case of charge, or start under the maxCharges

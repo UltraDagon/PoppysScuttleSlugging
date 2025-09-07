@@ -5,7 +5,7 @@ ScuttleCrab::ScuttleCrab()
   bouncesRemaining = 1; // Must not be 0 otherwise end screen will randomly appear too early.
   size = {75, 75};
   active = false;
-  position = {0, hitboxThinning + WORLD_FLOOR_Y - size.second / 2};
+  position = {startingX, hitboxThinning + WORLD_FLOOR_Y - size.second / 2};
   animationData = {{142, 142}, 8, 0, 0, 0};
   spriteSheet = "scuttle_crab.bmp";
 }

@@ -1,9 +1,6 @@
 run:
 	g++ -I src/include -L src/lib -o main.exe *.cpp *.h scenes/*.cpp scenes/*.h entities/*.cpp entities/*.h -lmingw32 -lSDL2main -lSDL2 -static-libgcc -static-libstdc++ -Wl,-Bstatic -lstdc++ -lpthread -Wl,-Bdynamic
 	./main.exe
-build-windows:
-	g++ -I src/include -L src/lib -o PoppysScuttleSlugging.exe *.cpp *.h scenes/*.cpp scenes/*.h entities/*.cpp entities/*.h -lmingw32 -lSDL2main -lSDL2 -static-libgcc -static-libstdc++ -Wl
-	./PoppysScuttleSlugging.exe
 
 #OLD:
 debug:

@@ -102,7 +102,7 @@ void GameScene::spawnMonsters(float deltaTime, Renderer &renderer)
   }
 }
 
-void GameScene::monsterPhysicsStep(float &deltaTime)
+void GameScene::monsterPhysicsStep(float &deltaTime, Renderer &renderer)
 {
   for (int i = 0; i < krugs.size(); ++i)
   {
@@ -120,13 +120,20 @@ void GameScene::monsterPhysicsStep(float &deltaTime)
       scuttleCrab.velocity.second = 30 + scuttleCrab.velocity.second * 1.5;
     }
 
-    // todo: If krug is off screen behind (to the left of) the scuttle crab
+    // If krug is off screen and behind (to the left of) the Scuttle Crab, kill it
+    if (k->position.first < renderer.getCameraPos().first - renderer.getWindowWidth() / 1.5)
+    {
+      delete k;
+      krugs.erase(krugs.begin() + i);
+      --i;
+    }
   }
 }
 
 GameScene::GameScene(ResourceManager &resManager)
 {
-  floor = Environment(std::pair<float, float>{0, WORLD_FLOOR_Y + 15}, std::pair<int, int>{200, 30}, 0);
+  background[0] = Environment("background.bmp", {0, WORLD_FLOOR_Y - 1350 + 100}, {1600, 2700}, 0.3);
+  floor = Environment("image.bmp", {0, WORLD_FLOOR_Y + 15}, {200, 30}, 0);
 
   resourceManager = &resManager;
   poppy.updateLevels(resourceManager->getNumberResource("saveData", "r_level"), resourceManager->getNumberResource("saveData", "q_level"));
@@ -148,7 +155,10 @@ void GameScene::render(Renderer &renderer)
   else // Otherwise, focus the camera on Poppy
     renderer.focusCameraLeft(poppy.position);
 
+  for (auto layer : background)
+    layer.render(renderer);
   floor.render(renderer);
+
   for (auto k : krugs)
     k->render(renderer);
   scuttleCrab.render(renderer);
@@ -167,7 +177,7 @@ void GameScene::physicsStep(float deltaTime, InputHandler &input, Renderer &rend
   prevQState = input.keysPressed['q'];
 
   scuttleCrab.physicsStep(deltaTime);
-  monsterPhysicsStep(deltaTime);
+  monsterPhysicsStep(deltaTime, renderer);
   spawnMonsters(deltaTime, renderer);
 
   if (scuttleCrab.bouncesRemaining <= 0 && endPopupData.moveInDelayRemaining > 0)
@@ -175,11 +185,5 @@ void GameScene::physicsStep(float deltaTime, InputHandler &input, Renderer &rend
     endPopupData.moveInDelayRemaining -= deltaTime;
     if (endPopupData.moveInDelayRemaining < 0)
       endPopupData.moveInDelayRemaining = 0;
-  }
-
-  if (scuttleCrab.position.second * -1 > maxHeight)
-  {
-    // Todo: remove this and the maxHeight variable if it is unused
-    maxHeight = scuttleCrab.position.second * -1;
   }
 }

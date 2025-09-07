@@ -7,6 +7,7 @@
 class ScuttleCrab : public Entity
 {
 public:
+  const int startingX = 1800;
   /// Reduces the hitbox of the ScuttleCrab by this many pixels on each side.
   const int hitboxThinning = 16;
   /// Whether or not the ScuttleCrab should be updated during the GameScene's physicsStep.
