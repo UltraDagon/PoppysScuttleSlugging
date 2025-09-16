@@ -13,7 +13,8 @@ void GameScene::renderEndPopup(Renderer &renderer)
 
   endPopup.render(renderer);
   TextElement("RUN OVER", {0, 160 - endPopup.size.second / 2}, 120, TextElement::TextAlignment::CENTER, 8, &endPopup).render(renderer);
-  TextElement("DISTANCE TRAVELED: 999M", {0, -20}, 50, TextElement::TextAlignment::CENTER, 8, &endPopup).render(renderer);
+  // One meter is equal to the width (in pixels) of the scuttle crab
+  TextElement("DISTANCE TRAVELED: " + std::to_string((int)(scuttleCrab.position.first - scuttleCrab.startingX) / scuttleCrab.size.first) + "M", {0, -20}, 50, TextElement::TextAlignment::CENTER, 8, &endPopup).render(renderer);
   goldEarnedText.render(renderer);
   shopButton.render(renderer);
   visitShopText.render(renderer);
@@ -133,7 +134,7 @@ void GameScene::monsterPhysicsStep(float &deltaTime, Renderer &renderer)
 GameScene::GameScene(ResourceManager &resManager)
 {
   background[0] = Environment("background.bmp", {0, WORLD_FLOOR_Y - 1350 + 100}, {1600, 2700}, 0.3);
-  floor = Environment("image.bmp", {0, WORLD_FLOOR_Y + 15}, {200, 30}, 0);
+  floor = Environment("floor.bmp", {0, WORLD_FLOOR_Y + 25}, {200, 150}, 0);
 
   resourceManager = &resManager;
   poppy.updateLevels(resourceManager->getNumberResource("saveData", "r_level"), resourceManager->getNumberResource("saveData", "q_level"));
@@ -190,8 +191,9 @@ void GameScene::physicsStep(float deltaTime, InputHandler &input, Renderer &rend
     // Anything in this if statement will run once at the end of the run
     if (scuttleCrab.active)
     {
-      std::cout << "RUN ONCE" << std::endl;
       scuttleCrab.active = false;
+      // Add gold from distance traveled
+      goldAcquired += scuttleCrab.goldPerMeterTraveled * (scuttleCrab.position.first - scuttleCrab.startingX) / scuttleCrab.size.first;
       // Add gold earned this run to total gold
       resourceManager->setResource("saveData", "gold", resourceManager->getNumberResource("saveData", "gold") + goldAcquired);
     }

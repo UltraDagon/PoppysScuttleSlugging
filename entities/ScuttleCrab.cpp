@@ -25,7 +25,7 @@ void ScuttleCrab::physicsStep(float &deltaTime)
   // velocity.first += -1 * airResistance; // TODO: make this match description in scuttlecrab.h
   velocity.second += WORLD_GRAVITY * deltaTime;
 
-  // Hit the ground? // Todo: can move to bounce() if need space
+  // Hit the ground?
   if (position.second - hitboxThinning + size.second / 2 > WORLD_FLOOR_Y && bouncesRemaining > 0)
   {
     bounce();

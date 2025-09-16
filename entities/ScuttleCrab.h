@@ -10,6 +10,7 @@ public:
   const int startingX = 1800;
   /// Reduces the hitbox of the ScuttleCrab by this many pixels on each side.
   const int hitboxThinning = 16;
+  const float goldPerMeterTraveled = 0.1;
   /// Whether or not the ScuttleCrab should be updated during the GameScene's physicsStep.
   bool active;
   /// The velocity of the ScuttleCrab, in pixels per second^2.
