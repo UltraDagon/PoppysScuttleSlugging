@@ -10,8 +10,10 @@
 #include <unordered_map>
 #include <random>
 
+/// The position of the floor hitbox that the Scuttle Crab bounces on and monsters walk on
 const int WORLD_FLOOR_Y = 350;
-const int WORLD_GRAVITY = 100; // World gravity in pixels per second^2
+/// Constant downwards velocity applied to the Scuttle Crab in pixels per second^2
+const int WORLD_GRAVITY = 100;
 
 /**
  * Object that stores the position and animation data of an Entity in the world.

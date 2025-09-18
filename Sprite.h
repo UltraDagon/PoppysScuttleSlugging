@@ -13,9 +13,13 @@
 class Sprite
 {
 public: // make private
+  /// Horizontal position of the Sprite's center in the world.
   int x;
+  /// Vertical position of the Sprite's center in the world.
   int y;
+  /// Width of the Sprite
   int width;
+  /// Height of the Sprite
   int height;
   /// The name of the image file that will be rendered from.
   std::string bmpAddress;
@@ -42,9 +46,7 @@ public:
    */
   Sprite(int x_, int y_, int width_, int height_, std::pair<int, int> frameSize, std::pair<int, int> frameOffset, std::string bmpAddress_, ImageCache *images);
 
-  /**
-   * Destroy the Sprite object.
-   */
+  /// Sprite destructor.
   ~Sprite();
 
   /**

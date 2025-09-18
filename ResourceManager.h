@@ -49,7 +49,9 @@ private:
       {"-q_level9", 90},
       {"-q_level10", 100}};
 
+  /// Map of all settings and their values
   std::unordered_map<std::string, std::string> settings;
+  /// Map of all saveData resources and their values
   std::unordered_map<std::string, std::string> saveData;
 
   /**

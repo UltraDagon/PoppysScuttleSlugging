@@ -3,9 +3,13 @@
 
 #include "UIElement.h"
 
+/**
+ * TextElements are UIElements that can be used to render text.
+ */
 class TextElement : public UIElement
 {
 public:
+  /// Determines which direction to expand the text from the center point.
   enum class TextAlignment
   {
     LEFT,

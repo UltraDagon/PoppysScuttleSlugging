@@ -8,6 +8,7 @@
 class Poppy : public Entity
 {
 public:
+  /// The initial X position of Poppy.
   const int startingX = 1400;
   /**
    * The current stage Poppy is progressing through.
@@ -18,7 +19,7 @@ public:
    * 'P'/Targon Buckler stage: Quick time event, press P at the right time 3 times to lock in and hit a second but weaker time.
    * 'S'/Scuttle Crab stage: No action, the scuttle is flying.
    */
-  char stage;
+  char stage; // todo: make enum
   /**
    * How many W presses have occured during the 'W'/Steadfast Presence stage.
    *
@@ -30,17 +31,29 @@ public:
   /// Pointer to the Scuttle Crab that Poppy hits.
   ScuttleCrab *crab;
 
+  /// The R ability level and associated upgradable stats.
   struct
   {
+    /// The level of Poppy's R ability.
     int level = 0;
+
+    /// How many bounces the ScuttleCrab gets.
     const int bounces[6] = {3, 5, 7, 9, 11, 13};
+
+    /// The maximum height, in pixels, the ScuttleCrab's bounces are based on.
     const int baseMaxHeight[6] = {150, 290, 430, 570, 710, 850};
+
+    /// The initial horizontal velocity of the ScuttleCrab.
     const int horizontalPower[6] = {175, 230, 285, 340, 395, 450};
   } rLevelStats;
 
+  /// The Q ability level and associated upgradable stats.
   struct
   {
+    /// The level of Poppy's Q ability.
     int level = 0;
+
+    /// The initial and max amount of Q charges available to the player.
     const int chargesQ[6] = {0, 1, 2, 3, 4, 5};
   } qLevelStats;
 

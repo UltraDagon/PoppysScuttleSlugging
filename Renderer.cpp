@@ -1,20 +1,10 @@
 #include "Renderer.h"
 
-Camera::Camera()
+Camera::Camera(int x_, int y_, float zoom_)
 {
-  x = 0;
-  y = 0;
-  zoom = 1;
-  transitionDuration = 1;
-  transitionRemaining = 0;
-  transitionOffset = {0, 0};
-}
-
-Camera::Camera(int _x, int _y, float _zoom)
-{
-  x = _x;
-  y = _y;
-  zoom = _zoom;
+  x = x_;
+  y = y_;
+  zoom = zoom_;
   transitionDuration = 1;
   transitionRemaining = 0;
   transitionOffset = {0, 0};
@@ -28,16 +18,6 @@ void Camera::transition(std::pair<int, int> offset, float duration)
   if (duration <= 0) // Don't divide by zero silly!
     duration = 1;
   transitionDuration = duration;
-}
-
-Renderer::Renderer()
-{
-  SDL_Init(SDL_INIT_EVERYTHING);
-
-  windowWidth = 0;
-  windowHeight = 0;
-  window = SDL_CreateWindow("Poppy's Scuttle Slugging!", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight, SDL_WINDOW_ALLOW_HIGHDPI);
-  sdlRenderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 }
 
 Renderer::Renderer(int _windowWidth, int _windowHeight)

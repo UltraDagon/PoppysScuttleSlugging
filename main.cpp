@@ -20,7 +20,7 @@
 int main(int argc, char *argv[])
 {
   srand(time(0));
-  std::cout << "Hello World! " << std::endl;
+  std::cout << "Launching Poppy's Scuttle Slugging..." << std::endl;
   bool running = true;
 
   Renderer renderer(1600, 900);

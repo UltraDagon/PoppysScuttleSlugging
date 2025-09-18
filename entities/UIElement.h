@@ -11,6 +11,7 @@ class UIElement : public Entity
 public:
   /// Determines whether the UIElement is rendered or not.
   bool active = true; // Todo: make sure this is actually implemented
+
   /**
    * The UIElement's position is relative to this parent UIElement.
    *
@@ -53,11 +54,28 @@ public:
      * c: clicked.
      */
     char state = 'd';
+    // todo: should be enum
+
     /// The type of button
     ButtonType type;
 
+    /**
+     * Get the new state of the Button based on the mouse position and state.
+     *
+     * @param mouseX the X position of the cursor
+     * @param mouseY the Y position of the cursor
+     * @param leftClickDown the state of the left click button, down: true, up: false
+     * @return the new state of the Button
+     */
     char getNewState(int &mouseX, int &mouseY, bool &leftClickDown);
 
+    /**
+     * Update the state of the Button based on the mouse position and state.
+     *
+     * @param mouseX the X position of the cursor
+     * @param mouseY the Y position of the cursor
+     * @param leftClickDown the state of the left click button, down: true, up: false
+     */
     inline void updateState(int mouseX, int mouseY, bool leftClickDown)
     {
       state = getNewState(mouseX, mouseY, leftClickDown);

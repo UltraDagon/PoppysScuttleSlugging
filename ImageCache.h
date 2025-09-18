@@ -40,11 +40,10 @@ public:
    */
   SDL_Texture *getTexture(std::string file, SDL_Renderer *sdlRenderer);
 
-  /**
-   * Clear out the surface and texture caches.
-   */
+  /// Clear out the surface and texture caches.
   void flush();
 
+  /// ImageCache destructor.
   ~ImageCache();
 };
 

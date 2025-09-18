@@ -7,9 +7,11 @@
 class ScuttleCrab : public Entity
 {
 public:
+  /// The initial X position of the ScuttleCrab.
   const int startingX = 1800;
   /// Reduces the hitbox of the ScuttleCrab by this many pixels on each side.
   const int hitboxThinning = 16;
+  /// At the end of runs, this is multipled with the amount of meters traveled, and that product is added to the final gold acquired.
   const float goldPerMeterTraveled = 0.1;
   /// Whether or not the ScuttleCrab should be updated during the GameScene's physicsStep.
   bool active;
@@ -47,6 +49,7 @@ public:
    */
   void physicsStep(float &deltaTime);
 
+  /// Bounce the ScuttleCrab off of the ground or an enemy.
   void bounce();
 
   /**

@@ -6,6 +6,9 @@
 #ifndef INPUTHANDLER_H
 #define INPUTHANDLER_H
 
+/**
+ * The InputHandler takes in user input and is readable by other objects.
+ */
 class InputHandler
 {
 public: // TODO: Make private
@@ -27,7 +30,7 @@ public: // TODO: Make private
 public:
   /**
    * Construct a new Input Handler object.
-   * 
+   *
    * @param running_ the running variable that controls the gameloop
    * @param renderer_ the Renderer that controls the window rendering and camera
    */

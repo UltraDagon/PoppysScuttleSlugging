@@ -16,7 +16,7 @@ private:
    * 0: The object is far from the camera. When the camera moves, the object remains still on the screen.
    * 1: The object is close to the camera. When the camera moves, the object moves on the screen.
    */
-  float parallax; // Todo: implement
+  float parallax;
 
 public:
   /// Environment object constructor.
@@ -51,4 +51,4 @@ public:
   };
 };
 
-#endif
+#endif // ENVIRONMENT_H

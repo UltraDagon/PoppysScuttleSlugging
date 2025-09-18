@@ -11,7 +11,7 @@
 /**
  * The ShopScene is where the player is able to purchase upgrades for use during the GameScene.
  *
- * This scene is preceded by the MainMenuScene or the GameScene, and is followed by the MainMenuScene or the GameScene.
+ * This scene is preceded by the GameScene, and is followed by the MainMenuScene or the GameScene.
  */
 class ShopScene
 {
@@ -54,8 +54,7 @@ public:
    *
    * @param renderer the Renderer that controls the window rendering and camera
    */
-  void
-  render(Renderer &renderer);
+  void render(Renderer &renderer);
 
   /**
    * Progress the animation and input effects of the ShopScene.
