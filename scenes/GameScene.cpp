@@ -137,7 +137,7 @@ GameScene::GameScene(ResourceManager &resManager)
   floor = Environment("floor.bmp", {0, WORLD_FLOOR_Y + 25}, {200, 150}, 0);
 
   resourceManager = &resManager;
-  poppy.updateLevels(resourceManager->getNumberResource("saveData", "r_level"), resourceManager->getNumberResource("saveData", "q_level"));
+  poppy.updateLevels(resourceManager->getNumberResource("saveData", "r_level"), resourceManager->getNumberResource("saveData", "q_level"), resourceManager->getNumberResource("saveData", "scuttle_defense_level"));
   poppy.crab = &scuttleCrab;
 }
 
@@ -194,6 +194,7 @@ void GameScene::physicsStep(float deltaTime, InputHandler &input, Renderer &rend
       scuttleCrab.active = false;
       // Add gold from distance traveled
       goldAcquired += scuttleCrab.goldPerMeterTraveled * (scuttleCrab.position.first - scuttleCrab.startingX) / scuttleCrab.size.first;
+      goldAcquired *= 1 + resourceManager->getNumberResource("saveData", "gold_gain_level") / 10;
       // Add gold earned this run to total gold
       resourceManager->setResource("saveData", "gold", resourceManager->getNumberResource("saveData", "gold") + goldAcquired);
     }

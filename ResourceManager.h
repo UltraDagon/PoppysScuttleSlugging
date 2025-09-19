@@ -47,7 +47,27 @@ private:
       {"-q_level7", 70},
       {"-q_level8", 80},
       {"-q_level9", 90},
-      {"-q_level10", 100}};
+      {"-q_level10", 100},
+      {"gold_gain_level1", 10},
+      {"gold_gain_level2", 20},
+      {"gold_gain_level3", 30},
+      {"gold_gain_level4", 40},
+      {"gold_gain_level5", 50},
+      {"gold_gain_level6", 60},
+      {"gold_gain_level7", 70},
+      {"gold_gain_level8", 80},
+      {"gold_gain_level9", 90},
+      {"gold_gain_level10", 100},
+      {"scuttle_defense_level1", 10},
+      {"scuttle_defense_level2", 20},
+      {"scuttle_defense_level3", 30},
+      {"scuttle_defense_level4", 40},
+      {"scuttle_defense_level5", 50},
+      {"scuttle_defense_level6", 60},
+      {"scuttle_defense_level7", 70},
+      {"scuttle_defense_level8", 80},
+      {"scuttle_defense_level9", 90},
+      {"scuttle_defense_level10", 100}};
 
   /// Map of all settings and their values
   std::unordered_map<std::string, std::string> settings;

@@ -25,7 +25,6 @@ bool ResourceManager::purchaseUpgrade(std::string name)
   if (currentGold < price)
     return false;
 
-  std::cout << "\"Bought\" upgrade! Gold: " << currentGold << " -> " << currentGold - price << std::endl;
   setResource("saveData", "gold", currentGold - price);
   setResource("saveData", name, currentLevel + 1);
 

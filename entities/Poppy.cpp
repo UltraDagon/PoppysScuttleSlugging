@@ -19,10 +19,11 @@ Poppy::~Poppy()
   crab = nullptr; // I don't think this is needed
 }
 
-void Poppy::updateLevels(int rLevel, int qLevel)
+void Poppy::updateLevels(int rLevel, int qLevel, int scuttleDefenseLevel)
 {
   rLevelStats.level = rLevel;
   qLevelStats.level = qLevel;
+  crabBounceMult = 1 + scuttleDefenseLevel * 0.05;
 }
 
 void Poppy::stageStep(float &deltaTime, Camera &camera)
@@ -65,7 +66,7 @@ void Poppy::hitScuttleCrab(Camera &camera)
   const int rLevel = rLevelStats.level;
   const int qLevel = qLevelStats.level;
 
-  crab->totalBounces = rLevelStats.bounces[rLevel];
+  crab->totalBounces = rLevelStats.bounces[rLevel] * crabBounceMult;
   crab->bouncesRemaining = crab->totalBounces + 1; // +1 to account for initial bounce that happens when the scuttle is hit
   crab->baseMaxHeight = rLevelStats.baseMaxHeight[rLevel];
   crab->horizontalPower = rLevelStats.horizontalPower[rLevel];

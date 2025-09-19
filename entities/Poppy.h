@@ -38,7 +38,7 @@ public:
     int level = 0;
 
     /// How many bounces the ScuttleCrab gets.
-    const int bounces[6] = {3, 5, 7, 9, 11, 13};
+    const int bounces[6] = {3, 4, 5, 6, 7, 8};
 
     /// The maximum height, in pixels, the ScuttleCrab's bounces are based on.
     const int baseMaxHeight[6] = {150, 290, 430, 570, 710, 850};
@@ -57,6 +57,9 @@ public:
     const int chargesQ[6] = {0, 1, 2, 3, 4, 5};
   } qLevelStats;
 
+  /// Multiplier to be applied to the ScuttleCrab's totalBounces on hit.
+  float crabBounceMult = 1;
+
 public:
   /// Poppy constructor.
   Poppy();
@@ -69,8 +72,9 @@ public:
    *
    * @param rLevel Poppy's R (Keeper's Verdict) level
    * @param qLevel Poppy's Q (Hammer Shock) level
+   * @param scuttleDefenseLevel The scuttle defense upgrade level
    */
-  void updateLevels(int rLevel, int qLevel);
+  void updateLevels(int rLevel, int qLevel, int scuttleDefenseLevel);
 
   /**
    * Progress through Poppy's stages and events.
