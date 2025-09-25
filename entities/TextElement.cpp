@@ -51,8 +51,14 @@ std::vector<Sprite *> TextElement::getSprites(Renderer &renderer)
     else if (text[i] == '\'') // Single quote
       animationData.animation = 36;
 
-    else if (text[i] == ':') // Single quote
+    else if (text[i] == ':') // Colon
       animationData.animation = 37;
+
+    else if (text[i] == ',') // Comma
+      animationData.animation = 38;
+
+    else if (text[i] == '.') // Period
+      animationData.animation = 39;
 
     else
       animationData.animation = -1;

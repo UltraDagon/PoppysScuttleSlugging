@@ -37,7 +37,8 @@ MainMenuScene::MainMenuScene(ResourceManager &resManager)
 
 void MainMenuScene::render(Renderer &renderer)
 {
-  UIElement playButton({440, -150}, {525, 125}, "upgrade_button.bmp");
+  UIElement playButton({440, -150}, {525, 125}, "wooden_sign.bmp");
+  playButton.animationData.frameSize = {400, 200}; // todo: Remove once poppy upgrade board image is done
 
   const std::pair<int, int> playButtonAbsPos = playButton.absolutePosition();
   buttons["g"] = {playButtonAbsPos.first, playButtonAbsPos.second, playButton.size.first, playButton.size.second, buttons["g"].state, UIElement::ButtonType::SCENE_NAVIGATION};
