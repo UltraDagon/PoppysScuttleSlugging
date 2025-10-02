@@ -1,6 +1,6 @@
 krug_level:5.000000
 scuttle_defense_level:10
 q_level:1.000000
-gold:70.000000
+gold:197.000000
 gold_gain_level:2.000000
 r_level:0.000000

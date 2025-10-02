@@ -3,10 +3,11 @@
 void GameScene::renderEndPopup(Renderer &renderer)
 {
   // TODO: refactor to class().render()
-  UIElement endPopup({renderer.getCameraPos().first, endPopupData.travelDistancePerSecond * endPopupData.moveInDelayRemaining}, {1200, 675}, "poppy.bmp");
+  UIElement endPopup({renderer.getCameraPos().first, endPopupData.travelDistancePerSecond * endPopupData.moveInDelayRemaining}, {1200, 675}, "wooden_sign.bmp");
+  endPopup.animationData.frameSize = {400, 200};
   TextElement goldEarnedText("GOLD EARNED: " + std::to_string(goldAcquired), {0, 80}, 50, TextElement::TextAlignment::CENTER, 8, &endPopup);
-  UIElement shopButton({0, endPopup.size.second / 2 - 102}, {525, 125}, "upgrade_button.bmp", &endPopup);
-  TextElement visitShopText("VISIT SHOP", {0, 0}, 60, TextElement::TextAlignment::CENTER, 8, &shopButton);
+  UIElement shopButton({0, endPopup.size.second / 2 - 102}, {525, 125}, "metal_plate.bmp", &endPopup);
+  TextElement visitShopText("VISIT SHOP", {0, 0}, 60, TextElement::TextAlignment::CENTER, 12, &shopButton);
 
   const std::pair<int, int> shopButtonAbsPos = shopButton.absolutePosition();
   buttons["s"] = {shopButtonAbsPos.first, shopButtonAbsPos.second, shopButton.size.first, shopButton.size.second, buttons["s"].state, UIElement::ButtonType::SCENE_NAVIGATION};

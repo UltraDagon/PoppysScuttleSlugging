@@ -1,6 +1,6 @@
 #include "ShopScene.h"
 
-void ShopScene::renderUpgrade(int index, std::string resource, std::string name_, std::string icon_, Renderer &renderer, UIElement *parent)
+void ShopScene::renderUpgrade(int index, std::string resource, std::string name_, std::string icon_, Renderer &renderer, UIElement *parent, std::pair<int, int> frameSize)
 {
   const int backplateSizeX = 420;
   const int backplateSizeY = 200;
@@ -23,6 +23,8 @@ void ShopScene::renderUpgrade(int index, std::string resource, std::string name_
 
   UIElement backplate({indexPosX, indexPosY}, {backplateSizeX, backplateSizeY}, "metal_plate.bmp", parent);
   UIElement icon({20 + 120 / 2 - backplateSizeX / 2, -20 + -120 / 2 + backplateSizeY / 2}, {120, 120}, icon_, &backplate);
+  if (frameSize != std::pair<int, int>{0, 0}) // Adjust frame size
+    icon.animationData.frameSize = frameSize;
   UIElement upgradeButton({-20 + -120 / 2 + backplateSizeX / 2, -20 + -60 / 2 + backplateSizeY / 2}, {120, 60}, "upgrade_button.bmp", &backplate);
   upgradeButton.animationData.frameSize = {120, 60};
   TextElement upgradeNameText(name_, {0, 36 - backplateSizeY / 2}, 27, TextElement::TextAlignment::CENTER, 8, &backplate);
@@ -105,8 +107,8 @@ void ShopScene::render(Renderer &renderer)
   UIElement({0, -325}, {800, 200}, "shop_title.bmp").render(renderer);
   renderUpgrade(0, "r_level", "Keeper's Verdict", "icon_r.bmp", renderer, &poppyUpgradeBoard);
   renderUpgrade(1, "q_level", "Hammer Shock", "icon_q.bmp", renderer, &poppyUpgradeBoard);
-  renderUpgrade(2, "scuttle_defense_level", "Hardened Shell", "icon_scuttle_defense.bmp", renderer, &poppyUpgradeBoard);
-  renderUpgrade(3, "krug_level", "Monster: Krug", "icon_krug.bmp", renderer, &poppyUpgradeBoard);
+  renderUpgrade(2, "scuttle_defense_level", "Hardened Shell", "scuttle_defense_icon.bmp", renderer, &poppyUpgradeBoard);
+  renderUpgrade(3, "krug_level", "Monster: Krug", "krug.bmp", renderer, &poppyUpgradeBoard, {128, 128});
   renderUpgrade(4, "gold_gain_level", "Kleptomancy", "coin.bmp", renderer, &poppyUpgradeBoard);
   mainMenuButton.render(renderer);
   playButton.render(renderer);

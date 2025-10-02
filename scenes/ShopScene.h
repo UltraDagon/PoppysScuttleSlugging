@@ -31,7 +31,7 @@ public:
    * @param renderer the renderer object used to draw to the window
    * @param parent the parent object (should be an upgrade board) that the upgrade will render inside of
    */
-  void renderUpgrade(int index, std::string resource, std::string name_, std::string icon_, Renderer &renderer, UIElement *parent = nullptr);
+  void renderUpgrade(int index, std::string resource, std::string name_, std::string icon_, Renderer &renderer, UIElement *parent = nullptr, std::pair<int, int> frameSize = {0, 0});
 
   /**
    * Handle any button presses that occur.
